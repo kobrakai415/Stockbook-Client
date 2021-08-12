@@ -7,8 +7,20 @@
 /* green color rgb(55,187,148) */
 
 .banner {
-  height: 8vh;
+padding: 20px;
+height: 10vh
 }
+
+.height-90{
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.nav-links a, .nav-links a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 #search-bar {
   border-radius: 500px;

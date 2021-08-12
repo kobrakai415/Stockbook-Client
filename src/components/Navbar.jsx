@@ -7,7 +7,7 @@ const Navbar = () => {
     return (
         <Col md={2}>
 
-            <div className="d-flex flex-column">
+            <div className="nav-links d-flex flex-column">
                 <Link to="/search" className="px-3 py-2 d-flex align-items-center">
                     <AiOutlineSearch />
                     <span className="ms-2">Find stocks</span>

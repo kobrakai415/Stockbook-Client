@@ -1,28 +1,16 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row } from 'react-bootstrap';
+import SearchPage from './pages/SearchPage';
+import StockPage from './pages/StockPage';
 import Navbar from './components/Navbar';
 import Banner from './components/Banner';
+
+
+import { Container, Row } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import SearchPage from './pages/SearchPage';
-
-const token = process.env.REACT_APP_KEY
-const socket = new WebSocket(`wss://ws.finnhub.io?token=${token}`);
 
 function App() {
-
-  useEffect(() => {
-    socket.addEventListener('open', function (event) {
-      socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': 'AAPL' }))
-    })
-
-    socket.addEventListener('message', function (event) {
-      console.log(event.data);
-    });
-
-  }, [])
-
 
   return (
     <Container fluid className="app">
@@ -34,6 +22,7 @@ function App() {
           <Navbar />
 
           <Route path="/search" exact render={(routerProps) => <SearchPage routerProps={routerProps} />} />
+          <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
 
           {/* <Route path="/" exact render={(routerProps) => <MainPage routerProps={routerProps} />} /> */}
 
