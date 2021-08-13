@@ -5,9 +5,7 @@ import StockPage from './pages/StockPage';
 import Navbar from './components/Navbar';
 import Banner from './components/Banner';
 
-
 import { Container, Row } from 'react-bootstrap';
-import { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 function App() {

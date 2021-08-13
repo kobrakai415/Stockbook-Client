@@ -5,7 +5,7 @@ import { finnhubClient } from '../finnhub';
 
 const SearchPage = () => {
 
-    const [query, setQuery] = useState(null);
+    const [query, setQuery] = useState("");
     const [stocks, setStocks] = useState([]);
 
 
