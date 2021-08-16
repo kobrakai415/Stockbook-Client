@@ -18,7 +18,7 @@ function App() {
 
         <Router>
           <Navbar />
-
+          
           <Route path="/search" exact render={(routerProps) => <SearchPage routerProps={routerProps} />} />
           <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
 
