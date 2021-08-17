@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col } from 'react-bootstrap'
 import { AiOutlinePieChart, AiOutlineEye, AiOutlineSearch } from 'react-icons/ai'
+import { FaUserFriends } from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 
 const Navbar = () => {
@@ -20,6 +21,11 @@ const Navbar = () => {
                     <AiOutlinePieChart />
                     <span className="ms-2">My Portfolio</span>
                 </div>
+                <div className="px-3 py-2 d-flex align-items-center">
+                    <FaUserFriends />
+                    <span className="ms-2">Network</span>
+                </div>
+
 
             </div>
         </Col>

@@ -6,7 +6,7 @@ const Banner = () => {
     return (
         <Col md={12} className="banner">
             <div className="d-flex justify-content-between">
-                <h3>Intelligent Investor</h3>
+                <h3>StockBook</h3>
 
                 <div className="p-2 d-flex align-items-center">
                     <CgProfile />
