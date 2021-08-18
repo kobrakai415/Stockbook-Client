@@ -2,28 +2,29 @@ import { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { socket, finnhubClient } from '../finnhub/index';
-import Plot from 'react-plotly.js';
-import shortNumber from '@pogix3m/short-number';
 import NewsPanel from '../components/NewsPanel';
-import { Button } from 'react-bootstrap';
 import CompanyDetails from '../components/CompanyDetails';
 import PriceBoard from '../components/PriceBoard';
-
+import { connect } from "react-redux"
+import { fetchStockOverview, fetchStokDailyChart, setLivePrice, setQuotedPrice } from '../redux/actions';
 
 const api = process.env.REACT_APP_ALPHAVANTAGE_API
 const key = process.env.REACT_APP_ALPHAVANTAGE_KEY
 
+const mapStateToProps = (state) => state
 
-const StockPage = () => {
-    const [overview, setOverview] = useState(null);
+const mapDispatchToProps = (dispatch) => ({
+    fetchOverview: (symbol) => dispatch(fetchStockOverview(symbol)),
+    fetchDailyChart: (symbol) => dispatch(fetchStokDailyChart(symbol)),
+    changeQuotedPrice: (price) => dispatch(setQuotedPrice(price)),
+    changeLivePrice: (price) => dispatch(setLivePrice(price))
+})
+
+const StockPage = ({ data, fetchOverview, fetchDailyChart }) => {
+    const yesterdaysClosing = data.yesterdaysClosing
     const [quotedPrice, setQuotedPrice] = useState(null);
     const [livePrice, setLivePrice] = useState(null);
-    const [dailyChartData, setDailyChartData] = useState({});
-    const [yesterdaysClosing, setYesterdaysClosing] = useState(null);
     const [percentageChange, setPercentageChange] = useState(null);
-    const [chartXValues, setChartXValues] = useState(null);
-    const [chartYValues, setChartYValues] = useState(null);
-
 
     const { symbol } = useParams()
 
@@ -37,7 +38,7 @@ const StockPage = () => {
                 console.log(response)
             }
         })
-        fetchOverview()
+        fetchOverview(symbol)
 
         socket.addEventListener('open', (event) => {
             console.log("connected")
@@ -54,7 +55,8 @@ const StockPage = () => {
             }
         });
 
-        fetchDailyChartData()
+        fetchDailyChart(symbol)
+
         return () => {
             socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `${symbol}` }))
             console.log("disconnected")
@@ -71,62 +73,13 @@ const StockPage = () => {
     }, [livePrice, yesterdaysClosing])
 
 
-    const fetchOverview = async () => {
-        try {
-            const res = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${key}`)
-
-            if (res.ok) {
-                const json = await res.json()
-                console.log(json)
-                setOverview(json)
-
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const fetchDailyChartData = async () => {
-        try {
-            const res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${key}`)
-
-            if (res.ok) {
-                const json = await res.json()
-                setDailyChartData(json["Time Series (Daily)"])
-
-                const key = Object.keys(json["Time Series (Daily)"])[0]
-                const yesterdayPrice = json["Time Series (Daily)"][`${key}`]["4. close"]
-                setYesterdaysClosing(yesterdayPrice)
-
-                let stockChartXValues = []
-                let stockChartYValues = []
-
-                for (let key in json["Time Series (Daily)"]) {
-                    stockChartXValues.push(key)
-                    stockChartYValues.push(json["Time Series (Daily)"][key]["4. close"])
-                }
-                setChartXValues(stockChartXValues)
-                setChartYValues(stockChartYValues)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const fetchQuote = async () => {
-        try {
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     return (
         <Col className="height-90" md={10}>
             <Row>
 
-                <PriceBoard overview={overview} dailyChartData={dailyChartData} livePrice={livePrice} quotedPrice={quotedPrice} percentageChange={percentageChange} />
+                <PriceBoard livePrice={livePrice} quotedPrice={quotedPrice} percentageChange={percentageChange} />
 
-                <CompanyDetails overview={overview} dailyChartData={dailyChartData} chartXValues={chartXValues} chartYValues={chartYValues} />
+                <CompanyDetails />
 
                 <NewsPanel symbol={symbol} />
             </Row>
@@ -135,4 +88,5 @@ const StockPage = () => {
     );
 }
 
-export default StockPage;
+export default connect(mapStateToProps, mapDispatchToProps)(StockPage)
+
