@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeLivePrice: (price) => dispatch(setLivePrice(price))
 })
 
-const StockPage = ({ data, fetchOverview, fetchDailyChart }) => {
+const StockPage = ({ data, fetchOverview, fetchDailyChart, changeLivePrice }) => {
     const yesterdaysClosing = data.yesterdaysClosing
     const [quotedPrice, setQuotedPrice] = useState(null);
     const [livePrice, setLivePrice] = useState(null);
@@ -31,8 +31,8 @@ const StockPage = ({ data, fetchOverview, fetchDailyChart }) => {
     useEffect(() => {
         finnhubClient.quote(symbol, (error, data, response) => {
             if (!error) {
-                console.log(data["c"])
-                setQuotedPrice(data["c"])
+                console.log("quoted price", data["c"])
+                changeLivePrice(data["c"])
             } else {
                 console.log(error)
                 console.log(response)
@@ -50,7 +50,7 @@ const StockPage = ({ data, fetchOverview, fetchDailyChart }) => {
             const json = JSON.parse(event.data)
 
             if (json.type === "trade") {
-                setLivePrice(json.data[0].p.toFixed(2))
+                changeLivePrice(json.data[0].p.toFixed(2))
                 console.log(json?.data[0].p)
             }
         });
@@ -63,21 +63,12 @@ const StockPage = ({ data, fetchOverview, fetchDailyChart }) => {
         }
     }, [])
 
-    useEffect(() => {
-        console.log(livePrice)
-        console.log(yesterdaysClosing)
-
-        const change = (livePrice - yesterdaysClosing) / yesterdaysClosing * 100
-        setPercentageChange(change)
-
-    }, [livePrice, yesterdaysClosing])
-
 
     return (
-        <Col className="height-90" md={10}>
+        <Col className="height-90" xs={8} md={9} lg={10}>
             <Row>
 
-                <PriceBoard livePrice={livePrice} quotedPrice={quotedPrice} percentageChange={percentageChange} />
+                <PriceBoard />
 
                 <CompanyDetails />
 

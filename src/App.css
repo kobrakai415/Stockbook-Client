@@ -41,3 +41,25 @@ height: 10vh
   top: 8px;
   color: black;
 }
+
+.positive{
+  color: rgb(17, 216, 17)
+}
+.neutral{
+  color: black
+}
+.negative{
+  color: rgb(223, 53, 53)
+}
+
+
+.register-form{
+  border: rgb(189, 189, 189) 1px solid;
+  border-radius: 30px;
+}
+
+.selected{
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  border: 1px solid black;
+}

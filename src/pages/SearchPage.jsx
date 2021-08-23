@@ -18,7 +18,7 @@ const SearchPage = () => {
     }, [query])
 
     return (
-        <Col className="height-90" md={10}>
+        <Col className="height-90" xs={8} md={9} lg={10}>
 
             <div id="search-bar-parent">
                 <input id="search-bar" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Find the next best thing ..." />

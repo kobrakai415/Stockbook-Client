@@ -1,30 +1,37 @@
-import React from 'react';
+import { useState } from 'react';
 import { Col } from 'react-bootstrap'
-import { AiOutlinePieChart, AiOutlineEye, AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlinePieChart, AiOutlineEye, AiOutlineSearch, AiOutlineHome } from 'react-icons/ai'
 import { FaUserFriends } from 'react-icons/fa'
-import {Link} from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ location: {pathname}}) => {
+    
+
     return (
-        <Col md={2}>
-
+        <Col xs={4} md={3} lg={2}>
             <div className="nav-links d-flex flex-column">
-                <Link to="/search" className="px-3 py-2 d-flex align-items-center">
+
+                <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/" ? "selected" : null)}>
+                    <AiOutlineHome />
+                    <span className="ms-2">Home</span>
+                </Link>
+
+                <Link to="/search" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/search" ? "selected" : null)}>
                     <AiOutlineSearch />
                     <span className="ms-2">Find stocks</span>
                 </Link>
-                <div className="px-3 py-2 d-flex align-items-center">
+                <Link className={"px-3 py-2 d-flex align-items-center " + (pathname === "/atchlists" ? "selected" : null)}>
                     <AiOutlineEye />
                     <span className="ms-2">Watchlists</span>
-                </div>
-                <div className="px-3 py-2 d-flex align-items-center">
+                </Link>
+                <Link className={"px-3 py-2 d-flex align-items-center " + (pathname === "/portfolio" ? "selected" : null)}>
                     <AiOutlinePieChart />
                     <span className="ms-2">My Portfolio</span>
-                </div>
-                <div className="px-3 py-2 d-flex align-items-center">
+                </Link>
+                <Link className={"px-3 py-2 d-flex align-items-center " + (pathname === "/network" ? "selected" : null)}>
                     <FaUserFriends />
                     <span className="ms-2">Network</span>
-                </div>
+                </Link>
 
 
             </div>
@@ -32,4 +39,4 @@ const Navbar = () => {
     );
 }
 
-export default Navbar;
+export default withRouter(Navbar);

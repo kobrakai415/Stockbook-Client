@@ -21,12 +21,14 @@ const CompanyDetails = ({ data }) => {
     const chartYValues = data.chartYValues
 
     return (
-        <Col md={9}>
+        <Col className="d-flex flex-column" md={8} lg={9}>
 
             {dailyChartData && overview && <>
 
+
+
                 <Plot
-                    className="d-flex"
+
                     data={[
                         {
                             x: chartXValues,
@@ -37,8 +39,16 @@ const CompanyDetails = ({ data }) => {
                         },
 
                     ]}
-                    layout={{ minWidth: 120, minHeight: 40, title: '' }}
+                    layout={{
+                    
+                        autosize: true
+                    }}
+                    useResizeHandler={true}
+                    config={{ responsive: true }}
+                    
                 />
+
+
 
                 <h3>Company details</h3>
 

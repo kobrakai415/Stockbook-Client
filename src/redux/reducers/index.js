@@ -23,20 +23,53 @@ export const dataReducer = (state = initialState.data, action) => {
                 ...state,
                 chartYValues: action.payload
             }
-            case 'SET_QUOTED_PRICE':
+        case 'SET_YESTERDAY_CLOSING':
             return {
                 ...state,
-                quotedPrice: action.payload
+                yesterdaysClosing: action.payload
             }
-            case 'SET_LIVE_PRICE':
+        case 'SET_LIVE_PRICE':
             return {
                 ...state,
                 livePrice: action.payload
+            }
+        case 'SET_USER':
+            return {
+                ...state,
+                user: action.payload
+            }
+        default:
+            return state
+
+    }
+}
+
+
+
+
+export const formReducer = (state = initialState.form, action) => {
+    switch (action.payload) {
+        case 'SET_USER':
+            return {
+                ...state,
+                user: action.payload
+            }
+        case 'SET_EMAIL':
+            return {
+                ...state,
+                email: action.payload
+            }
+        case 'SET_PASSWORD':
+            return {
+                ...state,
+                password: action.payload
             }
         default:
             return state
     }
 }
+
+
 
 export const watchlistReducer = (state = initialState.data, action) => {
 
