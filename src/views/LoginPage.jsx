@@ -3,6 +3,8 @@ import { Col, Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { login, setUser } from '../redux/actions';
+import axios from 'axios';
+
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -17,7 +19,7 @@ const LoginPage = ({ routerProps: { history }, loginUser, setUser }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+
 
     const login = async (e) => {
         e.preventDefault()
@@ -27,22 +29,13 @@ const LoginPage = ({ routerProps: { history }, loginUser, setUser }) => {
                 email: email,
                 password: password,
             };
-            console.log(details)
 
-            const res = await fetch(`${ApiUrl}/users/login`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify(details),
-            });
-            console.log(res)
-    
-            if (res.ok) {
-                const data = await res.json();
-                console.log(data)
+            const res = await axios.post(`${ApiUrl}/users/login`, details, { withCredentials: true })
+            if (res.statusText === "OK") {
+
+                setUser(res.data)
+                console.log(res.data)
                 history.push("/")
-                setUser(data)
 
             } else {
                 alert("Wrong credentials, try again!");

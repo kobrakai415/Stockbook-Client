@@ -29,9 +29,9 @@ const NewsPanel = ({ symbol }) => {
     }
     return (
 
-        <Col md={4} lg={3}>
+        <Col md={6} lg={3}>
 
-            {newsData && <>
+            {newsData.length > 1 && <>
                 <h3>Related News</h3>
                 {newsData.map((item, index) => {
 
@@ -40,7 +40,7 @@ const NewsPanel = ({ symbol }) => {
 
                             <img className="me-2 img-fluid" src={item.image_url} style={{maxHeight: "50px", maxWidth: "100px"}} height={50} width={100} />
                         
-                            <h6 href={item.news_url} className="">{item.title}</h6>
+                            <strong style={{fontSize: "10px"}} href={item.news_url} className="">{item.title}</strong>
                         
                         </div>
                         {/* <div className="pt-1">

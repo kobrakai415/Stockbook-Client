@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 
 const mapStateToProps = state => state
 
@@ -11,16 +13,16 @@ const mapDispatchToProps = (dispatch) => ({
 const HomePage = () => {
 
 
+    // useEffect(() => {
 
-    useEffect(() => {
-        setInterval(() => {
-            refreshToken()
-        }, 873000)
-    }, [])
+    //     setInterval(() => {
+    //         refreshToken()
+    //     }, 873000)
+    // }, [])
 
-    const refreshToken = async () => {
+    // const refreshToken = async () => {
 
-    }
+    // }
 
 
     return (

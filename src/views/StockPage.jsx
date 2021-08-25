@@ -21,10 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const StockPage = ({ data, fetchOverview, fetchDailyChart, changeLivePrice }) => {
-    const yesterdaysClosing = data.yesterdaysClosing
-    const [quotedPrice, setQuotedPrice] = useState(null);
-    const [livePrice, setLivePrice] = useState(null);
-    const [percentageChange, setPercentageChange] = useState(null);
+
 
     const { symbol } = useParams()
 

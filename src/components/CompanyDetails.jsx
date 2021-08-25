@@ -1,9 +1,8 @@
 import React from 'react';
 import shortNumber from '@pogix3m/short-number';
 import Plot from 'react-plotly.js';
-import { Col } from 'react-bootstrap';
+import { Col, Spinner } from 'react-bootstrap';
 import { connect } from "react-redux"
-
 
 const mapStateToProps = (state) => state
 
@@ -21,14 +20,15 @@ const CompanyDetails = ({ data }) => {
     const chartYValues = data.chartYValues
 
     return (
-        <Col className="d-flex flex-column" md={8} lg={9}>
+        <Col className="" md={12} lg={9}>
 
-            {dailyChartData && overview && <>
+            {dailyChartData && overview ? <>
 
 
+                <div className="d-flex">
 
                 <Plot
-
+                    className="mb-4"
                     data={[
                         {
                             x: chartXValues,
@@ -41,13 +41,14 @@ const CompanyDetails = ({ data }) => {
                     ]}
                     layout={{
                     
-                        autosize: true
+                        autosize: true,
+                        
                     }}
                     useResizeHandler={true}
-                    config={{ responsive: true }}
-                    
+                    style={{maxHeight: "100%", maxWidth: "100%"}}
                 />
 
+                </div>
 
 
                 <h3>Company details</h3>
@@ -79,7 +80,7 @@ const CompanyDetails = ({ data }) => {
                     </div>
 
                 </div>
-            </>}
+            </> : <Spinner type="primary"></Spinner>}
         </Col>
     );
 }
