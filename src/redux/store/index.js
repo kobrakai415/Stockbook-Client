@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux"
-import { watchlistReducer, dataReducer, formReducer } from "../reducers"
+import { watchlistReducer, dataReducer } from "../reducers"
 import thunk from "redux-thunk"
 
 export const initialState = {
@@ -13,17 +13,16 @@ export const initialState = {
         percentageChange: null,
         chartXValues: null,
         chartYValues: null,
-        user: null
+        user: {
+            watchlists: [{
+                stocks: [],
+                name: ""
+            }]
+        },
+        authenticated: false,
 
     },
-    form: {
-        email: "",
-        password: "",
-        name: "",
-        surname: "",
-        signUpEmail: "",
-        signUpPassword: "",
-    },
+
     watchlist: {
 
     },
@@ -33,7 +32,6 @@ export const initialState = {
 const mainReducer = combineReducers(
     {
         data: dataReducer,
-        form: formReducer,
         watchlist: watchlistReducer
     }
 )

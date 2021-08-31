@@ -33,6 +33,11 @@ export const dataReducer = (state = initialState.data, action) => {
                 ...state,
                 livePrice: action.payload
             }
+        case 'SET_AUTHENTICATED':
+            return {
+                ...state,
+                authenticated: action.payload
+            }
         case 'SET_USER':
             return {
                 ...state,
@@ -45,29 +50,6 @@ export const dataReducer = (state = initialState.data, action) => {
 }
 
 
-
-
-export const formReducer = (state = initialState.form, action) => {
-    switch (action.payload) {
-        case 'SET_USER':
-            return {
-                ...state,
-                user: action.payload
-            }
-        case 'SET_EMAIL':
-            return {
-                ...state,
-                email: action.payload
-            }
-        case 'SET_PASSWORD':
-            return {
-                ...state,
-                password: action.payload
-            }
-        default:
-            return state
-    }
-}
 
 
 

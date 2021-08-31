@@ -14,6 +14,9 @@ height: 10vh
 .height-90{
   height: 90vh;
   overflow-y: scroll;
+  border-left: rgb(170, 219, 174) solid 1px;
+  border-top:  rgb(170, 219, 174) solid 1px;
+  padding: 10px 10px 10px 10px;
 }
 
 .nav-links a, .nav-links a:visited {
@@ -33,7 +36,7 @@ height: 10vh
 
 #search-bar-parent {
   position: relative;
-  margin-top: 10px;
+
 }
 .search-bar-glass {
   position: absolute;
@@ -63,3 +66,18 @@ height: 10vh
   border-radius: 15px;
   border: 1px solid black;
 }
+
+.position-item:hover {
+  background-color: #333;
+  border-radius: 5px;
+}
+.close-position{
+  color: grey !important;
+  margin-left: 5px;
+
+}
+.close-position:hover{
+  transform: scale(1.5);
+  box-shadow: honeydew;
+}
+

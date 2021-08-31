@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Col, Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { login, setUser } from '../redux/actions';
+import { login, setAuthenticated, setUser } from '../redux/actions';
 import axios from 'axios';
 
 
@@ -11,11 +11,11 @@ const ApiUrl = process.env.REACT_APP_MY_API
 const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => ({
-    loginUser: (history, email, password) => dispatch(login(history, email, password)),
-    setUser: (user) => dispatch(setUser(user))
+    setUser: (user) => dispatch(setUser(user)),
+    setAuthenticated: (boolean) => dispatch(setAuthenticated(boolean))
 })
 
-const LoginPage = ({ routerProps: { history }, loginUser, setUser }) => {
+const LoginPage = ({ routerProps: { history }, loginUser, setUser, setAuthenticated }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ const LoginPage = ({ routerProps: { history }, loginUser, setUser }) => {
 
             const res = await axios.post(`${ApiUrl}/users/login`, details, { withCredentials: true })
             if (res.statusText === "OK") {
-
+                setAuthenticated(true)
                 setUser(res.data)
                 console.log(res.data)
                 history.push("/")

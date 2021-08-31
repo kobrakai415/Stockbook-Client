@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeLivePrice: (price) => dispatch(setLivePrice(price))
 })
 
-const StockPage = ({ data, fetchOverview, fetchDailyChart, changeLivePrice }) => {
+const StockPage = ({  fetchOverview, fetchDailyChart, changeLivePrice }) => {
 
 
     const { symbol } = useParams()
@@ -48,7 +48,7 @@ const StockPage = ({ data, fetchOverview, fetchDailyChart, changeLivePrice }) =>
 
             if (json.type === "trade") {
                 changeLivePrice(json.data[0].p.toFixed(2))
-                console.log(json?.data[0].p)
+                console.log("livePrice", json?.data[0].p)
             }
         });
 

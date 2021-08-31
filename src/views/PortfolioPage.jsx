@@ -3,9 +3,12 @@ import { Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import PositionContainer from '../components/PositionContainer';
 import { socket, finnhubClient } from '../finnhub/index';
+import { AiOutlineClose } from 'react-icons/ai'
+
 
 const PortfolioPage = () => {
     const portfolio = useSelector((state) => state.data.user?.portfolio)
+
 
     useEffect(() => {
 
@@ -18,25 +21,31 @@ const PortfolioPage = () => {
         //         console.log(response)
         //     }
         // })
-        // fetchOverview(symbol)
+
 
         // socket.addEventListener('open', (event) => {
         //     console.log("connected")
-        //     portfolio.map(item => {
-        //         return socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${item.ticker}` }))
-        //     })
-        //     socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${symbol}` }))
+        //     socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${portfolio[0].ticker}` }))
+        //     socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `TSLA` }))
+        //     socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `FB` }))
+        //     socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${portfolio[0].ticker}` }))
+
         // })
 
         // socket.addEventListener('message', async (event) => {
 
         //     const json = JSON.parse(event.data)
-
+        //     console.log(json)
         //     if (json.type === "trade") {
-        //         changeLivePrice(json.data[0].p.toFixed(2))
+        //         // changeLivePrice(json.data[0].p.toFixed(2))
         //         console.log(json?.data[0].p)
         //     }
-        // });
+
+        //     return () => {
+        //         socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `AAPL` }))
+        //         console.log("disconnected")
+        //     }
+        // }, [portfolio]);
 
         // console.log(portfolio)
     })
@@ -53,21 +62,25 @@ const PortfolioPage = () => {
                     <h6>Shares</h6>
                 </Col>
                 <Col className="p-1" md={2}>
-                    <h6>CostPrice</h6>
+                    <h6>Cost Price</h6>
                 </Col>
                 <Col className="p-1" md={2}>
-                    <h6>CurrentPrice</h6>
+                    <h6>Current Price</h6>
                 </Col>
                 <Col className="p-1" md={2}>
                     <h6>P&L</h6>
                 </Col>
 
 
+            </Row>
 
-                {portfolio && portfolio.length > 0 &&
-                    portfolio.map((position, index) => {
-                        return <PositionContainer key={index} position={position} />
-                    })}
+
+            {portfolio && portfolio.length > 0 &&
+                portfolio.map((position, index) => {
+                    return <PositionContainer key={index} position={position} />
+                })}
+
+            <Row>
 
                 <Col xs={9}>
                 </Col>

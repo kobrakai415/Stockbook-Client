@@ -2,22 +2,27 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchPage from './views/SearchPage';
 import StockPage from './views/StockPage';
+import SignUpPage from './views/SignUpPage';
+import LoginPage from './views/LoginPage';
+import HomePage from './views/HomePage';
+import PortfolioPage from './views/PortfolioPage';
 import Navbar from './components/Navbar';
 import Banner from './components/Banner';
 import { Container, Row } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Switch, useHistory, withRouter } from 'react-router-dom';
-import LoginPage from './views/LoginPage';
-import SignUpPage from './views/SignUpPage';
-import HomePage from './views/HomePage';
+import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux'
-import PortfolioPage from './views/PortfolioPage';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import WatchlistPage from './views/WatchlistPage';
+
 
 function App() {
-
   axios.defaults.withCredentials = true
+
+  const { data: { authenticated } } = useSelector(state => state)
+
   const dispatch = useDispatch()
+
   const history = useHistory()
 
   useEffect(() => {
@@ -28,16 +33,21 @@ function App() {
     try {
       console.log("hello")
       const response = await axios.post(`${process.env.REACT_APP_MY_API}/users/checkAccessToken`)
-      
-      if(response.statusText === "OK"){
+
+      if (response.statusText === "OK") {
         console.log(response)
+
         dispatch({
-              type: "SET_USER",
-              payload: response.data
-            })
+          type: "SET_AUTHENTICATED",
+          payload: true
+        })
+        dispatch({
+          type: "SET_USER",
+          payload: response.data
+        })
 
       }
-      
+
       // fetch(`${process.env.REACT_APP_MY_API}/users/checkAccessToken`, {
       //   method: "POST",
       //   headers: {
@@ -66,6 +76,10 @@ function App() {
     } catch (error) {
       console.log(error)
       history.push("/login")
+      dispatch({
+        type: "SET_AUTHENTICATED",
+        payload: false
+      })
     }
   }
 
@@ -78,13 +92,16 @@ function App() {
       <>
         <Container fluid className="app">
           <Row className="">
-            <Banner />
-            <Navbar />
-            <Route path="/" exact render={(routerProps) => <HomePage routerProps={routerProps} />} />
-            <Route path="/search" exact render={(routerProps) => <SearchPage routerProps={routerProps} />} />
-            <Route path="/portfolio" exact render={(routerProps) => <PortfolioPage routerProps={routerProps} />} />
-
-            <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
+            {authenticated && <>
+              <Banner />
+              <Navbar />
+              <Route path="/" exact render={(routerProps) => <HomePage routerProps={routerProps} />} />
+              <Route path="/search" exact render={(routerProps) => <SearchPage routerProps={routerProps} />} />
+              <Route path="/watchlists" exact render={(routerProps) => <WatchlistPage routerProps={routerProps} />} />
+              <Route path="/portfolio" exact render={(routerProps) => <PortfolioPage routerProps={routerProps} />} />
+              <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
+            </>
+            }
           </Row>
         </Container>
       </>

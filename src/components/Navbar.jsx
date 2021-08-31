@@ -15,12 +15,7 @@ const Navbar = ({ location: {pathname}}) => {
                     <AiOutlineHome />
                     <span className="ms-2">Home</span>
                 </Link>
-
-                <Link to="/search" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/search" ? "selected" : null)}>
-                    <AiOutlineSearch />
-                    <span className="ms-2">Find stocks</span>
-                </Link>
-                <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/atchlists" ? "selected" : null)}>
+                <Link to="/watchlists" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/watchlists" ? "selected" : null)}>
                     <AiOutlineEye />
                     <span className="ms-2">Watchlists</span>
                 </Link>

@@ -26,7 +26,7 @@ const Banner = ({ data }) => {
                     <div className="p-2 d-flex align-items-center">
 
                         {data.user?.balance &&
-                            <span>P&L {"$" + data.user.balance}</span>
+                            <span>Cash {"$" + data.user.balance.toFixed(2)}</span>
                         }
 
                         <div>

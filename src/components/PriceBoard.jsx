@@ -1,29 +1,31 @@
 import Reac, { useEffect, useState } from 'react';
-import { Col, Button, Modal, Form, Spinner } from 'react-bootstrap';
+import { Col, Button, Modal, Form, Spinner, Alert, DropdownButton, Dropdown } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import axios from 'axios';
-
-
+import { setUser } from '../redux/actions';
 
 const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => ({
-
+    setUser: (user) => dispatch(setUser(user))
 })
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
-const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClosing, user }, quotedPrice, }) => {
+const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClosing, user }, quotedPrice, setUser }) => {
 
     const [percentageChange, setPercentageChange] = useState((livePrice - yesterdaysClosing) / yesterdaysClosing * 100);
     const [quantity, setQuantity] = useState(1)
     const [total, setTotal] = useState((quantity * livePrice));
     const [show, setShow] = useState(false);
-
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [watchlist, setWatchlist] = useState(null);
+    const [watchlistName, setWatchlistName] = useState("");
+    const [watchlistError, setWatchlistError] = useState(false)
 
     useEffect(() => {
-        console.log(livePrice)
-        console.log(yesterdaysClosing)
 
         const change = (livePrice - yesterdaysClosing) / yesterdaysClosing * 100
         setPercentageChange(change)
@@ -34,6 +36,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
 
         setTotal(quantity * livePrice)
     }, [quantity, livePrice])
+
     const buyStock = async () => {
         try {
             const purchase = {
@@ -47,7 +50,61 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
             }
 
             const res = await axios.post(`${ApiUrl}/trade/buy`, purchase, { withCredentials: true })
+
+            if (res.statusText === "OK") {
+                setUser(res.data)
+                setShow(false)
+                setSuccess(true)
+                console.log(res)
+            }
+        } catch (error) {
+            setError(true)
+            setShow(false)
+            setErrorMessage(error)
+            console.log(error)
+        }
+    }
+
+    const createWatchlist = async () => {
+        try {
+            const body = {
+                name: watchlistName,
+                stocks: []
+            }
+            const res = await axios.post(`${ApiUrl}/watchlists/new`, body, { withCredentials: true })
             console.log(res)
+
+            if (res.status === 201) {
+                setWatchlist(false)
+                setUser(res.data)
+            } else {
+                setWatchlistError(true)
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const addToWatchlist = async (id) => {
+        try {
+            const body = {
+                name: overview.Name,
+                ticker: overview.Symbol,
+                exchange: overview.Exchange,
+                sector: overview.Sector
+            }
+
+            const res = await axios.post(`${ApiUrl}/watchlists/${id}/add`, body, { withCredentials: true })
+            console.log(res)
+
+            if (res.statusText === "OK") {
+                setUser(res.data)
+            } else {
+                console.log(error)
+            }
+
         } catch (error) {
             console.log(error)
         }
@@ -55,6 +112,19 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
 
     return (
         <Col md={12}>
+
+            {success && <Alert variant="success" onClose={() => setSuccess(false)} dismissible>
+                <Alert.Heading>Server message</Alert.Heading>
+                <p>
+                    Transaction completed successfully!
+                </p>
+            </Alert>}
+            {error && <Alert variant="danger" onClose={() => setError(false)} dismissible>
+                <Alert.Heading>Server message</Alert.Heading>
+                <p>
+                    An error occurred! Please try again!
+                </p>
+            </Alert>}
 
             {overview && livePrice && dailyChartData ? <>
                 <div className="pb-4 d-flex justify-content between">
@@ -75,13 +145,16 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
                             </div>
 
                         </div>
-                        <div className="p-2 ms-3">
-                            <Button onClick={() => setShow(true)} variant="success">
+                        <div className="p-2 ms-3 d-flex flex-column ">
+                            <Button className="m-2" onClick={() => setShow(true)} variant="success">
                                 Buy
                             </Button>
-                            <Button className="ms-3" variant="dark">
-                                Add to watchlist
-                            </Button>
+                            <DropdownButton id="dropdown-basic-button" className="m-2" variant="dark" title="Add to watchlist">
+                                <Dropdown.Item onClick={() => setWatchlist(true)}>New watchlist +</Dropdown.Item>
+                                {user.watchlists.map(item => {
+                                    return <Dropdown.Item onClick={() => addToWatchlist(item._id)}>{item.name}</Dropdown.Item>
+                                })}
+                            </DropdownButton>
                         </div>
                     </div>
 
@@ -112,15 +185,15 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
                             <h5>Quote: </h5> <h5>{"$" + livePrice}</h5>
                         </div>
                         <div className="p-2 d-flex flex-row justify-content-between">
-                            <h5>Shares: </h5> <input style={{ maxWidth: "50px" }} min="0" step="1" onChange={(e) => setQuantity(e.target.value)} value={quantity} type="number"></input>
+                            <h5>Shares: </h5> <input style={{ maxWidth: "50px" }} min="1" step="1" onChange={(e) => setQuantity(e.target.value)} value={quantity} type="number"></input>
                         </div>
 
                         <div className="p-2 d-flex flex-column justify-content-between">
                             <div className="d-flex flex-row justify-content-between">
-                            <h5>Total: </h5> <h5>{"$" + (quantity * livePrice).toFixed(2)}</h5>
+                                <h5>Total: </h5> <h5>{"$" + (quantity * livePrice).toFixed(2)}</h5>
 
-                            </div>  
-                            {total > user.balance && <span className="text-muted" style={{color: "red"}}>Insufficient funds, please amend positioning!</span>}
+                            </div>
+                            {total > user.balance && <span className="text-muted" style={{ color: "red" }}>Insufficient funds, please amend positioning!</span>}
                         </div>
 
 
@@ -132,6 +205,42 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
                         <Button disabled={user.balance < total ? true : false} onClick={buyStock} variant="primary">Submit</Button>
                     </Modal.Footer>
                 </Modal>}
+
+            <Modal
+
+                show={watchlist}
+                onHide={() => setWatchlist(false)}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Create new watchlist!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="p-3">
+
+
+                    <div className="p-2 d-flex flex-row justify-content-between">
+                        <h5>Name: </h5> <input value={watchlistName} onChange={(e) => setWatchlistName(e.target.value)} type="text"></input>
+                    </div>
+
+                    {watchlistError &&
+                        <div className="d-flex justify-content-between flex-row">
+
+                            <p>
+                                Error creating watchlist, try again!
+                            </p>
+                            <Button onClick={() => setWatchlistError(false)}>Aknowledge</Button>
+                        </div>
+                    }
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setWatchlist(false)}>
+                        Close
+                    </Button>
+                    <Button onClick={createWatchlist} variant="primary">Submit</Button>
+                </Modal.Footer>
+            </Modal>
+
         </Col>
     );
 }

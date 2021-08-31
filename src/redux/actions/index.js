@@ -40,17 +40,10 @@ export const setUser = (user) => ({
     type: 'SET_USER',
     payload: user
 })
-
-export const setEmail = (email) => ({
-    type: 'SET_EMAIL',
-    payload: email
+export const setAuthenticated = (boolean) => ({
+    type: 'SET_AUTHENTICATED',
+    payload: boolean
 })
-
-export const setPassword = (password) => ({
-    type: 'SET_PASSWORD',
-    payload: password
-})
-
 
 
 
@@ -106,36 +99,3 @@ export const fetchStokDailyChart = (symbol) => {
 }
 
 
-export const login = async (history, email, password) => {
-
-    return async (dispatch, getState) => {
-        try {
-
-            const details = {
-                email: email,
-                password: password,
-            };
-            console.log(details)
-
-            const res = await fetch(`${ApiUrl}/users/login`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify(details),
-            });
-            dispatch(setUser(res))
-            if (res.ok) {
-                const data = await res.json();
-                console.log(data)
-                history.push("/")
-                dispatch(setUser(data))
-
-            } else {
-                alert("Wrong credentials, try again!");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-};
