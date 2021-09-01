@@ -16,7 +16,8 @@ export const initialState = {
         user: {
             watchlists: [{
                 stocks: [],
-                name: ""
+                name: "",
+                _id: ""
             }]
         },
         authenticated: false,

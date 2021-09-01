@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Col, Row, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Col, Row, DropdownButton, Dropdown, Button, Toast } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import WatchlistItem from '../components/WatchlistItem';
 import axios from 'axios';
@@ -8,16 +8,22 @@ const ApiUrl = process.env.REACT_APP_MY_API
 
 const WatchlistPage = () => {
     const { data: { user: { watchlists } } } = useSelector(state => state)
-    const [selected, setSelected] = useState(watchlists[0].name);
-    const [watchlist, setWatchlist] = useState(watchlists[0]);
     const dispatch = useDispatch()
+
+    const [selected, setSelected] = useState("");
+    const [watchlist, setWatchlist] = useState(null);
+    const [showA, setShowA] = useState(false);
+
+
+    const toggleShowA = () => setShowA(!showA);
 
     useEffect(() => {
         console.log(watchlists)
-        const watclistToDisplay = watchlists.find(watchlist => watchlist.name === selected)
-        setWatchlist(watclistToDisplay)
+        const watchlistToDisplay = watchlists.find(watchlist => watchlist.name === selected)
+        watchlistToDisplay ? setWatchlist(watchlistToDisplay) : setWatchlist(watchlists[0])
 
     }, [selected, watchlists])
+
 
 
     const removeFromWatchlist = async (stockId) => {
@@ -29,52 +35,90 @@ const WatchlistPage = () => {
                     type: "SET_USER",
                     payload: res.data
                 })
+
+                setShowA(!showA)
             }
             console.log(res)
         } catch (error) {
             console.log(error)
         }
     }
+
+    const deleteWatchlist = async () => {
+        try {
+            const res = await axios.delete(`${ApiUrl}/watchlists/${watchlist._id}/delete`)
+            console.log(res)
+            if (res.status === 200) {
+                dispatch({
+                    type: "SET_USER",
+                    payload: res.data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
 
-        <Col className="height-90" xs={8} md={9} lg={10}>
-            <Row>
-                <h1>Watchlists</h1>
+        <Col className="height-90 p-5" xs={8} md={9} lg={10}>
+            <h1>Watchlists</h1>
 
 
-                {watchlists && <>
-                    <DropdownButton id="dropdown-basic-button" variant="dark" title="Select a watchlist">
-                        {watchlists.map((watchlist, index) => {
-                            return <Dropdown.Item key={index} onClick={() => setSelected(watchlist.name)}>{watchlist.name}</Dropdown.Item>
-                        })}
 
-                    </DropdownButton>
-                    <Col className="pb-3" xs={12}>
-                      {watchlist.name && <h1>{watchlist.name}</h1>}
-                    </Col>
-                    <Col md={3}>
-                        <h3>Stock </h3>
-                    </Col>
-                    <Col md={2}>
-                        <h3>Ticker</h3>
-                    </Col>
-                    <Col md={2}>
-                        <h3>Exchange </h3>
-                    </Col>
-                    <Col md={3}>
-                        <h3>Sector </h3>
-                    </Col>
-                    <Col md={2}>
+            <Toast
+                className="slide-in-top "
+                style={{
+                    position: 'absolute',
+                    top: "15vh",
+                    right: "65vh",
+                }} show={showA} onClose={toggleShowA}>
+                <Toast.Header>
 
-                    </Col>
+                    <strong className="me-auto">Server Message</strong>
+
+                </Toast.Header>
+                <Toast.Body>Successfully removed from watchlist!</Toast.Body>
+            </Toast>
 
 
-                    {watchlist.stocks.length > 0 && watchlist.stocks.map((item, index) => {
-                        return <WatchlistItem key={index} remove={removeFromWatchlist} stock={item} />
+            {watchlists.length > 0 && watchlists && <>
+                <DropdownButton id="dropdown-basic-button" variant="dark" title="Select a watchlist">
+                    {watchlists.map((watchlist, index) => {
+                        return <Dropdown.Item key={index} onClick={() => setSelected(watchlist.name)}>{watchlist.name}</Dropdown.Item>
                     })}
 
-                </>}
-            </Row>
+                </DropdownButton>
+                <Row className="mb-4 bottom-border2">
+                    <Col xs={12}>
+                        {watchlist?.name && <div className="d-flex flex-row">
+                            <h1>{watchlist.name}</h1>
+                            <Button onClick={deleteWatchlist} className="m-3" size="sm" variant="outline-danger" >Delete watchlist</Button>
+                        </div>}
+                    </Col>
+                    <Col md={2}>
+                        <h2>Stock </h2>
+                    </Col>
+                    <Col md={2}>
+                        <h2>Exchange </h2>
+                    </Col>
+                    <Col md={3}>
+                        <h2>Sector </h2>
+                    </Col>
+                    <Col md={2}>
+                        <h2>Last</h2>
+                    </Col>
+                    <Col md={3}>
+                        <h2>Change</h2>
+
+                    </Col>
+                </Row>
+
+
+                {watchlist && watchlist.stocks.length > 0 && watchlist.stocks.map((item, index) => {
+                    return <WatchlistItem key={index} remove={removeFromWatchlist} stock={item} />
+                })}
+
+            </>}
         </Col>
     );
 }

@@ -85,7 +85,7 @@ const PositionContainer = ({ position }) => {
     return (
         <>
             {livePrice && position && profit && <>
-                <Row className="position-item">
+                <Row className="position-item bottom-border">
                     <Col className="p-1" md={2}>
                         <h6>{position.stock}</h6>
                     </Col>

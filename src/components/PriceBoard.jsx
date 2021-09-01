@@ -167,7 +167,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
 
             {overview && livePrice &&
                 <Modal
-
+                    
                     show={show}
                     onHide={() => setShow(false)}
                     backdrop="static"

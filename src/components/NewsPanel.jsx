@@ -40,13 +40,10 @@ const NewsPanel = ({ symbol }) => {
 
                             <img className="me-2 img-fluid" src={item.image_url} style={{maxHeight: "50px", maxWidth: "100px"}} height={50} width={100} />
                         
-                            <strong style={{fontSize: "10px"}} href={item.news_url} className="">{item.title}</strong>
+                            <strong style={{fontSize: "14px"}} className="">{item.title}</strong>
                         
                         </div>
-                        {/* <div className="pt-1">
-
-                            <p >{item.text}</p>
-                        </div> */}
+                        
                         <div>
 
                         <span>Source: </span>

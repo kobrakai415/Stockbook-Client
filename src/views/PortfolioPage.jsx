@@ -50,25 +50,26 @@ const PortfolioPage = () => {
         // console.log(portfolio)
     })
     return (
-        <Col className="height-90" xs={8} md={9} lg={10}>
-            <Row>
+        <Col className="height-90 p-5" xs={8} md={9} lg={10}>
+
+            <Row className="bottom-border2 mb-3">
                 <Col className="p-1" md={2}>
-                    <h6>Stock</h6>
+                    <h3>Stock</h3>
                 </Col>
                 <Col className="p-1" md={2}>
-                    <h6>Ticker</h6>
+                    <h3>Ticker</h3>
                 </Col>
                 <Col className="p-1" md={2}>
-                    <h6>Shares</h6>
+                    <h3>Shares</h3>
                 </Col>
                 <Col className="p-1" md={2}>
-                    <h6>Cost Price</h6>
+                    <h3>Cost Price</h3>
                 </Col>
                 <Col className="p-1" md={2}>
-                    <h6>Current Price</h6>
+                    <h3>Last</h3>
                 </Col>
                 <Col className="p-1" md={2}>
-                    <h6>P&L</h6>
+                    <h3>P&L</h3>
                 </Col>
 
 
@@ -81,7 +82,6 @@ const PortfolioPage = () => {
                 })}
 
             <Row>
-
                 <Col xs={9}>
                 </Col>
                 <Col className="d-flex flex-row p-2" xs={3}>
@@ -89,6 +89,7 @@ const PortfolioPage = () => {
                     <h6>$2324234</h6>
                 </Col>
             </Row>
+
         </Col>
     );
 }
