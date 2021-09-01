@@ -1,29 +1,37 @@
-import React from 'react';
+import { useState } from 'react';
 import { Col } from 'react-bootstrap'
-import { AiOutlinePieChart, AiOutlineEye, AiOutlineSearch } from 'react-icons/ai'
-import {Link} from 'react-router-dom'
+import { AiOutlinePieChart, AiOutlineEye, AiOutlineSearch, AiOutlineHome } from 'react-icons/ai'
+import { FaUserFriends } from 'react-icons/fa'
+import { Link, withRouter } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ location: {pathname}}) => {
+    
+
     return (
-        <Col md={2}>
-
+        <Col xs={4} md={3} lg={2}>
             <div className="nav-links d-flex flex-column">
-                <Link to="/search" className="px-3 py-2 d-flex align-items-center">
-                    <AiOutlineSearch />
-                    <span className="ms-2">Find stocks</span>
+
+                <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/" ? "selected" : null)}>
+                    <AiOutlineHome />
+                    <span className="ms-2">Home</span>
                 </Link>
-                <div className="px-3 py-2 d-flex align-items-center">
+                <Link to="/watchlists" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/watchlists" ? "selected" : null)}>
                     <AiOutlineEye />
                     <span className="ms-2">Watchlists</span>
-                </div>
-                <div className="px-3 py-2 d-flex align-items-center">
+                </Link>
+                <Link to="/portfolio" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/portfolio" ? "selected" : null)}>
                     <AiOutlinePieChart />
                     <span className="ms-2">My Portfolio</span>
-                </div>
+                </Link>
+                <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/network" ? "selected" : null)}>
+                    <FaUserFriends />
+                    <span className="ms-2">Network</span>
+                </Link>
+
 
             </div>
         </Col>
     );
 }
 
-export default Navbar;
+export default withRouter(Navbar);

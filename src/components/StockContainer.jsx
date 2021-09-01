@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 
 
 const StockContainer = ({ stock }) => {
+    
     return (
         <Col >
         <Link to={`/stock/${stock.symbol}`}>
@@ -13,7 +14,7 @@ const StockContainer = ({ stock }) => {
                 <h6 className="m-0">{stock.symbol}</h6>
 
                 <span>{stock.description}</span>
-
+                
             </Card>
         </Link>
         </Col>
