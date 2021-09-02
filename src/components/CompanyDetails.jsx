@@ -3,14 +3,13 @@ import shortNumber from '@pogix3m/short-number';
 import Plot from 'react-plotly.js';
 import { Col, Spinner } from 'react-bootstrap';
 import { connect } from "react-redux"
+import Posts from './PostsSection.jsx';
 
 const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => ({
 
-
 })
-
 
 const CompanyDetails = ({ data }) => {
 
@@ -20,7 +19,7 @@ const CompanyDetails = ({ data }) => {
     const chartYValues = data.chartYValues
 
     return (
-        <Col className="" md={12} lg={9}>
+        <Col md={12} lg={9}>
 
             {dailyChartData && overview ? <>
 
@@ -81,6 +80,9 @@ const CompanyDetails = ({ data }) => {
 
                 </div>
             </> : <Spinner type="primary"></Spinner>}
+
+
+            <Posts/>
         </Col>
     );
 }

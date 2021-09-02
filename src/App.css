@@ -124,3 +124,7 @@
     opacity: 1;
   }
 }
+
+.form-group {
+  padding-bottom: 8px;
+}

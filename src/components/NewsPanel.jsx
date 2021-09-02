@@ -29,7 +29,7 @@ const NewsPanel = ({ symbol }) => {
     }
     return (
 
-        <Col md={6} lg={3}>
+        <Col md={12} lg={3}>
 
             {newsData.length > 1 && <>
                 <h3>Related News</h3>
