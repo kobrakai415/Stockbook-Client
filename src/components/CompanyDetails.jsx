@@ -19,7 +19,7 @@ const CompanyDetails = ({ data }) => {
     const chartYValues = data.chartYValues
 
     return (
-        <Col md={12} lg={9}>
+        <Col md={12} lg={8}>
 
             {dailyChartData && overview ? <>
 

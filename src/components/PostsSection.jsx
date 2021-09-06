@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Row, FormControl } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import PostContainer from './PostContainer';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -10,12 +11,30 @@ const Posts = () => {
     const [addNew, setAddNew] = useState(false);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [image, setImage] = useState(null)
-
+    const [image, setImage] = useState(null);
+    const [posts, setPosts] = useState([]);
 
     const { symbol } = useParams();
-    const { data } = useSelector(state => state)
+    const { data } = useSelector(state => state);
 
+
+    useEffect(() => {
+        fetchPosts()
+
+    }, [])
+
+    const fetchPosts = async () => {
+        try {
+            const res = await axios.get(`${ApiUrl}/posts/${symbol}`)
+            
+            if(res.status === 200) {
+                console.log(res)
+                setPosts(res.data.reverse())
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const createNewPost = async () => {
         try {
             const body = {
@@ -43,19 +62,40 @@ const Posts = () => {
                     }
                 })
                 console.log(response)
-        
+
+                if (response.status === 200) {
+                    setPosts(response.data.reverse())
+                    setAddNew(false)
+                }
             }
 
         } catch (error) {
             console.log(error)
         }
     }
+
+
     return (
         <div className="pt-3">
             <h3>Community thoughts</h3>
-            <div className="pt-2">
-                <Button onClick={() => setAddNew(!addNew)} variant="primary">Create a new post</Button>
+            <div className="pt-4">
+
+                <div className="d-flex align-items-center">
+                    <img alt="" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://media.giphy.com/media/TdMVH60kJvTMI/source.gif"></img>
+                    <Form className="flex-grow-1" inline>
+                        <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Start a post" onClick={() => setAddNew(!addNew)} className="flex-grow-1 mr-sm-2" />
+                    </Form>
+                </div>
             </div >
+
+            <Row>
+
+                {posts.length > 0 && posts.map((item, index) => {
+                    return <PostContainer key={index} post={item} />
+                })}
+            </Row>
+
+
 
 
             <Modal show={addNew} onHide={() => setAddNew(false)} backdrop="static" keyboard={false}>

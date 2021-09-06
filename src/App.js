@@ -14,20 +14,28 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import WatchlistPage from './views/WatchlistPage';
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
+const ApiUrl = process.env.REACT_APP_MY_API
 
 function App() {
+  const { data: { authenticated } } = useSelector(state => state)
+  const dispatch = useDispatch()
+  const history = useHistory()
+
   axios.defaults.withCredentials = true
 
-  const { data: { authenticated } } = useSelector(state => state)
+  const refreshAuthLogic = failedRequest => axios.post(`${ApiUrl}/users/refreshToken`, {withCredentials: true}).then(tokenRefreshResponse => {
+    console.log(tokenRefreshResponse)
+    return Promise.resolve();
+  });
 
-  const dispatch = useDispatch()
+  createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
-  const history = useHistory()
 
   useEffect(() => {
     checkToken()
-  }, [])
+  }, []);
 
   const checkToken = async () => {
     try {
@@ -47,32 +55,6 @@ function App() {
         })
 
       }
-
-      // fetch(`${process.env.REACT_APP_MY_API}/users/checkAccessToken`, {
-      //   method: "POST",
-      //   headers: {
-      //     "content-type": "application/json",
-      //   },
-      //   withCredentials: true,
-      //   credentials: "include"
-      // })
-
-
-
-      // if (response.ok) {
-      //   const json = await response.json()
-      //   console.log("Ok")
-      //   dispatch({
-      //     type: "SET_USER",
-      //     payload: json
-      //   })
-      // }
-      // else {
-      //   console.log("not Ok")
-
-      //   history.push("/login")
-      // }
-
     } catch (error) {
       console.log(error)
       history.push("/login")

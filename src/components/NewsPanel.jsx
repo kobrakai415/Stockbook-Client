@@ -29,18 +29,17 @@ const NewsPanel = ({ symbol }) => {
     }
     return (
 
-        <Col md={12} lg={3}>
+        <Col md={12} lg={4}>
 
             {newsData.length > 1 && <>
                 <h3>Related News</h3>
                 {newsData.map((item, index) => {
 
                     return <Card key={index} className="m-2 p-2 d-flex justify-content-between">
-                        <div className="d-flex flex-row">
+                        <div className="d-flex  flex-lg-row justify-content-between">
 
-                            <img className="me-2 img-fluid" src={item.image_url} style={{maxHeight: "50px", maxWidth: "100px"}} height={50} width={100} />
-                        
                             <strong style={{fontSize: "14px"}} className="">{item.title}</strong>
+                            <img className="p-2 img-fluid" src={item.image_url} style={{maxHeight: "60px", maxWidth: "100px"}} height={50} width={100} />
                         
                         </div>
                         
