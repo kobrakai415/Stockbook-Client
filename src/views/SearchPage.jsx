@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Col, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import StockContainer from '../components/StockContainer';
 import { finnhubClient } from '../finnhub';
 

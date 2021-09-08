@@ -3,7 +3,7 @@ import shortNumber from '@pogix3m/short-number';
 import Plot from 'react-plotly.js';
 import { Col, Spinner } from 'react-bootstrap';
 import { connect } from "react-redux"
-import Posts from './PostsSection.jsx';
+import PostsSection from './PostsSection.jsx';
 
 const mapStateToProps = (state) => state
 
@@ -82,7 +82,7 @@ const CompanyDetails = ({ data }) => {
             </> : <Spinner type="primary"></Spinner>}
 
 
-            <Posts/>
+            <PostsSection/>
         </Col>
     );
 }

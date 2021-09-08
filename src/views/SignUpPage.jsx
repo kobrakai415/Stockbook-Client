@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Form, Container, Button, Alert } from 'react-bootstrap';
+import {Form, Container, Button, Alert } from 'react-bootstrap';
 
 
 const ApiUrl = process.env.REACT_APP_MY_API

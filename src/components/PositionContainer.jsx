@@ -14,8 +14,8 @@ const PositionContainer = ({ position }) => {
     const [show, setShow] = useState(false);
     const [alert, setAlert] = useState(false);
 
-
     const state = useSelector(state => state)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -30,27 +30,33 @@ const PositionContainer = ({ position }) => {
             }
         })
 
-        // socket.addEventListener('open', (event) => {
-        //     console.log("connected")
-        //     socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${position.ticker}` }))
-        // })
 
-        // socket.addEventListener('message', async (event) => {
+        socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${position.ticker}` }))
 
-        //     const json = JSON.parse(event.data)
+        socket.addEventListener('message', async (event) => {
 
-        //     if (json.type === "trade") {
-        //         setLivePrice(json.data[0].p.toFixed(2))
-        //         console.log(json?.data[0].p)
-        //     }
-        // });
+            const json = JSON.parse(event.data)
+
+            if (json.type === "trade") {
+                if (json.data[0].s === position.ticker) {
+  
+                    setLivePrice(json.data[0].p.toFixed(2))
+      
+                }
+            }
+        });
+
+        return () => {
+            socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `${position.ticker}` }))
+
+        }
 
     }, []);
 
     useEffect(() => {
 
         const difference = ((livePrice * position.shares) - (position.purchasePrice * position.shares)).toFixed(2)
-        console.log(difference)
+
         setProfit(difference)
     }, [livePrice])
 
@@ -107,7 +113,7 @@ const PositionContainer = ({ position }) => {
                     </Col>
                     <Col className={"p-1 " + (profit < 0 ? "negative" : "positive")} md={2}>
                         <div className="d-flex flex-row">
-                            <h6> {(profit < 0 ? "-" : "") + "$" + Math.abs(profit)}</h6>
+                            <h6 className="flex-grow-1">{(profit < 0 ? "-" : "+") + "$" + Math.abs(profit).toFixed(2)}</h6>
                             <AiFillCloseCircle onClick={() => setShow(true)} className="ms-3 mt-1 close-position" />
 
                         </div>
@@ -150,7 +156,7 @@ const PositionContainer = ({ position }) => {
                 {alert && <Alert className="alerts" variant="danger" onClose={() => setShow(false)} dismissible>
                     <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
                     <p>
-                        {}
+                        { }
                     </p>
                 </Alert>}
             </>}

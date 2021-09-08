@@ -1,20 +1,20 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchPage from './views/SearchPage';
-import StockPage from './views/StockPage';
-import SignUpPage from './views/SignUpPage';
-import LoginPage from './views/LoginPage';
-import HomePage from './views/HomePage';
-import PortfolioPage from './views/PortfolioPage';
-import Navbar from './components/Navbar';
-import Banner from './components/Banner';
-import { Container, Row } from 'react-bootstrap';
-import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import WatchlistPage from './views/WatchlistPage';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect } from 'react';
+import { Container, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
+import './App.css';
+import Banner from './components/Banner';
+import Navbar from './components/Navbar';
+import HomePage from './views/HomePage';
+import LoginPage from './views/LoginPage';
+import PortfolioPage from './views/PortfolioPage';
+import SearchPage from './views/SearchPage';
+import SignUpPage from './views/SignUpPage';
+import StockPage from './views/StockPage';
+import WatchlistPage from './views/WatchlistPage';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -37,9 +37,8 @@ function App() {
     checkToken()
   }, []);
 
-  const checkToken = async () => {
+  const checkToken = async () => {  
     try {
-      console.log("hello")
       const response = await axios.post(`${process.env.REACT_APP_MY_API}/users/checkAccessToken`)
 
       if (response.statusText === "OK") {

@@ -7,7 +7,7 @@ import PostContainer from './PostContainer';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
-const Posts = () => {
+const PostsSection = () => {
     const [addNew, setAddNew] = useState(false);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -16,12 +16,6 @@ const Posts = () => {
 
     const { symbol } = useParams();
     const { data } = useSelector(state => state);
-
-
-    useEffect(() => {
-        fetchPosts()
-
-    }, [])
 
     const fetchPosts = async () => {
         try {
@@ -35,6 +29,12 @@ const Posts = () => {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        fetchPosts();
+
+    }, [])
+
     const createNewPost = async () => {
         try {
             const body = {
@@ -74,15 +74,14 @@ const Posts = () => {
         }
     }
 
-
     return (
         <div className="pt-3">
-            <h3>Community thoughts</h3>
-            <div className="pt-4">
+            <h3>Community blog</h3>
+            <div className="p-3 ">
 
                 <div className="d-flex align-items-center">
                     <img alt="" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://media.giphy.com/media/TdMVH60kJvTMI/source.gif"></img>
-                    <Form className="flex-grow-1" inline>
+                    <Form className="flex-grow-1">
                         <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Start a post" onClick={() => setAddNew(!addNew)} className="flex-grow-1 mr-sm-2" />
                     </Form>
                 </div>
@@ -132,4 +131,4 @@ const Posts = () => {
     );
 }
 
-export default Posts;
+export default PostsSection;

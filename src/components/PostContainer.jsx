@@ -27,8 +27,11 @@ const PostContainer = ({ post }) => {
 
             const res = await axios.post(`${ApiUrl}/comments/${updatedPost._id}`, body)
 
-            console.log(res)
-
+            console.log(res.data.comments.reverse())
+            if(res.status === 201){
+                setUpdatedPost(res.data)
+                setNewComment(false)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -55,10 +58,10 @@ const PostContainer = ({ post }) => {
                     <span>{updatedPost.ticker}</span>
 
                 </div>
-                <div>
-                    <img className="img-fluid" src={updatedPost.image} />
-                    <p>{updatedPost.content}</p>
+                <div className="d-flex justify-content-center align-items-center py-3">
+                    <img className="w-100 h-100 img-fluid" src={updatedPost.image} alt="post"/>
                 </div>
+                    <p>{updatedPost.content}</p>
 
                 <div className="d-flex flex-row justify-content-between">
                     <div>
@@ -92,7 +95,7 @@ const PostContainer = ({ post }) => {
                 <div className="pt-4">
                     <div className="d-flex align-items-center">
                         <img alt="" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://media.giphy.com/media/TdMVH60kJvTMI/source.gif"></img>
-                        <Form className="flex-grow-1" inline>
+                        <Form className="flex-grow-1" >
                             <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Make a comment" onClick={() => setNewComment(!newComment)} className="flex-grow-1 mr-sm-2" />
                         </Form>
                     </div>
@@ -102,13 +105,13 @@ const PostContainer = ({ post }) => {
                 {showComments && updatedPost.comments.length > 0 && <div className="mt-3">
                     {updatedPost.comments.length > 0 &&
 
-                        updatedPost.comments.map((comment, index) => {
-                            return <CommentsContainer comment={comment} key={index} index={index} />
+                        updatedPost.comments.reverse().map((comment, index) => {
+                            return <CommentsContainer updatePost={setUpdatedPost} comment={comment} key={index} index={index} />
                         })
                     }
                 </div>}
 
-                {updatedPost.comments.length > 0 ? <div className="d-flex justify-content-end">
+                {updatedPost.comments.length > 0 ? <div className="d-flex justify-content-end pt-3">
                     <span onClick={() => setShowComments(!showComments)}>{showComments ? "Hide Comments" : "Show Comments"}</span>
                 </div> : <div className="p-2"> Be the first to comment on this post! </div>}
 
@@ -131,7 +134,7 @@ const PostContainer = ({ post }) => {
                     <Button variant="secondary" onClick={() => setNewComment(false)}>
                         Close
                     </Button>
-                    <Button onClick={postComment} variant="primary" >
+                    <Button disabled={comment.length < 1} onClick={postComment} variant="primary" >
                         Post
                     </Button>
                 </Modal.Footer>

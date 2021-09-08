@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Col, Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { login, setAuthenticated, setUser } from '../redux/actions';
+import { setAuthenticated, setUser } from '../redux/actions';
 import axios from 'axios';
 
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
     setAuthenticated: (boolean) => dispatch(setAuthenticated(boolean))
 })
 
-const LoginPage = ({ routerProps: { history }, loginUser, setUser, setAuthenticated }) => {
+const LoginPage = ({ routerProps: { history }, setUser, setAuthenticated }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

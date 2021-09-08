@@ -4,7 +4,6 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { finnhubClient } from '../finnhub';
 
-const ApiUrl = process.env.REACT_APP_MY_API
 
 const WatchlistItem = ({ stock, remove }) => {
     const [livePrice, setLivePrice] = useState(null);
@@ -22,7 +21,7 @@ const WatchlistItem = ({ stock, remove }) => {
                 console.log(response)
             }
         })
-    }, [])
+    }, [stock.ticker])
 
     return (
 
@@ -46,7 +45,7 @@ const WatchlistItem = ({ stock, remove }) => {
             <Col md={3}>
                 <div className="d-flex flex-row">
 
-                    {percentageChange && <h6 className={(percentageChange < 0 ? "negative" : "positive")}>{percentageChange < 0 ? "-" : "+" + percentageChange + "%"}</h6>}
+                    {percentageChange && <h6 className={(percentageChange < 0 ? "negative" : "positive") + " flex-grow-1"}>{(percentageChange > 0 ? "+" : "") + percentageChange + "%"}</h6>}
                     <AiFillCloseCircle onClick={() => remove(stock._id)} className="ms-3 mt-1 close-position" />
                 </div>
             </Col>
