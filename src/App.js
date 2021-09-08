@@ -25,7 +25,7 @@ function App() {
 
   axios.defaults.withCredentials = true
 
-  const refreshAuthLogic = failedRequest => axios.post(`${ApiUrl}/users/refreshToken`, {withCredentials: true}).then(tokenRefreshResponse => {
+  const refreshAuthLogic = failedRequest => axios.post(`${ApiUrl}/users/refreshToken`,).then(tokenRefreshResponse => {
     console.log(tokenRefreshResponse)
     return Promise.resolve();
   });

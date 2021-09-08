@@ -7,6 +7,7 @@ api_key.apiKey = token
 
 const finnhubClient = new finnhub.DefaultApi()
 
+
 const socket = new WebSocket(`wss://ws.finnhub.io?token=${token}`);
 
 socket.onopen = () => {

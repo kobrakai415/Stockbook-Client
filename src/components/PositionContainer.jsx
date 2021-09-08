@@ -9,7 +9,7 @@ const ApiUrl = process.env.REACT_APP_MY_API
 
 const PositionContainer = ({ position }) => {
 
-    const [livePrice, setLivePrice] = useState(position.purchasePrice);
+    const [livePrice, setLivePrice] = useState(0);
     const [profit, setProfit] = useState(null);
     const [show, setShow] = useState(false);
     const [alert, setAlert] = useState(false);
@@ -19,6 +19,7 @@ const PositionContainer = ({ position }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log("rendered")
 
         finnhubClient.quote(`${position.ticker}`, (error, data, response) => {
             if (!error) {
@@ -39,16 +40,16 @@ const PositionContainer = ({ position }) => {
 
             if (json.type === "trade") {
                 if (json.data[0].s === position.ticker) {
-  
+                    
                     setLivePrice(json.data[0].p.toFixed(2))
-      
+
                 }
             }
         });
 
         return () => {
             socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `${position.ticker}` }))
-
+            console.log("disconnected")
         }
 
     }, []);
@@ -73,6 +74,7 @@ const PositionContainer = ({ position }) => {
 
             const res = await axios.post(`${ApiUrl}/trade/close`, body)
             if (res.status === 200) {
+                socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `${position.ticker}` }))
                 dispatch({
                     type: "SET_USER",
                     payload: res.data

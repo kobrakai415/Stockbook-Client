@@ -11,6 +11,7 @@ const SearchPage = () => {
 
     useEffect(() => {
         finnhubClient.symbolSearch(query ? query : "AAPL", (error, data, response) => {
+            console.log(response)
             console.log(data)
             setStocks(data.result)
         });

@@ -45,23 +45,25 @@ const StockPage = ({ fetchOverview, fetchDailyChart, changeLivePrice }) => {
             }
         })
         fetchOverview(symbol)
-        
-    
-        
+
+
+
         socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${symbol}` }))
 
         socket.addEventListener('message', (event) => {
-            
+
             const json = JSON.parse(event.data)
-            
+
             if (json.type === "trade") {
-                changeLivePrice(json.data[0].p.toFixed(2))
-                console.log("livePrice", json?.data[0].p)
+                if (json.data[0].s === symbol) {
+                    changeLivePrice(json.data[0].p.toFixed(2))
+                    
+                }
             }
         });
-        
+
         fetchDailyChart(symbol)
-        
+
         console.log("socket", socket)
         return () => {
             socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `${symbol}` }))
