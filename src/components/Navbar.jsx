@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { Col } from 'react-bootstrap'
-import { AiOutlinePieChart, AiOutlineEye, AiOutlineSearch, AiOutlineHome } from 'react-icons/ai'
-import { FaUserFriends } from 'react-icons/fa'
-import { Link, withRouter } from 'react-router-dom'
+import { Col } from 'react-bootstrap';
+import { AiOutlineEye, AiOutlineHome, AiOutlinePieChart } from 'react-icons/ai';
+import { FaUserFriends } from 'react-icons/fa';
+import { Link, withRouter } from 'react-router-dom';
 
 const Navbar = ({ location: {pathname}}) => {
     

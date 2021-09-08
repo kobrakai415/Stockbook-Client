@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Col, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import StockContainer from '../components/StockContainer';
 import { finnhubClient } from '../finnhub';
 
@@ -10,7 +10,8 @@ const SearchPage = () => {
 
 
     useEffect(() => {
-        finnhubClient.symbolSearch(query ? query : "APPLE", (error, data, response) => {
+        finnhubClient.symbolSearch(query ? query : "AAPL", (error, data, response) => {
+            console.log(response)
             console.log(data)
             setStocks(data.result)
         });

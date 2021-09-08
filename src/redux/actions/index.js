@@ -1,5 +1,3 @@
-
-const ApiUrl = process.env.REACT_APP_MY_API
 const key = process.env.REACT_APP_ALPHAVANTAGE_KEY
 
 export const setOverview = (data) => ({
@@ -76,6 +74,7 @@ export const fetchStokDailyChart = (symbol) => {
 
             if (res.ok) {
                 const json = await res.json()
+                console.log("json", json)
                 dispatch(setDailyChartData(json["Time Series (Daily)"]))
 
                 const key = Object.keys(json["Time Series (Daily)"])[0]

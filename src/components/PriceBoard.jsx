@@ -1,7 +1,7 @@
-import Reac, { useEffect, useState } from 'react';
-import { Col, Button, Modal, Form, Spinner, Alert, DropdownButton, Dropdown } from 'react-bootstrap';
-import { connect } from 'react-redux'
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Alert, Button, Col, Dropdown, DropdownButton, Modal, Spinner } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { setUser } from '../redux/actions';
 
 const mapStateToProps = (state) => state
@@ -20,7 +20,6 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
     const [show, setShow] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(null);
     const [watchlist, setWatchlist] = useState(null);
     const [watchlistName, setWatchlistName] = useState("");
     const [watchlistError, setWatchlistError] = useState(false)
@@ -60,7 +59,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
         } catch (error) {
             setError(true)
             setShow(false)
-            setErrorMessage(error)
+     
             console.log(error)
         }
     }
@@ -127,7 +126,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
             </Alert>}
 
             {overview && livePrice && dailyChartData ? <>
-                <div className="pb-4 d-flex justify-content between">
+                <div className="pb-4 d-flex justify-content between price-board">
                     <div className="d-flex align-items-center ">
                         <div>
                             <h1>{overview.Name}</h1>
@@ -151,8 +150,8 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
                             </Button>
                             <DropdownButton id="dropdown-basic-button" className="m-2" variant="dark" title="Add to watchlist">
                                 <Dropdown.Item onClick={() => setWatchlist(true)}>New watchlist +</Dropdown.Item>
-                                {user.watchlists.map(item => {
-                                    return <Dropdown.Item onClick={() => addToWatchlist(item._id)}>{item.name}</Dropdown.Item>
+                                {user.watchlists.map((item, index) => {
+                                    return <Dropdown.Item key={index} onClick={() => addToWatchlist(item._id)}>{item.name}</Dropdown.Item>
                                 })}
                             </DropdownButton>
                         </div>

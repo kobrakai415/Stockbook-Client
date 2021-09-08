@@ -2,10 +2,7 @@
   height: 100vh;
   background-color: rgb(53, 55, 68);
   color: rgb(55, 187, 148);
-
-
 }
-
 
 .banner {
   padding: 20px;
@@ -123,4 +120,36 @@
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.form-group {
+  padding-bottom: 8px;
+}
+
+.comment-user {
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: rgb(238, 238, 238);
+}
+
+.positions-table {
+  height: 40vh;
+  overflow-y: scroll;
+}
+.link-no-decoration {
+  text-decoration: none;
+  color: inherit;
+}
+.link-no-decoration:hover {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.price-board {
+ 
+  background-color: black;
+  border-radius: 15px;
+  padding: 15px 15px 15px 15px;
+  margin-bottom: 10px;
 }

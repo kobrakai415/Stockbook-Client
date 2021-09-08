@@ -58,6 +58,7 @@ const WatchlistPage = () => {
             console.log(error)
         }
     }
+    
     return (
 
         <Col className="height-90 p-5" xs={8} md={9} lg={10}>

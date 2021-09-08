@@ -1,30 +1,22 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
 import SearchPage from './SearchPage';
-
-const mapStateToProps = state => state
-
-const mapDispatchToProps = (dispatch) => ({
+const ApiUrl = process.env.REACT_APP_MY_API
 
 
-})
 const HomePage = () => {
-
-
 
     return (
         <Col className="height-90" xs={8} md={9} lg={10}>
             <Row>
                 <Col md={5}>
-                <SearchPage/>
+                    <SearchPage />
 
                 </Col>
+                <button onClick={() => axios.post(`${ApiUrl}/users/refreshToken`, { withCredentials: true })}>Refresh token</button>
             </Row>
         </Col>
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default HomePage;

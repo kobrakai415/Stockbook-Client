@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { socket, finnhubClient } from '../finnhub/index';
@@ -8,8 +8,17 @@ import PriceBoard from '../components/PriceBoard';
 import { connect } from "react-redux"
 import { fetchStockOverview, fetchStokDailyChart, setLivePrice, setQuotedPrice } from '../redux/actions';
 
-const api = process.env.REACT_APP_ALPHAVANTAGE_API
-const key = process.env.REACT_APP_ALPHAVANTAGE_KEY
+// const token = process.env.REACT_APP_FINNHUB_KEY
+// const finnhub = require('finnhub');
+
+// const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+// api_key.apiKey = token
+
+// export const finnhubClient = new finnhub.DefaultApi()
+// export const socket = new WebSocket(`wss://ws.finnhub.io?token=${token}`);
+
+// const api = process.env.REACT_APP_ALPHAVANTAGE_API
+// const key = process.env.REACT_APP_ALPHAVANTAGE_KEY
 
 const mapStateToProps = (state) => state
 
@@ -20,7 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeLivePrice: (price) => dispatch(setLivePrice(price))
 })
 
-const StockPage = ({  fetchOverview, fetchDailyChart, changeLivePrice }) => {
+const StockPage = ({ fetchOverview, fetchDailyChart, changeLivePrice }) => {
 
 
     const { symbol } = useParams()
@@ -29,7 +38,7 @@ const StockPage = ({  fetchOverview, fetchDailyChart, changeLivePrice }) => {
         finnhubClient.quote(symbol, (error, data, response) => {
             if (!error) {
                 console.log("quoted price", data["c"])
-                changeLivePrice(data["c"])
+                changeLivePrice(data["c"].toFixed(2))
             } else {
                 console.log(error)
                 console.log(response)
@@ -37,23 +46,25 @@ const StockPage = ({  fetchOverview, fetchDailyChart, changeLivePrice }) => {
         })
         fetchOverview(symbol)
 
-        socket.addEventListener('open', (event) => {
-            console.log("connected")
-            socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${symbol}` }))
-        })
 
-        socket.addEventListener('message', async (event) => {
+
+        socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${symbol}` }))
+
+        socket.addEventListener('message', (event) => {
 
             const json = JSON.parse(event.data)
 
             if (json.type === "trade") {
-                changeLivePrice(json.data[0].p.toFixed(2))
-                console.log("livePrice", json?.data[0].p)
+                if (json.data[0].s === symbol) {
+                    changeLivePrice(json.data[0].p.toFixed(2))
+                    
+                }
             }
         });
 
         fetchDailyChart(symbol)
 
+        console.log("socket", socket)
         return () => {
             socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `${symbol}` }))
             console.log("disconnected")
@@ -66,6 +77,8 @@ const StockPage = ({  fetchOverview, fetchDailyChart, changeLivePrice }) => {
             <Row>
 
                 <PriceBoard />
+
+                {/* //Comapny details and posts section: */}
 
                 <CompanyDetails />
 
