@@ -1,19 +1,37 @@
-import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import SearchPage from './SearchPage';
-const ApiUrl = process.env.REACT_APP_MY_API
-
+import { finnhubClient } from '../finnhub';
+import NewsContainer from '../components/NewsContainer';
 
 const HomePage = () => {
 
+    const [newsArray, setNewsArray] = useState([]);
+
+
+    useEffect(() => {
+
+        finnhubClient.marketNews("general", {}, (error, data, response) => {
+            console.log(data)
+            setNewsArray(data)
+        });
+    }, []);
+
     return (
-        <Col className="height-90" xs={8} md={9} lg={10}>
+        <Col className="height-90" xs={12} md={9} lg={10}>
             <Row>
-                <Col md={5}>
+                <Col xs={5}>
                     <SearchPage />
 
                 </Col>
-                <button onClick={() => axios.post(`${ApiUrl}/users/refreshToken`, { withCredentials: true })}>Refresh token</button>
+                <Col xs={7}>
+
+                    {newsArray.length > 0 && newsArray.slice(0,6).map((item, index) => {
+                        return <NewsContainer item={item} index={index} key={item.id} />
+                    })}
+
+                </Col>
+
             </Row>
         </Col>
     );

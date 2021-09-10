@@ -24,6 +24,11 @@ const LoginPage = ({ routerProps: { history }, setUser, setAuthenticated }) => {
     const login = async (e) => {
         e.preventDefault()
         try {
+            const form = e.currentTarget
+
+            if (form.checkValidity() === false) {
+                return
+            }
 
             const details = {
                 email: email,
@@ -48,47 +53,59 @@ const LoginPage = ({ routerProps: { history }, setUser, setAuthenticated }) => {
 
     return (
         <Container
-            className="d-flex justify-content-center align-items-center"
+            fluid
+            className="d-flex justify-content-center align-items-center login-page"
             style={{ minHeight: "100vh" }}
         >
 
-            <Col md={4} >
-                <Form onSubmit={(e) => login(e)} className='register-form p-md-5 p-4'>
+
+            <Form validated onSubmit={(e) => login(e)} className=' p-md-5 p-4 register-form d-flex flex-column'>
+
+                <div>
+                    <h1>StockBook</h1>
                     <h3>Sign in</h3>
-                    <Form.Group className='mb-3' controlId='username'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            type='email'
-                            placeholder='Enter email'
-                        />
-                    </Form.Group>
+                </div>
 
-                    <Form.Group className='mb-3' controlId='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            type='password'
-                            placeholder='Enter password'
-                        />
-                    </Form.Group>
+                <Form.Group className='mb-3 p-2' controlId='username'>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        type='email'
+                        placeholder='Enter email'
+                    />
+                </Form.Group>
 
-                    <Button type="submit" variant='primary'>
+                <Form.Group className='mb-3 p-2' controlId='password'>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        minLength={4}
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type='password'
+                        placeholder='Enter password'
+                    />
+                </Form.Group>
+                <div className="p-2">
+
+                    <Button className="login-page-buttons" type="submit" variant='primary'>
                         Login
                     </Button>
                     <Link to="/register">
                         <Button
 
-                            className='ms-3'
+                            className="login-page-buttons ms-3"
                             variant='primary'
                             type='button'>
                             SignUp
                         </Button>
                     </Link>
-                </Form>
-            </Col>
+                </div>
+
+            </Form>
+
 
         </Container>
     );

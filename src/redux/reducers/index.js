@@ -43,6 +43,12 @@ export const dataReducer = (state = initialState.data, action) => {
                 ...state,
                 user: action.payload
             }
+        case 'SET_UNREALIZED':
+
+            return {
+                ...state,
+                unrealized: action.payload
+            }
         default:
             return state
 

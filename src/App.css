@@ -1,6 +1,7 @@
-.app {
+.app, .login-page {
   height: 100vh;
   background-color: rgb(53, 55, 68);
+
   color: rgb(55, 187, 148);
 }
 
@@ -12,8 +13,6 @@
 .height-90 {
   height: 90vh;
   overflow-y: scroll;
-  border-left: rgb(170, 219, 174) solid 1px;
-  border-top: rgb(170, 219, 174) solid 1px;
   padding: 10px 10px 10px 10px;
 }
 
@@ -57,8 +56,15 @@
 }
 
 .register-form {
-  border: rgb(189, 189, 189) 1px solid;
+  border: rgb(7, 7, 7) 1px solid;
   border-radius: 30px;
+  background-color: #2d2d2c;
+ 
+}
+.login-page-buttons  {
+  background-color: rgb(55, 187, 148);
+  border-color: black
+  
 }
 
 .selected {
@@ -133,7 +139,7 @@
 }
 
 .positions-table {
-  height: 40vh;
+  max-height: 40vh;
   overflow-y: scroll;
 }
 .link-no-decoration {
@@ -147,9 +153,43 @@
 }
 
 .price-board {
- 
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.664);
   border-radius: 15px;
-  padding: 15px 15px 15px 15px;
-  margin-bottom: 10px;
+ 
+}
+.black-bg {
+  background-color: rgba(0, 0, 0, 0.664);
+  border-radius: 15px;
+}
+
+.position-item {
+  max-height: 3em;
+}
+
+@media (max-width: 500px) {
+  .button-small button {
+    font-size: 6px;
+    line-height: 3.2;
+  }
+}
+
+.toast {
+  position: absolute;
+  top: 15vh;
+  left: 50vw;
+  transform: translate(-50%,-50%);
+}
+
+.stock-name {
+  background-color: rgb(83, 206, 255);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.percentage-container {
+  background-color: yellow;
+}
+
+.card{
+  background-color: #2d2d2c;
 }

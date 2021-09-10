@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Col, Dropdown, DropdownButton, Modal, Spinner } from 'react-bootstrap';
+import { Alert, Button, Col, Dropdown, DropdownButton, Modal, Spinner, Toast } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setUser } from '../redux/actions';
+import { socket, finnhubClient } from '../finnhub/index';
 
 const mapStateToProps = (state) => state
 
@@ -12,8 +13,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
-const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClosing, user }, quotedPrice, setUser }) => {
+const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user }, quotedPrice, setUser, symbol }) => {
 
+    const [livePrice, setLivePrice] = useState(0)
     const [percentageChange, setPercentageChange] = useState((livePrice - yesterdaysClosing) / yesterdaysClosing * 100);
     const [quantity, setQuantity] = useState(1)
     const [total, setTotal] = useState((quantity * livePrice));
@@ -23,6 +25,40 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
     const [watchlist, setWatchlist] = useState(null);
     const [watchlistName, setWatchlistName] = useState("");
     const [watchlistError, setWatchlistError] = useState(false)
+    const [finnhubError, setFinnhubError] = useState(false);
+
+
+    useEffect(() => {
+        finnhubClient.quote(symbol, (error, data, response) => {
+            if (!error) {
+                console.log("quoted price", data["c"])
+                setLivePrice(data["c"].toFixed(2))
+            } else {
+                if (response.statusCode === 403) setFinnhubError(true)
+                console.log(error)
+                console.log(response)
+            }
+        })
+
+
+        socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': `${symbol}` }))
+
+        socket.addEventListener('message', (event) => {
+
+            const json = JSON.parse(event.data)
+
+            if (json.type === "trade") {
+                if (json.data[0].s === symbol) {
+                    setLivePrice(json.data[0].p.toFixed(2))
+                }
+            }
+        });
+
+        return () => {
+            socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': `${symbol}` }))
+            console.log("disconnected")
+        }
+    }, []);
 
     useEffect(() => {
 
@@ -59,7 +95,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
         } catch (error) {
             setError(true)
             setShow(false)
-     
+
             console.log(error)
         }
     }
@@ -111,44 +147,55 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
 
     return (
         <Col md={12}>
+           
+                <Toast
+                    className="slide-in-top toast"
+                    show={success} onClose={() => setSuccess(false)}>
+                    <Toast.Header>
 
-            {success && <Alert variant="success" onClose={() => setSuccess(false)} dismissible>
-                <Alert.Heading>Server message</Alert.Heading>
-                <p>
-                    Transaction completed successfully!
-                </p>
-            </Alert>}
-            {error && <Alert variant="danger" onClose={() => setError(false)} dismissible>
-                <Alert.Heading>Server message</Alert.Heading>
-                <p>
-                    An error occurred! Please try again!
-                </p>
-            </Alert>}
+                        <strong className="me-auto">Server Message</strong>
+
+                    </Toast.Header>
+                    <Toast.Body> Transaction completed successfully!</Toast.Body>
+                </Toast>
+                <Toast
+                    className="slide-in-top toast"
+                    show={error} onClose={() => setError(false)}>
+                    <Toast.Header>
+
+                        <strong className="me-auto">Server Message</strong>
+
+                    </Toast.Header>
+                    <Toast.Body>  An error occurred! Please try again!</Toast.Body>
+                </Toast>
+        
+
+
 
             {overview && livePrice && dailyChartData ? <>
-                <div className="pb-4 d-flex justify-content between price-board">
+                <div className="p-4 mb-4 d-flex justify-content between price-board">
                     <div className="d-flex align-items-center ">
-                        <div>
+                        <div className="stock-name">
                             <h1>{overview.Name}</h1>
                             <span>{overview.Symbol} • </span> <span>{overview.AssetType} • </span> <span>{overview.Exchange}</span>
                         </div>
-                        <div className="p-2 ms-3">
+                        <div className="p-2 ms-md-3">
 
                             <h4 className="p-2">{livePrice !== null ?
                                 "$" + livePrice :
                                 "$" + quotedPrice}  </h4>
 
-                            <div className="d-flex flex-row align-items-center">
-                                <h4 className="p-2" style={{ color: percentageChange < 0 ? "red" : "green" }}>{percentageChange.toFixed(2) + "%"}</h4>
+                            <div className="d-flex flex-column flex-md-row align-items-center">
+                                <h4 className={"p-2 percentage-container " + (percentageChange < 0 ? "negative" : "positive")}>{percentageChange.toFixed(2) + "%"}</h4>
                                 <span className="text-muted">yesterday</span>
                             </div>
 
                         </div>
-                        <div className="p-2 ms-3 d-flex flex-column ">
+                        <div className="p-md-2 ms-md-3  ">
                             <Button className="m-2" onClick={() => setShow(true)} variant="success">
                                 Buy
                             </Button>
-                            <DropdownButton id="dropdown-basic-button" className="m-2" variant="dark" title="Add to watchlist">
+                            <DropdownButton id="dropdown-basic-button" className="m-2 button-small" size="sm" variant="dark" title="Add to watchlist">
                                 <Dropdown.Item onClick={() => setWatchlist(true)}>New watchlist +</Dropdown.Item>
                                 {user.watchlists.map((item, index) => {
                                     return <Dropdown.Item key={index} onClick={() => addToWatchlist(item._id)}>{item.name}</Dropdown.Item>
@@ -166,7 +213,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, livePrice, yesterdaysClo
 
             {overview && livePrice &&
                 <Modal
-                    
+
                     show={show}
                     onHide={() => setShow(false)}
                     backdrop="static"

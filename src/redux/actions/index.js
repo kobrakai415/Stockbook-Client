@@ -43,7 +43,10 @@ export const setAuthenticated = (boolean) => ({
     payload: boolean
 })
 
-
+export const setUnrealizedProfits = (unrealized) => ({
+    type: "SET_UNREALIZED",
+    payload: unrealized
+})
 
 export const fetchStockOverview = (symbol) => {
     return async (dispatch, getState) => {

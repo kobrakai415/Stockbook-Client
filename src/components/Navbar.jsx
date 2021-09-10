@@ -3,28 +3,36 @@ import { AiOutlineEye, AiOutlineHome, AiOutlinePieChart } from 'react-icons/ai';
 import { FaUserFriends } from 'react-icons/fa';
 import { Link, withRouter } from 'react-router-dom';
 
-const Navbar = ({ location: {pathname}}) => {
-    
+const Navbar = ({ location: { pathname } }) => {
+
 
     return (
-        <Col xs={4} md={3} lg={2}>
-            <div className="nav-links d-flex flex-column">
+        <Col xs={12} md={3} lg={2}>
+            <div className="nav-links d-flex flex-row flex-md-column mx-3">
 
-                <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/" ? "selected" : null)}>
-                    <AiOutlineHome />
-                    <span className="ms-2">Home</span>
+                <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/" || pathname.includes("/stock") ? "selected" : null)}>
+                    <div>
+                        <AiOutlineHome />
+                    </div>
+                    <span className="ms-2 d-none d-sm-block">Home</span>
                 </Link>
                 <Link to="/watchlists" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/watchlists" ? "selected" : null)}>
-                    <AiOutlineEye />
-                    <span className="ms-2">Watchlists</span>
+                    <div>
+                        <AiOutlineEye />
+                    </div>
+                    <span className="ms-2 d-none d-sm-block">Watchlists</span>
                 </Link>
                 <Link to="/portfolio" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/portfolio" ? "selected" : null)}>
-                    <AiOutlinePieChart />
-                    <span className="ms-2">My Portfolio</span>
+                    <div>
+                        <AiOutlinePieChart />
+                    </div>
+                    <span className="ms-2 d-none d-sm-block">Portfolio</span>
                 </Link>
                 <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/network" ? "selected" : null)}>
-                    <FaUserFriends />
-                    <span className="ms-2">Network</span>
+                    <div>
+                        <FaUserFriends />
+                    </div>
+                    <span className="ms-2 d-none d-sm-block">Network</span>
                 </Link>
 
 

@@ -5,22 +5,23 @@ import thunk from "redux-thunk"
 export const initialState = {
 
     data: {
+        user: {
+            balance: 0,
+            portfolio: [],
+            watchlists: [{
+                stocks: [],
+                name: "",
+                _id: ""
+            },]
+        },
         overview: null,
-        quotedPrice: null,
-        livePrice: null,
         yesterdaysClosing: null,
         dailyChartData: {},
         percentageChange: null,
         chartXValues: null,
         chartYValues: null,
-        user: {
-            watchlists: [{
-                stocks: [],
-                name: "",
-                _id: ""
-            }]
-        },
         authenticated: false,
+        unrealized: 0
 
     },
 

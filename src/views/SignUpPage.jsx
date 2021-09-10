@@ -56,8 +56,8 @@ const SignUpPage = ({ routerProps }) => {
     return (
 
         <Container
-            className="d-flex flex-column justify-content-center align-items-center"
-            style={{ minHeight: "100vh" }}
+            className="d-flex flex-column justify-content-center align-items-center login-page"
+          
         >
 
 

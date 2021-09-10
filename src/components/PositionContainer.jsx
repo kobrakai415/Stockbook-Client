@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
-const PositionContainer = ({ position }) => {
+const PositionContainer = ({ position, index, updateProfit, removeFromProfits }) => {
 
     const [livePrice, setLivePrice] = useState(0);
     const [profit, setProfit] = useState(null);
@@ -40,7 +40,7 @@ const PositionContainer = ({ position }) => {
 
             if (json.type === "trade") {
                 if (json.data[0].s === position.ticker) {
-                    
+
                     setLivePrice(json.data[0].p.toFixed(2))
 
                 }
@@ -59,8 +59,13 @@ const PositionContainer = ({ position }) => {
         const difference = ((livePrice * position.shares) - (position.purchasePrice * position.shares)).toFixed(2)
 
         setProfit(difference)
-    }, [livePrice])
+        updateProfit({ index, difference })
 
+        return () => {
+            removeFromProfits({index, difference})
+        }
+
+    }, [livePrice])
 
 
     const closePosition = async () => {
@@ -116,14 +121,14 @@ const PositionContainer = ({ position }) => {
                     <Col className={"p-1 " + (profit < 0 ? "negative" : "positive")} md={2}>
                         <div className="d-flex flex-row">
                             <h6 className="flex-grow-1">{(profit < 0 ? "-" : "+") + "$" + Math.abs(profit).toFixed(2)}</h6>
-                            <AiFillCloseCircle onClick={() => setShow(true)} className="ms-3 mt-1 close-position" />
+                            <AiFillCloseCircle onClick={() => setShow(true)} className="ms-3 me-5 mt-1 close-position" />
 
                         </div>
                     </Col>
                 </Row>
 
                 <Modal
-
+                    
                     show={show}
                     onHide={() => setShow(false)}
                     backdrop="static"
