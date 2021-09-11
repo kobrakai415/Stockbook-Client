@@ -18,18 +18,19 @@ const HomePage = () => {
     }, []);
 
     return (
-        <Col className="height-90" xs={12} md={9} lg={10}>
+        <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
-                <Col xs={5}>
+                <Col  xs={12} md={8}>
                     <SearchPage />
 
                 </Col>
-                <Col xs={7}>
-
+                <Col className="mb-3" xs={12} md={4}>
+                    <div className="p-4 black-bg">
+                    <h1 className="mb-3">Market News</h1>
                     {newsArray.length > 0 && newsArray.slice(0,6).map((item, index) => {
                         return <NewsContainer item={item} index={index} key={item.id} />
                     })}
-
+                    </div>
                 </Col>
 
             </Row>

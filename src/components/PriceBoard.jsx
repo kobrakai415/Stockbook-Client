@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Col, Dropdown, DropdownButton, Modal, Spinner, Toast } from 'react-bootstrap';
+import { Alert, Button, Col, Dropdown, DropdownButton, Modal, Row, Spinner, Toast } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setUser } from '../redux/actions';
 import { socket, finnhubClient } from '../finnhub/index';
@@ -147,62 +147,68 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
 
     return (
         <Col md={12}>
-           
-                <Toast
-                    className="slide-in-top toast"
-                    show={success} onClose={() => setSuccess(false)}>
-                    <Toast.Header>
 
-                        <strong className="me-auto">Server Message</strong>
+            <Toast
+                className="slide-in-top toast"
+                show={success} onClose={() => setSuccess(false)}>
+                <Toast.Header>
 
-                    </Toast.Header>
-                    <Toast.Body> Transaction completed successfully!</Toast.Body>
-                </Toast>
-                <Toast
-                    className="slide-in-top toast"
-                    show={error} onClose={() => setError(false)}>
-                    <Toast.Header>
+                    <strong className="me-auto">Server Message</strong>
 
-                        <strong className="me-auto">Server Message</strong>
+                </Toast.Header>
+                <Toast.Body> Transaction completed successfully!</Toast.Body>
+            </Toast>
+            <Toast
+                className="slide-in-top toast"
+                show={error} onClose={() => setError(false)}>
+                <Toast.Header>
 
-                    </Toast.Header>
-                    <Toast.Body>  An error occurred! Please try again!</Toast.Body>
-                </Toast>
-        
+                    <strong className="me-auto">Server Message</strong>
+
+                </Toast.Header>
+                <Toast.Body>  An error occurred! Please try again!</Toast.Body>
+            </Toast>
+
 
 
 
             {overview && livePrice && dailyChartData ? <>
-                <div className="p-4 mb-4 d-flex justify-content between price-board">
-                    <div className="d-flex align-items-center ">
-                        <div className="stock-name">
-                            <h1>{overview.Name}</h1>
-                            <span>{overview.Symbol} • </span> <span>{overview.AssetType} • </span> <span>{overview.Exchange}</span>
-                        </div>
-                        <div className="p-2 ms-md-3">
+                <div className="p-4 mb-4 d-flex black-bg">
 
-                            <h4 className="p-2">{livePrice !== null ?
-                                "$" + livePrice :
-                                "$" + quotedPrice}  </h4>
+                    <div className="me-3 p-3 stock-name">
+                        <h1>{overview.Name}</h1>
+                        <span>{overview.Symbol} • </span> <span>{overview.AssetType} • </span> <span>{overview.Exchange}</span>
+                    </div >
 
-                            <div className="d-flex flex-column flex-md-row align-items-center">
-                                <h4 className={"p-2 percentage-container " + (percentageChange < 0 ? "negative" : "positive")}>{percentageChange.toFixed(2) + "%"}</h4>
-                                <span className="text-muted">yesterday</span>
+                    <div className="dark-bg">
+                        <div className="d-flex p-3">
+                            <div className=" ms-md-3">
+
+                                <h4 className="p-2" >{livePrice !== null ?
+                                    "$" + livePrice :
+                                    "$" + quotedPrice}  </h4>
+
+                                <div className="d-flex flex-column flex-md-row align-items-center">
+                                    <h4 className={"p-2 percentage-container " + (percentageChange < 0 ? "negative-percentage-container" : "positive-percentage-container")}>{percentageChange.toFixed(2) + "%"}</h4>
+                                    <span className="ms-2 text-muted">yesterday</span>
+                                </div>
+
                             </div>
 
-                        </div>
-                        <div className="p-md-2 ms-md-3  ">
-                            <Button className="m-2" onClick={() => setShow(true)} variant="success">
-                                Buy
-                            </Button>
-                            <DropdownButton id="dropdown-basic-button" className="m-2 button-small" size="sm" variant="dark" title="Add to watchlist">
-                                <Dropdown.Item onClick={() => setWatchlist(true)}>New watchlist +</Dropdown.Item>
-                                {user.watchlists.map((item, index) => {
-                                    return <Dropdown.Item key={index} onClick={() => addToWatchlist(item._id)}>{item.name}</Dropdown.Item>
-                                })}
-                            </DropdownButton>
+                            <div className=" ms-md-3  ">
+                                <Button className="m-2 login-page-buttons" onClick={() => setShow(true)}>
+                                    Buy
+                                </Button>
+                                <DropdownButton id="dropdown-basic-button" className="login-page-butons m-2 button-small" size="sm" variant="dark" title="Add to watchlist">
+                                    <Dropdown.Item onClick={() => setWatchlist(true)}>New watchlist +</Dropdown.Item>
+                                    {user.watchlists.map((item, index) => {
+                                        return <Dropdown.Item key={index} onClick={() => addToWatchlist(item._id)}>{item.name}</Dropdown.Item>
+                                    })}
+                                </DropdownButton>
+                            </div>
                         </div>
                     </div>
+
 
                 </div>
             </> :

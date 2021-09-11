@@ -40,9 +40,9 @@ const Charts = () => {
                         }]}
                         layout={{
                             title: "Portfolio Split",
-
+                            bgcolor: "black",
                             autosize: true,
-
+                            plot_bgcolor: "#343a40"
                         }}
                         useResizeHandler={true}
                         style={{ maxHeight: "100%", maxWidth: "100%" }}

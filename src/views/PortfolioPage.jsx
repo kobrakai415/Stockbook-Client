@@ -17,7 +17,7 @@ const PortfolioPage = () => {
 
 
     return (
-        <Col className="height-90 p-4" xs={8} md={9} lg={10}>
+        <Col className="height-90 p-3" xs={8} md={9} lg={10}>
             <PortfolioStats />
             <PositionsTable />
             <Charts/>

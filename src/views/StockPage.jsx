@@ -29,7 +29,7 @@ const StockPage = ({ fetchOverview, fetchDailyChart, data: { yesterdaysClosing }
 
 
     return (
-        <Col className="height-90 p-4" xs={12} md={9} lg={10}>
+        <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
 
                 <PriceBoard symbol={symbol} />

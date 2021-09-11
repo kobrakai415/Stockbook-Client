@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {Form, Container, Button, Alert } from 'react-bootstrap';
+import { Form, Container, Button, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 const ApiUrl = process.env.REACT_APP_MY_API
@@ -56,8 +57,8 @@ const SignUpPage = ({ routerProps }) => {
     return (
 
         <Container
-            className="d-flex flex-column justify-content-center align-items-center login-page"
-          
+            fluid className="d-flex flex-column justify-content-center align-items-center login-page"
+
         >
 
 
@@ -72,7 +73,7 @@ const SignUpPage = ({ routerProps }) => {
             <Form onSubmit={(e) => submitForm(e)} className='register-form p-4 p-md-5'>
                 <h1>StockBook</h1>
                 <h3>Sing Up</h3>
-                <Form.Group className='mb-3' controlId='name'>
+                <Form.Group className='mb-3 p-1' controlId='name'>
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                         required
@@ -82,7 +83,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Enter firstname'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='surname'>
+                <Form.Group className='mb-3 p-1' controlId='surname'>
                     <Form.Label>Surname</Form.Label>
                     <Form.Control
                         required
@@ -92,7 +93,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Enter surname'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='email'>
+                <Form.Group className='mb-3 p-1' controlId='email'>
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                         required
@@ -105,7 +106,7 @@ const SignUpPage = ({ routerProps }) => {
                         We'll never share your email with anyone else.
                     </Form.Text>
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='signupPassword'>
+                <Form.Group className='mb-3 p-1' controlId='signupPassword'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         required
@@ -115,7 +116,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Password'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3'>
+                <Form.Group className='mb-3 p-1'>
                     <Form.Label>Starting Balance</Form.Label>
                     <div className="mb-3">
                         <Form.Check
@@ -142,9 +143,14 @@ const SignUpPage = ({ routerProps }) => {
                         />
                     </div>
                 </Form.Group>
-                <div className="d-flex justify-content-center">
+                <div className="p-1">
+                    <Link to="/login">
+                        <Button
+                            className="login-page-buttons"
+                        >Back to Login</Button>
+                    </Link>
                     <Button
-                        className=''
+                        className='login-page-buttons ms-3'
                         variant='primary'
                         type='submit'>
                         Sign Up

@@ -10,15 +10,15 @@ const NewsContainer = ({ item, index }) => {
 
                     <div className="d-flex flex-column flex-lg-row justify-content-between">
 
-                        <strong style={{ fontSize: "14px" }} className="">{item.headline}</strong>
-                        <img className="p-2 img-fluid" src={item.image} style={{ maxHeight: "100px", maxWidth: "150px" }} height={50} width={150} alt="news" />
+                        <h4 className="">{item.headline}</h4>
+                        <img className="p-2 img-fluid rounded" src={item.image} style={{ maxHeight: "100px", maxWidth: "150px" }} height={50} width={150} alt="news" />
 
                     </div>
                     <div>
-                        <p>{item.summary}</p>
+                        <p className="text-white">{item.summary}</p>
                     </div>
 
-                    <div>
+                    <div className="text-info">
 
                         <span>Source: </span>
                         <span>{item.source}</span>

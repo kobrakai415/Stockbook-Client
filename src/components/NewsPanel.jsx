@@ -42,15 +42,15 @@ const NewsPanel = ({ symbol }) => {
 
                                         <div className="d-flex flex-column flex-lg-row justify-content-between">
 
-                                            <strong style={{ fontSize: "14px" }} className="">{item.title}</strong>
-                                            <img className="p-2 img-fluid" src={item.image_url} style={{ maxHeight: "60px", maxWidth: "100px" }} height={50} width={100} alt="news" />
+                                            <h4 >{item.title}</h4>
+                                            <img className="m-2 img-fluid rounded" src={item.image_url} height={50} width={150}   alt="news" />
 
                                         </div>
                                         <div>
-                                            <p>{item.text}</p>
+                                            <p className="text-white"> {item.text}</p>
                                         </div>
 
-                                        <div>
+                                        <div className="text-info">
 
                                             <span>Source: </span>
                                             <span>{item.source_name}</span>

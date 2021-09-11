@@ -1,25 +1,30 @@
-.app, .login-page {
+.app,
+.login-page {
   height: 100vh;
-  background-color: rgb(53, 55, 68);
-
+  /* background-color: rgb(53, 55, 68); */
+  background-color: rgb(23,21,49);
   color: rgb(55, 187, 148);
+
 }
 
 .banner {
   padding: 20px;
-  height: 10vh;
+  height: 8vh;
 }
 
 .height-90 {
-  height: 90vh;
+  height: 92vh;
   overflow-y: scroll;
-  padding: 10px 10px 10px 10px;
 }
 
+.nav-links{
+  padding-top: 10px;
+}
 .nav-links a,
 .nav-links a:visited {
   text-decoration: none;
   color: inherit;
+  max-width: 150px;
 }
 .no-decor,
 .no-decor:visited {
@@ -49,7 +54,7 @@
   color: rgb(17, 216, 17);
 }
 .neutral {
-  color: black;
+  color: rgb(20, 117, 243);
 }
 .negative {
   color: rgb(223, 53, 53);
@@ -58,13 +63,11 @@
 .register-form {
   border: rgb(7, 7, 7) 1px solid;
   border-radius: 30px;
-  background-color: #2d2d2c;
- 
+  background-color: #25233d;;
 }
-.login-page-buttons  {
+.login-page-buttons {
   background-color: rgb(55, 187, 148);
-  border-color: black
-  
+  border-color: black;
 }
 
 .selected {
@@ -152,14 +155,15 @@
   color: inherit;
 }
 
-.price-board {
-  background-color: rgba(0, 0, 0, 0.664);
-  border-radius: 15px;
- 
+.dark-bg{ 
+  background-color: rgb(23,21,49) ;
+  border-radius: 10px;
 }
+
 .black-bg {
-  background-color: rgba(0, 0, 0, 0.664);
-  border-radius: 15px;
+  /* background-color: rgba(0, 0, 0, 0.664); */
+  background-color: rgb(37,35,61);
+  border-radius: 10px;
 }
 
 .position-item {
@@ -177,19 +181,54 @@
   position: absolute;
   top: 15vh;
   left: 50vw;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
 
 .stock-name {
-  background-color: rgb(83, 206, 255);
+  background-color: rgb(23,21,49);
   border-radius: 10px;
-  padding: 10px;
+  
 }
 
-.percentage-container {
-  background-color: yellow;
+.positive-percentage-container {
+  background-color: rgb(40,62,64);
+  color: rgb(133,210,163);
+  border-radius: 5px;
 }
 
-.card{
-  background-color: #2d2d2c;
+.negative-percentage-container{
+  background-color: rgb(63,38,58);
+  color: rgb(207,119,127);
+  border-radius: 5px;
+}
+
+.card {
+  background-color: rgb(23,21,49);
+}
+
+.stock-logo{
+  border-radius: 7px;
+  height: 45px;
+  width: 45px;
+  background-color: rgb(255, 255, 255);
+  
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e1fcd9; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(61, 61, 61); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

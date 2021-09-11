@@ -26,30 +26,35 @@ const PortfolioStats = () => {
 
 
     return (
-        <Row className="black-bg p-4 mb-3">
-            <Col md={4}>
-                <Card bg="dark" className="p-3 d-flex align-items-center justify-content-center">
-                    <h3>Cash</h3>
-                    <h2>${balance.toFixed(2)}</h2>
+        <Row className="mb-3">
+            <Col className="ps-0" md={4}>
+                <div className="black-bg p-4">
+                    <Card className="p-3 d-flex align-items-center justify-content-center">
+                        <h3>Cash</h3>
+                        <h2>${balance.toFixed(2)}</h2>
 
-                </Card>
-
+                    </Card>
+                </div>
             </Col>
             <Col md={4}>
-                <Card bg="dark" className=" p-3 d-flex align-items-center justify-content-center">
+                <div className="black-bg p-4">
+                    <Card className="black-bg p-4" className=" p-3 d-flex align-items-center justify-content-center">
 
-                    <h3>Invested</h3>
-                    <h2>${invested.toFixed(2)}</h2>
-                </Card>
+                        <h3>Invested</h3>
+                        <h2>${invested.toFixed(2)}</h2>
+                    </Card>
+                </div>
             </Col>
-            <Col md={4}>
-                <Card bg="dark" className=" p-3 d-flex align-items-center justify-content-center">
-                    <h3>Net Liquidation</h3>
-                    <h2>${performance.toFixed(2)}</h2>
-                </Card>
+            <Col className="pe-0" md={4}>
+                <div className="black-bg p-4">
+                    <Card className="black-bg p-4" className=" p-3 d-flex align-items-center justify-content-center">
+                        <h3>Net Liquidation</h3>
+                        <h2>${performance.toFixed(2)}</h2>
+                    </Card>
+                </div>
             </Col>
 
-            
+
         </Row>
     );
 }
