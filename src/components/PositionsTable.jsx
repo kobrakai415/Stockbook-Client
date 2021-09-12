@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PositionContainer from './PositionContainer';
 
@@ -49,8 +49,40 @@ const PositionsTable = () => {
         <>
             {portfolio && portfolio.length > 0 && (<>
 
+                <Row className="black-bg p-4 mb-4 mx-0">
+                <Table striped  hover>
+                    <thead>
+                        <tr>
+                           
+                            <th><h3>Stock</h3></th>
+                            <th>Ticker</th>
+                            <th>Shares</th>
+                            <th>Cost Price</th>
+                            <th>Last</th>
+                            <th>P&L</th>
 
-                <Row className="black-bg p-4 mb-3">
+
+                        </tr>
+                    </thead>
+
+
+
+                    <tbody>
+                      
+                {portfolio.map((position, index) => {
+                    return (
+                        <tr>
+                        <td>Stock</td>
+                            <td>Ticker</td>
+                            <td>Shares</td>
+                            <td>Cost Price</td>
+                            <td>Last</td>
+                            <td>P&L</td>
+                        </tr>
+                    )
+                })}
+                    </tbody>
+                </Table>
                     <Col className="p-1" md={2}>
                         <h3>Stock</h3>
                     </Col>
@@ -72,7 +104,8 @@ const PositionsTable = () => {
 
 
 
-                    <Col xs={12} className="positions-table" >
+
+                    <Col xs={12} className="dark-bg p-4 positions-table" >
                         {portfolio.map((position, index) => {
 
                             return <PositionContainer updateProfit={updateProfit} removeFromProfits={removeFromProfits} key={position._id} position={position} index={index} />

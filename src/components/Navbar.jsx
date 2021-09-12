@@ -7,7 +7,7 @@ const Navbar = ({ location: { pathname } }) => {
 
 
     return (
-        <Col className="p-3" xs={12} md={3} lg={2}>
+        <Col className="p-3 sidebar" xs={12} md={3} lg={2}>
             <div className="nav-links justify-content-center black-bg p-4 d-flex flex-row flex-md-column">
 
                 <Link to="/" className={"px-3 py-2 d-flex align-items-center " + (pathname === "/" || pathname.includes("/stock") ? "selected" : null)}>

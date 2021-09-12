@@ -61,10 +61,10 @@ const WatchlistPage = () => {
     
     return (
 
-        <Col className="height-90 p-5" xs={8} md={9} lg={10}>
+        <Col className="height-90  p-4" xs={8} md={9} lg={10}>
+
+        
             <h1>Watchlists</h1>
-
-
 
             <Toast
                 className="slide-in-top "
@@ -120,6 +120,8 @@ const WatchlistPage = () => {
                 })}
 
             </>}
+
+            
         </Col>
     );
 }

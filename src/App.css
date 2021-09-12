@@ -8,13 +8,30 @@
 }
 
 .banner {
-  padding: 20px;
-  height: 8vh;
+ 
+  height: 16vh;
 }
 
 .height-90 {
-  height: 92vh;
+  height: 84vh;
   overflow-y: scroll;
+}
+
+
+@media screen and (max-width: 767px) {
+  .sidebar {
+    
+    height: 14vh;
+ 
+ 
+  }
+ .height-90{
+
+ }
+ .banner{
+
+ }
+  
 }
 
 .nav-links{
@@ -71,7 +88,7 @@
 }
 
 .selected {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(23,21,49);
   border-radius: 15px;
   border: 1px solid black;
 }

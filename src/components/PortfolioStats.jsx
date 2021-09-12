@@ -26,7 +26,7 @@ const PortfolioStats = () => {
 
 
     return (
-        <Row className="mb-3">
+        <Row className="mb-4 mx-0">
             <Col className="ps-0" md={4}>
                 <div className="black-bg p-4">
                     <Card className="p-3 d-flex align-items-center justify-content-center">
@@ -49,7 +49,7 @@ const PortfolioStats = () => {
                 <div className="black-bg p-4">
                     <Card className="black-bg p-4" className=" p-3 d-flex align-items-center justify-content-center">
                         <h3>Net Liquidation</h3>
-                        <h2>${performance.toFixed(2)}</h2>
+                        {performance.toFixed !== NaN ? <h2>${performance.toFixed(2)}</h2> : null}
                     </Card>
                 </div>
             </Col>

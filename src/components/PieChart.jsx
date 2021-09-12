@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import { useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 
-const Charts = () => {
+const PieChart = () => {
     const portfolio = useSelector(state => state.data.user.portfolio)
     const [values, setValues] = useState([]);
     const [labels, setLabels] = useState([]);
@@ -28,7 +28,7 @@ const Charts = () => {
     }, [portfolio])
 
     return (
-        <Row>
+        <Row className="mx-0">
             {values.length > 1 && labels.length > 1 &&
                 <Col className="black-bg p-4   " xs={6}>
 
@@ -55,4 +55,4 @@ const Charts = () => {
     );
 }
 
-export default Charts;
+export default PieChart;

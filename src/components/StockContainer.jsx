@@ -1,6 +1,6 @@
 import { set } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { Col, Card } from 'react-bootstrap';
+import { Col, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import { finnhubClient } from '../finnhub';
 
@@ -24,7 +24,7 @@ const StockContainer = ({ stock }) => {
 
     return (
         <>
-            {stockData && stockQuote &&
+            {stockData && stockQuote ?
                 <div  >
                     <Link className="no-decor text-white" to={`/stock/${stock.symbol}`}>
 
@@ -51,7 +51,7 @@ const StockContainer = ({ stock }) => {
 
                         </Card>
                     </Link>
-                </div>}
+                </div> : null}
         </>
     );
 }

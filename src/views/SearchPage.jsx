@@ -6,15 +6,15 @@ import debounce from 'lodash.debounce';
 
 const SearchPage = () => {
 
-    const [query, setQuery] = useState("AAPL");
+    const [query, setQuery] = useState("");
     const [stocks, setStocks] = useState(null);
 
-    const debouncedQuery = useDebounce(query, 1500)
+    const debouncedQuery = useDebounce(query, 1000)
 
     useEffect(() => {
 
         
-        finnhubClient.symbolSearch(debouncedQuery, (error, data, response) => {
+        finnhubClient.symbolSearch(debouncedQuery.length > 2 ? debouncedQuery : "AAPL", (error, data, response) => {
             console.log(response)
             console.log(data)
             setStocks(data?.result)
