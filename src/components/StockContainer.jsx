@@ -28,9 +28,9 @@ const StockContainer = ({ stock }) => {
                 <div  >
                     <Link className="no-decor text-white" to={`/stock/${stock.symbol}`}>
 
-                        <Card className="p-2 m-2 d-flex flex-row justify-content-between">
+                        <Card className="p-3 m-2 d-flex flex-row justify-content-between">
                             <div className="d-flex">
-                                {stockData && stockData.logo ? <img className="stock-logo" src={stockData?.logo} /> : <div className=" d-flex justify-content-center align-items-center stock-logo">{stock.symbol}</div>}
+                                {stockData && stockData.logo ? <img className="stock-logo" src={stockData?.logo} /> : <div className=" stock-logo"></div>}
                                 <div className="ms-3">
                                     <h5 className="m-0">{stock.description}</h5>
                                     <div>

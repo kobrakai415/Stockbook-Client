@@ -2,32 +2,30 @@ import { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import StockContainer from '../components/StockContainer';
 import { finnhubClient } from '../finnhub';
+import debounce from 'lodash.debounce';
 
 const SearchPage = () => {
 
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState("AAPL");
     const [stocks, setStocks] = useState(null);
 
+    const debouncedQuery = useDebounce(query, 1500)
+
     useEffect(() => {
-        finnhubClient.symbolSearch("AAPL", (error, data, response) => {
+
+        
+        finnhubClient.symbolSearch(debouncedQuery, (error, data, response) => {
             console.log(response)
             console.log(data)
             setStocks(data?.result)
         });
-    }, [])
 
-    useEffect(() => {
-        if (query.length > 3) {
-            setTimeout(() => {
-                finnhubClient.symbolSearch(query, (error, data, response) => {
-                    console.log(response)
-                    console.log(data)
-                    setStocks(data?.result)
-                });
-            }, 1000)
-        }
+    }, [debouncedQuery])
 
-    }, [query])
+
+    
+
+
 
     return (
 
@@ -45,7 +43,7 @@ const SearchPage = () => {
 
             {stocks ? <div className="search-results">
 
-                {stocks.length > 0 && stocks.slice(0, 1).map((stock, index) => {
+                {stocks.length > 0 && stocks.slice(0, 2).map((stock, index) => {
                     return <StockContainer key={index} stock={stock} />
                 })}
 
@@ -60,3 +58,25 @@ const SearchPage = () => {
 }
 
 export default SearchPage;
+
+
+function useDebounce(value, delay) {
+    // State and setters for debounced value
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(
+        () => {
+            // Update debounced value after delay
+            const handler = setTimeout(() => {
+                setDebouncedValue(value);
+            }, delay);
+            // Cancel the timeout if value changes (also on delay change or unmount)
+            // This is how we prevent debounced value from updating if value is changed ...
+            // .. within the delay period. Timeout gets cleared and restarted.
+            return () => {
+                clearTimeout(handler);
+            };
+        },
+        [value, delay] // Only re-call effect if value or delay changes
+    );
+    return debouncedValue;
+}
