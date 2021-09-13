@@ -23,8 +23,6 @@ const SearchPage = () => {
     }, [debouncedQuery])
 
 
-    
-
 
 
     return (

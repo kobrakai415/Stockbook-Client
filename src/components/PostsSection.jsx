@@ -66,6 +66,10 @@ const PostsSection = () => {
                 if (response.status === 200) {
                     setPosts(response.data.reverse())
                     setAddNew(false)
+                    setTitle("")
+                    setContent("")
+                    setImage(null)
+                    console.log(response)
                 }
             }
 
@@ -90,7 +94,7 @@ const PostsSection = () => {
             <Row>
 
                 {posts.length > 0 && posts.map((item, index) => {
-                    return <PostContainer key={index} post={item} />
+                    return <PostContainer key={item._id} post={item} />
                 })}
             </Row>
 

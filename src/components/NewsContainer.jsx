@@ -5,13 +5,13 @@ import {Card} from 'react-bootstrap';
 const NewsContainer = ({ item, index }) => {
     return (
         <div>
-            <Card key={index} className="m-2 p-2 d-flex justify-content-between">
+            <Card key={index} className="m-2 black-bg p-2 d-flex justify-content-between">
                 <a href={item.url} rel="noreferrer" target="_blank" className="link-no-decoration">
 
-                    <div className="d-flex flex-column flex-lg-row justify-content-between">
+                    <div className="d-flex flex-column flex-xl-row ">
 
-                        <h4 className="">{item.headline}</h4>
-                        <img className="p-2 img-fluid rounded" src={item.image} style={{ maxHeight: "100px", maxWidth: "150px" }} height={50} width={150} alt="news" />
+                        <h5 className="">{item.headline}</h5>
+                        <img className="p-2 img-fluid rounded" src={item.image} style={{ maxHeight: "100px", maxWidth: "150px" }} alt="news" />
 
                     </div>
                     <div>

@@ -40,10 +40,10 @@ const NewsPanel = ({ symbol }) => {
                                 return <Card key={index} className="m-2 p-2 d-flex justify-content-between">
                                     <a href={item.news_url} rel="noreferrer" target="_blank" className="link-no-decoration">
 
-                                        <div className="d-flex flex-column flex-lg-row justify-content-between">
+                                        <div className="d-flex flex-column flex-xl-row justify-content-between">
 
-                                            <h4 >{item.title}</h4>
-                                            <img className="m-2 img-fluid rounded" src={item.image_url} height={50} width={150}   alt="news" />
+                                            <h5 >{item.title}</h5>
+                                            <img className=" rounded" src={item.image_url} style={{ maxHeight: "100px", maxWidth: "150px" }} alt="news" />
 
                                         </div>
                                         <div>

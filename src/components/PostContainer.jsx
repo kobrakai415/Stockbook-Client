@@ -64,13 +64,13 @@ const PostContainer = ({ post }) => {
 
                 <div className="p-3">
 
-                    <p>{updatedPost.content}</p>
+                    <p className="text-white">{updatedPost.content}</p>
                 </div>
 
                 <div className="d-flex flex-row justify-content-between p-3">
-                    <div>
+                    <div className="text-info">
 
-                        <div>
+                        <div >
                             <span>Author: </span>
                             <span>{updatedPost.user.name + " " + updatedPost.user.surname}</span>
 
@@ -81,7 +81,7 @@ const PostContainer = ({ post }) => {
                         </div>
                     </div>
 
-                    <div className="d-flex flex-row align-items-center">
+                    <div className=" d-flex flex-row align-items-center">
                         <div className="m-3">
                             {updatedPost.likes.find(like => like === user._id) ? <AiFillHeart onClick={toggleLike} style={{ fontSize: "20px" }} /> : <AiOutlineHeart onClick={toggleLike} style={{ fontSize: "20px" }} />}
                         </div>

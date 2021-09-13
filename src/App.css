@@ -1,3 +1,6 @@
+
+
+
 .app,
 .login-page {
   height: 100vh;
@@ -89,7 +92,7 @@
 
 .selected {
   background-color: rgb(23,21,49);
-  border-radius: 15px;
+  border-radius: 10px;
   border: 1px solid black;
 }
 
@@ -159,7 +162,7 @@
 }
 
 .positions-table {
-  max-height: 40vh;
+  max-height: 25vh;
   overflow-y: scroll;
 }
 .link-no-decoration {
@@ -175,10 +178,11 @@
 .dark-bg{ 
   background-color: rgb(23,21,49) ;
   border-radius: 10px;
+  
 }
 
 .black-bg {
-  /* background-color: rgba(0, 0, 0, 0.664); */
+
   background-color: rgb(37,35,61);
   border-radius: 10px;
 }
@@ -221,6 +225,7 @@
 
 .card {
   background-color: rgb(23,21,49);
+  border-radius: 10px;
 }
 
 .stock-logo{

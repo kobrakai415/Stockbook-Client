@@ -43,83 +43,68 @@ const PositionsTable = () => {
         }
 
 
-    }, [profitsArray]);
+    }, [profitsArray, total]);
 
     return (
         <>
             {portfolio && portfolio.length > 0 && (<>
 
                 <Row className="black-bg p-4 mb-4 mx-0">
-                <Table striped  hover>
-                    <thead>
-                        <tr>
-                           
-                            <th><h3>Stock</h3></th>
-                            <th>Ticker</th>
-                            <th>Shares</th>
-                            <th>Cost Price</th>
-                            <th>Last</th>
-                            <th>P&L</th>
 
+                    <Col className="dark-bg p-4" xs={12}>
 
-                        </tr>
-                    </thead>
+                        <Row className="bottom-border">
 
+                            <Col className="p-1" md={2}>
+                                <h3>Stock</h3>
+                            </Col>
+                            <Col className="p-1" xs={6} md={2}>
+                                <h3>Ticker</h3>
+                            </Col>
+                            <Col className="p-1" md={2}>
+                                <h3>Shares</h3>
+                            </Col>
+                            <Col className="p-1" md={2}>
+                                <h3>Cost Price</h3>
+                            </Col>
+                            <Col className="p-1" md={2}>
+                                <h3>Last</h3>
+                            </Col>
+                            <Col className="p-1" xs={6} md={2}>
+                                <h3>P&L</h3>
+                            </Col>
 
-
-                    <tbody>
-                      
-                {portfolio.map((position, index) => {
-                    return (
-                        <tr>
-                        <td>Stock</td>
-                            <td>Ticker</td>
-                            <td>Shares</td>
-                            <td>Cost Price</td>
-                            <td>Last</td>
-                            <td>P&L</td>
-                        </tr>
-                    )
-                })}
-                    </tbody>
-                </Table>
-                    <Col className="p-1" md={2}>
-                        <h3>Stock</h3>
-                    </Col>
-                    <Col className="p-1" md={2}>
-                        <h3>Ticker</h3>
-                    </Col>
-                    <Col className="p-1" md={2}>
-                        <h3>Shares</h3>
-                    </Col>
-                    <Col className="p-1" md={2}>
-                        <h3>Cost Price</h3>
-                    </Col>
-                    <Col className="p-1" md={2}>
-                        <h3>Last</h3>
-                    </Col>
-                    <Col className="p-1" md={2}>
-                        <h3>P&L</h3>
-                    </Col>
+                        </Row>
 
 
 
 
-                    <Col xs={12} className="dark-bg p-4 positions-table" >
-                        {portfolio.map((position, index) => {
+                        <Row >
+                            <Col className=" positions-table" xs={12}>
 
-                            return <PositionContainer updateProfit={updateProfit} removeFromProfits={removeFromProfits} key={position._id} position={position} index={index} />
-                        })}
+                                {portfolio.map((position, index) => {
+
+                                    return <PositionContainer updateProfit={updateProfit} removeFromProfits={removeFromProfits} key={position._id} position={position} index={index} />
+                                })}
+                            </Col>
+                        </Row>
+
+
+                        <Row>
+                            <Col xs={8}>
+                            </Col>
+
+                            <Col xs={4}>
+
+                                <div className="d-flex justify-content-end my-2 dark-bg flex-row p-2 ">
+                                    <h6 className="p-2">Unrealized P&L:</h6>
+                                    <h6 className={(total < 0 ? "negative-percentage-containergative" : "positive-percentage-container ") + "p-2"}>{(total < 0 ? "-" : "+") + "$" + Math.abs(total).toFixed(2)}</h6>
+                                </div>
+                            </Col>
+                        </Row>
+
                     </Col>
 
-
-
-                    <Col xs={9}>
-                    </Col>
-                    <Col className="d-flex flex-row p-2" xs={3}>
-                        <h6 className="pe-3">Unrealized P&L:</h6>
-                        <h6 className={(total < 0 ? "negative" : "positive")}>{(total < 0 ? "-" : "+") + "$" + Math.abs(total).toFixed(2)}</h6>
-                    </Col>
                 </Row>
             </>
             )}
