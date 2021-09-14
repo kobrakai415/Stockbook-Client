@@ -36,7 +36,7 @@ const NewsPanel = ({ symbol }) => {
                     <div className="p-4 light-bg">
                         {newsData.slice(0, 7).map((item, index) => {
 
-                            return <div key={item._id} className="m-2 p-2 d-flex light-bg-3 justify-content-between">
+                            return <div key={item._id} className="m-2 p-2 d-flex light-bg3 justify-content-between">
                                 <a href={item.news_url} rel="noreferrer" target="_blank" className="link-no-decoration">
 
                                     <div className="d-flex flex-column flex-xl-row justify-content-between">

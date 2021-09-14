@@ -21,13 +21,13 @@ const HomePage = () => {
     return (
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
-                <Col xs={12} md={7}>
+                <Col xs={12} md={7} lg={9}>
                     <SearchPage />
 
-                <GainersLosers />
+                    <GainersLosers />
                 </Col>
-                <Col className="mb-3" xs={12} md={5}>
-                        <h1 >Market News</h1>
+                <Col className="mb-3" xs={12} md={5} lg={3}>
+                    <h1 >Market News</h1>
                     <div className="p-4 light-bg ">
                         {newsArray.length > 0 && newsArray.slice(0, 6).map((item, index) => {
                             return <NewsContainer item={item} index={index} key={item.id} />

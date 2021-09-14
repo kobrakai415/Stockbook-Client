@@ -98,7 +98,7 @@ const PositionContainer = ({ position, index, updateProfit, removeFromProfits })
     return (
         <>
             {livePrice && position && profit ? <>
-                <Row className="position-item bottom-border">
+                <Row className={"position-item bottom-border " + ((index) % 2 === 0 ? "table-bg" : null)}>
                     <Col className="p-1" md={2}>
                         <h6>{position.stock}</h6>
                     </Col>

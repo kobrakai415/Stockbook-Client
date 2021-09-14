@@ -31,12 +31,15 @@ p {
   }
 }
 
+.table-bg{
+  background-color: rgb(28, 27, 44);
+}
 .nav-links {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .nav-logos {
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .selected {
