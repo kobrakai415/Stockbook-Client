@@ -25,14 +25,14 @@ const StockContainer = ({ stock }) => {
     return (
         <>
             {stockData && stockQuote ?
-                <div  >
+                <div >
                     <Link className="no-decor text-white" to={`/stock/${stock.symbol}`}>
 
-                        <Card className="p-3 m-2 d-flex flex-row justify-content-between">
+                        <Card className="p-3 m-2 d-flex flex-row dark-bg justify-content-between">
                             <div className="d-flex">
                                 {stockData && stockData.logo ? <img className="stock-logo" src={stockData?.logo} /> : <div className=" stock-logo"></div>}
                                 <div className="ms-3">
-                                    <h5 className="m-0">{stock.description}</h5>
+                                    <h5 className="m-0 text-muted">{stock.description}</h5>
                                     <div>
                                         {<span>{stock.symbol}</span>} •  <span>{stockData.finnhubIndustry}</span> •  <span>{stockData.country}</span>
                                     </div>
@@ -41,9 +41,9 @@ const StockContainer = ({ stock }) => {
                             </div>
                             <div className="d-flex flex-column">
 
-                                <h6 className="d-flex justify-content-end">${stockQuote.c}</h6>
-                                <div className={(stockQuote.d < 0 ? "negative" : "positive") + " d-flex"}>
-                                    <h6>{stockQuote.d}</h6>
+                                <h6 className="d-flex justify-content-end">${stockQuote.c.toFixed(2)}</h6>
+                                <div className={(stockQuote.d < 0 ? "negative-percentage-container" : "positive-percentage-container") + " p-1 d-flex"}>
+                                    <h6>${stockQuote.d.toFixed(2)}</h6>
                                     <h6 className="ms-2">({Math.abs(stockQuote.dp).toFixed(2)}%)</h6>
                                 </div>
                             </div>

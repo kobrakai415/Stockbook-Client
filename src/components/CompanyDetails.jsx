@@ -15,12 +15,12 @@ const CompanyDetails = ({ data: { overview, dailyChartData, chartXValues, chartY
 
 
     return (
-        <Col className="mb-3" xs={12} lg={8}>
+        <>
 
             {dailyChartData && overview && yesterdaysClosing ? <>
 
 
-                <div className="black-bg p-4 mb-3">
+                <div className="light-bg plotly-graph mb-4">
 
                     <Plot
 
@@ -29,15 +29,27 @@ const CompanyDetails = ({ data: { overview, dailyChartData, chartXValues, chartY
                                 x: chartXValues,
                                 y: chartYValues,
                                 type: 'scatter',
-                                mode: 'lines+markers',
-                                marker: { color: 'red' },
+                                mode: 'lines',
+                                marker: { color: 'rgba(183,156,81, 0.9)' },
                             },
 
                         ]}
                         layout={{
                             title: `${overview.Name}`,
                             autosize: true,
-
+                            plot_bgcolor: 'rgb(37, 35, 61)',
+                            paper_bgcolor: 'rgb(37, 35, 61)',
+                            font: {
+                                family: "Work Sans, sans-serif",
+                                size: "15",
+                                color: "rgb(102,101,121)"
+                            },
+                            xaxis: {
+                                showgrid: true,
+                                gridwidth: "1",
+                                gridcolor: "rgba(255,255, 255, 0.07)",
+                            },
+                           
                         }}
                         useResizeHandler={true}
                         style={{ maxHeight: "100%", maxWidth: "100%" }}
@@ -47,7 +59,7 @@ const CompanyDetails = ({ data: { overview, dailyChartData, chartXValues, chartY
 
                 </div>
 
-                <div className="black-bg p-4">
+                <div className="light-bg p-4 mb-4">
                     <h3>Company details</h3>
 
 
@@ -83,7 +95,7 @@ const CompanyDetails = ({ data: { overview, dailyChartData, chartXValues, chartY
 
                 <PostsSection />
             </> : <Spinner type="primary"></Spinner>}
-        </Col>
+        </>
     );
 }
 

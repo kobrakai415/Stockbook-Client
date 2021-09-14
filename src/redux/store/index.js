@@ -6,6 +6,7 @@ export const initialState = {
 
     data: {
         user: {
+            startingBalance: 0,
             balance: 0,
             portfolio: [],
             watchlists: [{
@@ -25,16 +26,13 @@ export const initialState = {
 
     },
 
-    watchlist: {
-
-    },
+   
 
 }
 
 const mainReducer = combineReducers(
     {
         data: dataReducer,
-        watchlist: watchlistReducer
     }
 )
 

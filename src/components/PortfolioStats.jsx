@@ -1,13 +1,30 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
-
+import { ImArrowUp, ImArrowDown } from 'react-icons/im'
 
 const PortfolioStats = () => {
-    const { user: { portfolio, balance }, unrealized } = useSelector(state => state.data)
+    const { user: { portfolio, balance, startingBalance }, unrealized } = useSelector(state => state.data)
 
     const [invested, setInvested] = useState(0);
     const [performance, setPerformance] = useState(0);
+
+    const [difference, setDifference] = useState(0)
+    const [perecentDifference, setPercentDifference] = useState(0)
+
+
+
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    useEffect(() => {
+
+        setDifference(Math.abs((performance - startingBalance).toFixed(2)))
+        setPercentDifference((((performance - startingBalance) / startingBalance) * 100).toFixed(2))
+    }, [performance, startingBalance])
+
 
     useEffect(() => {
 
@@ -21,36 +38,44 @@ const PortfolioStats = () => {
 
     useEffect(() => {
         let sum = balance + unrealized + invested
+
         setPerformance(sum)
     }, [balance, unrealized]);
 
 
     return (
         <Row className="mb-4 mx-0">
-            <Col className="ps-0" md={4}>
-                <div className="black-bg p-4">
-                    <Card className="p-3 d-flex align-items-center justify-content-center">
-                        <h3>Cash</h3>
-                        <h2>${balance.toFixed(2)}</h2>
+            <h1>Dashboard</h1>
+            <Col className="ps-md-0 mb-3 mb-md-0" md={4}>
+                <div className="light-bg p-4 ">
+                    <div className="p-3 light-bg3 stat-card d-flex flex-column align-items-center justify-content-center">
+                        <h3 className="text-muted">Starting Balance</h3>
+                        <h2>${numberWithCommas(startingBalance)}</h2>
 
-                    </Card>
+                    </div>
                 </div>
             </Col>
             <Col md={4}>
-                <div className="black-bg p-4">
-                    <Card className="black-bg p-4" className=" p-3 d-flex align-items-center justify-content-center">
+                <div className="light-bg p-4 mb-3 mb-md-0 ">
+                    <div className="light-bg3 p-3 stat-card d-flex flex-column align-items-center justify-content-center">
 
-                        <h3>Invested</h3>
-                        <h2>${invested.toFixed(2)}</h2>
-                    </Card>
+                        <h3 className="text-muted">Invested</h3>
+                        <h2>${numberWithCommas(invested.toFixed(2))}</h2>
+                    </div>
                 </div>
             </Col>
-            <Col className="pe-0" md={4}>
-                <div className="black-bg p-4">
-                    <Card className="black-bg p-4" className=" p-3 d-flex align-items-center justify-content-center">
-                        <h3>Net Liquidation</h3>
-                        {performance.toFixed !== NaN ? <h2>${performance.toFixed(2)}</h2> : null}
-                    </Card>
+            <Col className="pe-md-0 mb-3 mb-md-0" md={4}>
+                <div className="light-bg p-4">
+                    <div className=" p-3 light-bg3 stat-card d-flex flex-column align-items-center justify-content-center">
+                        <h3 className="text-muted">Net Liquidation</h3>
+                        {performance.toFixed !== NaN ? <h2>${numberWithCommas(performance.toFixed(2))}</h2> : null}
+
+                        <div className={"p-2  " + (perecentDifference < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
+                            {perecentDifference < 0 ? <ImArrowDown /> : <ImArrowUp />}
+                            <span>  ${difference} </span>
+                            <span> ({perecentDifference}%) </span>
+                        </div>
+                    </div>
                 </div>
             </Col>
 

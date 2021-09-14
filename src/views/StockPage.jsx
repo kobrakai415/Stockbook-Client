@@ -31,14 +31,19 @@ const StockPage = ({ fetchOverview, fetchDailyChart, data: { yesterdaysClosing }
     return (
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
+                <Col className="mb-3" xs={12} lg={8}>
+                <h1>Instrument</h1>
+                    <PriceBoard symbol={symbol} />
 
-                <PriceBoard symbol={symbol} />
+                    {/* //Comapny details and posts section: */}
 
-                {/* //Comapny details and posts section: */}
+                    <CompanyDetails />
 
-                <CompanyDetails />
-                <NewsPanel symbol={symbol} />
+                </Col>
 
+                <Col className="news-panel" md={12} lg={4}>
+                    <NewsPanel symbol={symbol} />
+                </Col>
             </Row>
 
         </Col >

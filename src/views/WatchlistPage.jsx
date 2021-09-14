@@ -61,30 +61,30 @@ const WatchlistPage = () => {
 
     return (
 
-        <Col className="height-90  p-4" xs={12} md={9} lg={10}>
-
-
+        <Col className="height-90  p-3" xs={12} md={9} lg={10}>
 
 
 
             {watchlists.length > 0 && watchlists && <>
-                <Row className="black-bg p-4 mb-3">
-                    <Col className="dark-bg p-3" xs={12}>
-                        <h1>Watchlists</h1>
-                        <DropdownButton id="dropdown-basic-button" variant="dark" title="Select a watchlist">
-                            {watchlists.map((watchlist, index) => {
-                                return <Dropdown.Item key={index} onClick={() => setSelected(watchlist.name)}>{watchlist.name}</Dropdown.Item>
-                            })}
+                <Row className="p-4">
+                    <Col className=" d-flex" xs={12}>
 
-                        </DropdownButton>
+                        <div className="light-bg p-4">
+                            <h1>Watchlists</h1>
+                            <DropdownButton id="dropdown-basic-button" variant="dark" title="Select a watchlist">
+                                {watchlists.map((watchlist, index) => {
+                                    return <Dropdown.Item key={index} onClick={() => setSelected(watchlist.name)}>{watchlist.name}</Dropdown.Item>
+                                })}
 
+                            </DropdownButton>
+                        </div>
                     </Col>
                 </Row>
 
-                <Row className="black-bg p-4">
+                <Row className=" p-4 mx-0 ">
 
-                    <Col className="dark-bg p-3 " xs={12}>
-                        <Row className="mb-3 bottom-border">
+                    <Col className="light-bg p-4 " xs={12}>
+                        <Row className="mb-3 mx-0 bottom-border2">
                             <Col xs={12}>
                                 {watchlist?.name && <div className="d-flex flex-row">
                                     <h1>{watchlist.name}</h1>

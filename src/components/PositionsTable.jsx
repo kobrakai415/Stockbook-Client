@@ -49,29 +49,30 @@ const PositionsTable = () => {
         <>
             {portfolio && portfolio.length > 0 && (<>
 
-                <Row className="black-bg p-4 mb-4 mx-0">
+                <Row className="mb-4 mx-0">
 
-                    <Col className="dark-bg p-4" xs={12}>
+                    <h1 className="mb-4">Open positions</h1>
+                    <Col className="light-bg  p-4" xs={12}>
 
-                        <Row className="bottom-border">
+                        <Row className="bottom-border2 mx-0 ">
 
                             <Col className="p-1" md={2}>
-                                <h3>Stock</h3>
+                                <h3 className="text-muted">Stock</h3>
                             </Col>
                             <Col className="p-1" xs={6} md={2}>
-                                <h3>Ticker</h3>
+                                <h3 className="text-muted">Ticker</h3>
                             </Col>
                             <Col className="p-1" md={2}>
-                                <h3>Shares</h3>
+                                <h3 className="text-muted">Shares</h3>
                             </Col>
                             <Col className="p-1" md={2}>
-                                <h3>Cost Price</h3>
+                                <h3 className="text-muted">Cost Price</h3>
                             </Col>
                             <Col className="p-1" md={2}>
-                                <h3>Last</h3>
+                                <h3 className="text-muted">Last</h3>
                             </Col>
                             <Col className="p-1" xs={6} md={2}>
-                                <h3>P&L</h3>
+                                <h3 className="text-muted">P&L</h3>
                             </Col>
 
                         </Row>
@@ -79,7 +80,7 @@ const PositionsTable = () => {
 
 
 
-                        <Row >
+                        <Row className="mx-0">
                             <Col className=" positions-table" xs={12}>
 
                                 {portfolio.map((position, index) => {
@@ -96,7 +97,7 @@ const PositionsTable = () => {
 
                             <Col xs={4}>
 
-                                <div className="d-flex justify-content-end my-2 dark-bg flex-row p-2 ">
+                                <div className="d-flex justify-content-end my-2 flex-row p-2">
                                     <h6 className="p-2">Unrealized P&L:</h6>
                                     <h6 className={(total < 0 ? "negative-percentage-containergative" : "positive-percentage-container ") + "p-2"}>{(total < 0 ? "-" : "+") + "$" + Math.abs(total).toFixed(2)}</h6>
                                 </div>

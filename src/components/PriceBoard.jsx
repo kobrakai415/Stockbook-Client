@@ -28,6 +28,11 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
     const [finnhubError, setFinnhubError] = useState(false);
 
 
+
+    const today = new Date()
+    const currentHour = today.getHours()
+    const currentMinutes = today.getMinutes()
+
     useEffect(() => {
         finnhubClient.quote(symbol, (error, data, response) => {
             if (!error) {
@@ -146,14 +151,14 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
     }
 
     return (
-        <Col md={12}>
-
+        // <Col md={12}>
+        <>
             <Toast
                 className="slide-in-top toast"
                 show={success} onClose={() => setSuccess(false)}>
                 <Toast.Header>
 
-                    <strong className="me-auto">Server Message</strong>
+                    <strong className="me-auto">$tockBook</strong>
 
                 </Toast.Header>
                 <Toast.Body> Transaction completed successfully!</Toast.Body>
@@ -163,7 +168,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                 show={error} onClose={() => setError(false)}>
                 <Toast.Header>
 
-                    <strong className="me-auto">Server Message</strong>
+                    <strong className="me-auto">$tockBook</strong>
 
                 </Toast.Header>
                 <Toast.Body>  An error occurred! Please try again!</Toast.Body>
@@ -173,14 +178,14 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
 
 
             {overview && livePrice && dailyChartData ? <>
-                <div className="p-4 mb-4 d-flex black-bg">
+                <div className="p-4 light-bg mb-4 d-flex ">
 
                     <div className="me-3 p-3 stock-name">
                         <h1>{overview.Name}</h1>
                         <span>{overview.Symbol} • </span> <span>{overview.AssetType} • </span> <span>{overview.Exchange}</span>
                     </div >
 
-                    <div className="dark-bg">
+                    <div >
                         <div className="d-flex p-3">
                             <div className=" ms-md-3">
 
@@ -196,10 +201,14 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                             </div>
 
                             <div className=" ms-md-3  ">
-                                <Button className="m-2 login-page-buttons" onClick={() => setShow(true)}>
+
+
+                                {currentHour >= 13 && currentHour <= 20 && currentMinutes >= 30 && currentMinutes <= 59 ? <Button className="m-2 login-page-buttons" onClick={() => setShow(true)}>
                                     Buy
                                 </Button>
-                                <DropdownButton id="dropdown-basic-button" className="login-page-butons m-2 button-small" size="sm" variant="dark" title="Add to watchlist">
+                                    : <Button className="m-2">Market Closed!</Button>}
+
+                                <DropdownButton id="dropdown-basic-button" className=" m-2 button-small" size="sm" variant="dark" title="Add to watchlist">
                                     <Dropdown.Item onClick={() => setWatchlist(true)}>New watchlist +</Dropdown.Item>
                                     {user.watchlists.map((item, index) => {
                                         return <Dropdown.Item key={index} onClick={() => addToWatchlist(item._id)}>{item.name}</Dropdown.Item>
@@ -217,46 +226,47 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                 </div>
             }
 
-            {overview && livePrice &&
-                <Modal
 
-                    show={show}
-                    onHide={() => setShow(false)}
-                    backdrop="static"
-                    keyboard={false}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Open a position</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className="p-3">
+            {overview && livePrice ? <Modal
 
-                        <div className="p-2 d-flex flex-row justify-content-between">
-                            <h5>Stock: </h5> <h5>{overview.Name}</h5>
+                show={show}
+                onHide={() => setShow(false)}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Open a position</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="p-3">
+
+                    <div className="p-2 d-flex flex-row justify-content-between">
+                        <h5>Stock: </h5> <h5>{overview.Name}</h5>
+                    </div>
+                    <div className="p-2 d-flex flex-row justify-content-between">
+                        <h5>Quote: </h5> <h5>{"$" + livePrice}</h5>
+                    </div>
+                    <div className="p-2 d-flex flex-row justify-content-between">
+                        <h5>Shares: </h5> <input style={{ maxWidth: "50px" }} min="1" step="1" onChange={(e) => setQuantity(e.target.value)} value={quantity} type="number"></input>
+                    </div>
+
+                    <div className="p-2 d-flex flex-column justify-content-between">
+                        <div className="d-flex flex-row justify-content-between">
+                            <h5>Total: </h5> <h5>{"$" + (quantity * livePrice).toFixed(2)}</h5>
+
                         </div>
-                        <div className="p-2 d-flex flex-row justify-content-between">
-                            <h5>Quote: </h5> <h5>{"$" + livePrice}</h5>
-                        </div>
-                        <div className="p-2 d-flex flex-row justify-content-between">
-                            <h5>Shares: </h5> <input style={{ maxWidth: "50px" }} min="1" step="1" onChange={(e) => setQuantity(e.target.value)} value={quantity} type="number"></input>
-                        </div>
-
-                        <div className="p-2 d-flex flex-column justify-content-between">
-                            <div className="d-flex flex-row justify-content-between">
-                                <h5>Total: </h5> <h5>{"$" + (quantity * livePrice).toFixed(2)}</h5>
-
-                            </div>
-                            {total > user.balance && <span className="text-muted" style={{ color: "red" }}>Insufficient funds, please amend positioning!</span>}
-                        </div>
+                        {total > user.balance && <span className="text-muted" style={{ color: "red" }}>Insufficient funds, please amend positioning!</span>}
+                    </div>
 
 
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShow(false)}>
-                            Close
-                        </Button>
-                        <Button disabled={user.balance < total ? true : false} onClick={buyStock} variant="primary">Submit</Button>
-                    </Modal.Footer>
-                </Modal>}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShow(false)}>
+                        Close
+                    </Button>
+                    <Button disabled={user.balance < total ? true : false} onClick={buyStock} variant="primary">Submit</Button>
+                </Modal.Footer>
+            </Modal>
+                : null}
 
             <Modal
 
@@ -292,8 +302,9 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                     <Button onClick={createWatchlist} variant="primary">Submit</Button>
                 </Modal.Footer>
             </Modal>
+        </>
 
-        </Col>
+        /* </Col> */ 
     );
 }
 

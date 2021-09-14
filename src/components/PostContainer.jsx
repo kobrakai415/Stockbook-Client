@@ -51,7 +51,7 @@ const PostContainer = ({ post }) => {
 
     return (
         <Col xs={12}>
-            <Card className="m-3 ">
+            <Card className="m-3 light-bg2 ">
                 <div className="pb-3 p-3">
                     <h2>{updatedPost.title}</h2>
 
@@ -106,7 +106,7 @@ const PostContainer = ({ post }) => {
                 </div >
 
 
-                {showComments && updatedPost.comments.length > 0 && <div className="mt-3">
+                {showComments && updatedPost.comments.length > 0 && <div className="p-3">
                     {updatedPost.comments.length > 0 &&
 
                         updatedPost.comments.reverse().map((comment, index) => {
@@ -117,7 +117,7 @@ const PostContainer = ({ post }) => {
 
                 {updatedPost.comments.length > 0 ? <div className="d-flex justify-content-end p-3">
                     <span onClick={() => setShowComments(!showComments)}>{showComments ? "Hide Comments" : "Show Comments"}</span>
-                </div> : <div className="p-2"> Be the first to comment on this post! </div>}
+                </div> : <div className="p-3"> Be the first to comment on this post! </div>}
 
             </Card>
 

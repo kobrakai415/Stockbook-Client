@@ -29,25 +29,33 @@ const PieChart = () => {
 
     return (
         <Row className="mx-0">
+        <h1>Statistics</h1>
             {values.length > 1 && labels.length > 1 &&
-                <Col className="black-bg p-4   " xs={6}>
-
+                <Col className="light-bg " xs={6}>
+                <div className="plotly-graph">
                     <Plot
                         data={[{
                             values: values,
                             labels: labels,
+                            hole: 0.4,
                             type: 'pie'
                         }]}
                         layout={{
                             title: "Portfolio Split",
-                            bgcolor: "black",
                             autosize: true,
-                            plot_bgcolor: "#343a40"
+                            plot_bgcolor: 'rgb(37, 35, 61)',
+                            paper_bgcolor: 'rgb(37, 35, 61)',
+                            font: {
+                                family: "Work Sans, sans-serif",
+                                size: "15",
+                                color: "rgb(102,101,121)"
+                            },
                         }}
                         useResizeHandler={true}
                         style={{ maxHeight: "100%", maxWidth: "100%" }}
 
                     />
+                    </div>
                 </Col>
             }
 

@@ -48,6 +48,11 @@ export const setUnrealizedProfits = (unrealized) => ({
     payload: unrealized
 })
 
+export const logout = (payload) => ({
+    type: "LOGOUT",
+    payload: payload
+})
+
 export const fetchStockOverview = (symbol) => {
     return async (dispatch, getState) => {
         try {

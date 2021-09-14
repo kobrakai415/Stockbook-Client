@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Container, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -13,8 +14,11 @@ const SignUpPage = ({ routerProps }) => {
     const [signupPassword, setSignupPassword] = useState("");
     const [startingBalance, setChecked] = useState(null);
 
-    const [errors, setErrors] = useState(null);
+    const [errors, setErrors] = useState([]);
     const [show, setShow] = useState(false);
+
+    const dispatch = useDispatch()
+
 
     const submitForm = async (e) => {
         try {
@@ -25,30 +29,29 @@ const SignUpPage = ({ routerProps }) => {
                 surname,
                 email,
                 password: signupPassword,
+                startingBalance,
                 balance: startingBalance
             };
-            const res = await fetch(`${ApiUrl}/users/register`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify(newUser),
-            });
+            const res = await axios.post(`${ApiUrl}/users/register`, newUser)
             console.log(res)
 
             if (res.status === 201) {
-                const data = await res.json();
 
-                console.log(data);
+                dispatch({
+                    type: "SET_USER",
+                    payload: res.data
+                })
+
                 routerProps.history.push("/")
             } else {
-                const errors = await res.json()
-                console.log(errors)
-                setErrors(errors)
-                setShow(true)
+                console.log(res.errors)
+
+
             }
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
+            setErrors(error.response.data.messages)
+            setShow(true)
         }
     };
 
@@ -62,16 +65,19 @@ const SignUpPage = ({ routerProps }) => {
         >
 
 
-            {errors && show && <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+            {errors.length > 0 && show ? <Alert variant="danger" onClose={() => setShow(false)} dismissible>
                 <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                <p>
-                    {errors.messages + " Please try with different credentials!"}
-                </p>
-            </Alert>}
+                <div>
+                    {errors.map((item, index) => {
+                        console.log(item)
+                        return <span key={index}> {item} </span>
+                    })}
+                </div>
+            </Alert> : null}
 
 
             <Form onSubmit={(e) => submitForm(e)} className='register-form p-4 p-md-5'>
-                <h1>StockBook</h1>
+                <h1>$tockBook</h1>
                 <h3>Sing Up</h3>
                 <Form.Group className='mb-3 p-1' controlId='name'>
                     <Form.Label>Name</Form.Label>
@@ -80,7 +86,7 @@ const SignUpPage = ({ routerProps }) => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         type='text'
-                        placeholder='Enter firstname'
+                        placeholder='Enter first name'
                     />
                 </Form.Group>
                 <Form.Group className='mb-3 p-1' controlId='surname'>
@@ -116,7 +122,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Password'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3 p-1'>
+                <Form.Group required className='mb-3 p-1'>
                     <Form.Label>Starting Balance</Form.Label>
                     <div className="mb-3">
                         <Form.Check

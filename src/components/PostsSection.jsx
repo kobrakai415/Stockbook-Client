@@ -79,7 +79,7 @@ const PostsSection = () => {
     }
 
     return (
-        <div className="black-bg p-4 mt-3">
+        <div className="light-bg p-4 ">
             <h3>Community blog</h3>
             <div className="p-3 ">
 
@@ -107,17 +107,17 @@ const PostsSection = () => {
                 </Modal.Header>
                 <Modal.Body className="p-4">
                     <Form>
-                        <Form.Group controlId="formBasicTitle">
+                        <Form.Group className="py-2" controlId="formBasicTitle">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} required={true} validation={true} as="textarea" rows={1} min={10} placeholder="Give your post a title!" />
+                            <Form.Control required value={title} onChange={(e) => setTitle(e.target.value)}  as="textarea" rows={1} placeholder="Give your post a title!" />
                         </Form.Group>
-                        <Form.Group controlId="formBasicContent">
+                        <Form.Group className="py-2" controlId="formBasicContent">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control value={content} onChange={(e) => setContent(e.target.value)} required={true} as="textarea" rows={6} placeholder="What do you want to talk about?" />
+                            <Form.Control required value={content} onChange={(e) => setContent(e.target.value)}  as="textarea" rows={6} placeholder="What do you want to talk about?" />
                         </Form.Group>
-                        <Form.Group controlId="formBasicImage">
+                        <Form.Group className="py-2" controlId="formBasicImage">
                             <Form.Label>Upload image</Form.Label>
-                            <Form.Control onChange={(e) => setImage(e.target.files[0])} type="file" />
+                            <Form.Control required onChange={(e) => setImage(e.target.files[0])} type="file" />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

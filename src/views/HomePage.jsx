@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import SearchPage from './SearchPage';
 import { finnhubClient } from '../finnhub';
 import NewsContainer from '../components/NewsContainer';
+import GainersLosers from '../components/GainersLosers';
 
 const HomePage = () => {
 
@@ -20,16 +21,17 @@ const HomePage = () => {
     return (
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
-                <Col  xs={12} md={7}>
+                <Col xs={12} md={7}>
                     <SearchPage />
 
+                <GainersLosers />
                 </Col>
                 <Col className="mb-3" xs={12} md={5}>
-                    <div className="p-4 black-bg">
-                    <h1 className="mb-3">Market News</h1>
-                    {newsArray.length > 0 && newsArray.slice(0,6).map((item, index) => {
-                        return <NewsContainer item={item} index={index} key={item.id} />
-                    })}
+                        <h1 >Market News</h1>
+                    <div className="p-4 light-bg ">
+                        {newsArray.length > 0 && newsArray.slice(0, 6).map((item, index) => {
+                            return <NewsContainer item={item} index={index} key={item.id} />
+                        })}
                     </div>
                 </Col>
 

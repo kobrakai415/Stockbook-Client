@@ -25,7 +25,7 @@ const WatchlistItem = ({ stock, remove }) => {
 
     return (
 
-        <Row className="align-items-center p-1 bottom-border">
+        <Row className="align-items-center p-1 bottom-border mx-0">
             <Col md={2}>
                 <Link className="no-decor" to={`/stock/${stock.ticker}`}>
                     <h4>{stock.ticker}</h4>

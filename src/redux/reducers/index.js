@@ -49,6 +49,8 @@ export const dataReducer = (state = initialState.data, action) => {
                 ...state,
                 unrealized: action.payload
             }
+        case 'LOGOUT':
+            return action.payload
         default:
             return state
 
@@ -59,15 +61,15 @@ export const dataReducer = (state = initialState.data, action) => {
 
 
 
-export const watchlistReducer = (state = initialState.data, action) => {
+// export const watchlistReducer = (state = initialState.data, action) => {
 
-    switch (action.type) {
-        case 'SET_BROWSE_ALL_DATA':
-            return {
-                ...state,
-                browseAllData: [...action.payload]
-            }
-        default:
-            return state
-    }
-}
+//     switch (action.type) {
+//         case 'SET_BROWSE_ALL_DATA':
+//             return {
+//                 ...state,
+//                 browseAllData: [...action.payload]
+//             }
+//         default:
+//             return state
+//     }
+// }
