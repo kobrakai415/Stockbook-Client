@@ -28,7 +28,7 @@ const StockContainer = ({ stock }) => {
                 <div >
                     <Link className="no-decor text-white" to={`/stock/${stock.symbol}`}>
 
-                        <Card className="p-3 m-2 d-flex flex-row dark-bg justify-content-between">
+                        <div className="p-3 m-2 d-flex flex-row light-bg3 justify-content-between">
                             <div className="d-flex">
                                 {stockData && stockData.logo ? <img className="stock-logo" src={stockData?.logo} /> : <div className=" stock-logo"></div>}
                                 <div className="ms-3">
@@ -42,14 +42,14 @@ const StockContainer = ({ stock }) => {
                             <div className="d-flex flex-column">
 
                                 <h6 className="d-flex justify-content-end">${stockQuote.c.toFixed(2)}</h6>
-                                <div className={(stockQuote.d < 0 ? "negative-percentage-container" : "positive-percentage-container") + " p-1 d-flex"}>
-                                    <h6>${stockQuote.d.toFixed(2)}</h6>
+                                <div className={(stockQuote.d < 0 ? "negative-percentage-container" : "positive-percentage-container") + " p-2 d-flex align-items-center"}>
+                                    <h6>{stockQuote.d.toFixed(2)}</h6>
                                     <h6 className="ms-2">({Math.abs(stockQuote.dp).toFixed(2)}%)</h6>
                                 </div>
                             </div>
 
 
-                        </Card>
+                        </div>
                     </Link>
                 </div> : null}
         </>

@@ -79,8 +79,9 @@ const PostsSection = () => {
     }
 
     return (
+        <>
+            <h1>Community blog</h1>
         <div className="light-bg p-4 ">
-            <h3>Community blog</h3>
             <div className="p-3 ">
 
                 <div className="d-flex align-items-center">
@@ -132,6 +133,7 @@ const PostsSection = () => {
             </Modal>
 
         </div>
+        </>
     );
 }
 

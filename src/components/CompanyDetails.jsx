@@ -49,6 +49,9 @@ const CompanyDetails = ({ data: { overview, dailyChartData, chartXValues, chartY
                                 gridwidth: "1",
                                 gridcolor: "rgba(255,255, 255, 0.07)",
                             },
+                            yaxis: {
+                            tickprefix: '$'
+                        }
                            
                         }}
                         useResizeHandler={true}
@@ -59,8 +62,8 @@ const CompanyDetails = ({ data: { overview, dailyChartData, chartXValues, chartY
 
                 </div>
 
+                    <h1>Company details</h1>
                 <div className="light-bg p-4 mb-4">
-                    <h3>Company details</h3>
 
 
                     <p>{overview.Description}</p>

@@ -2,22 +2,23 @@ import { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import StockContainer from '../components/StockContainer';
 import { finnhubClient } from '../finnhub';
-import debounce from 'lodash.debounce';
 
 const SearchPage = () => {
 
     const [query, setQuery] = useState("");
-    const [stocks, setStocks] = useState(null);
-
+    const [stocks, setStocks] = useState([]);
+    const [loading, setLoading] = useState(false);
     const debouncedQuery = useDebounce(query, 1000)
 
     useEffect(() => {
 
+        setLoading(true)
 
         finnhubClient.symbolSearch(debouncedQuery.length > 2 ? debouncedQuery : "AAPL", (error, data, response) => {
             console.log(response)
             console.log(data)
             setStocks(data?.result)
+            setLoading(false)
         });
 
     }, [debouncedQuery])
@@ -42,7 +43,7 @@ const SearchPage = () => {
                     </div>
                 </div>
 
-                {stocks ? <div className="search-results">
+                {!loading ? <div className="search-results">
 
                     {stocks.length > 0 && stocks.slice(0, 2).map((stock, index) => {
                         return <StockContainer key={index} stock={stock} />

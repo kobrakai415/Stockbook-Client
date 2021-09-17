@@ -48,6 +48,11 @@ export const setUnrealizedProfits = (unrealized) => ({
     payload: unrealized
 })
 
+export const setInvested = (invested) =>({
+    type: "SET_INVESTED",
+    payload: invested
+})
+
 export const logout = (payload) => ({
     type: "LOGOUT",
     payload: payload

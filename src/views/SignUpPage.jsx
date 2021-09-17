@@ -76,9 +76,11 @@ const SignUpPage = ({ routerProps }) => {
             </Alert> : null}
 
 
-            <Form onSubmit={(e) => submitForm(e)} className='register-form p-4 p-md-5'>
+            <Form onSubmit={(e) => submitForm(e)} className='register-form p-4 p-md-5 '>
+            <div className="mb-3">
                 <h1>$tockBook</h1>
-                <h3>Sing Up</h3>
+                <h3>Sign Up</h3>
+                </div>
                 <Form.Group className='mb-3 p-1' controlId='name'>
                     <Form.Label>Name</Form.Label>
                     <Form.Control

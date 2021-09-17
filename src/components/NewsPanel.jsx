@@ -46,7 +46,7 @@ const NewsPanel = ({ symbol }) => {
 
                                     </div>
                                     <div>
-                                        <p className="text-white line-clamp"> {item.text}</p>
+                                        <p className=" line-clamp"> {item.text}</p>
                                     </div>
 
                                     <div className="text-info">

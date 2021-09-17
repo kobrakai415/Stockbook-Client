@@ -51,11 +51,10 @@ const PostContainer = ({ post }) => {
 
     return (
         <Col xs={12}>
-            <Card className="m-3 light-bg2 ">
+            <Card className="m-3 post-container ">
                 <div className="pb-3 p-3">
                     <h2>{updatedPost.title}</h2>
 
-                    <span>{updatedPost.ticker}</span>
 
                 </div>
                 <div className="d-flex justify-content-center align-items-center">

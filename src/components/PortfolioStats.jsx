@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Card } from 'react-bootstrap'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ImArrowUp, ImArrowDown } from 'react-icons/im'
 
 const PortfolioStats = () => {
     const { user: { portfolio, balance, startingBalance }, unrealized } = useSelector(state => state.data)
-
+    const dispatch = useDispatch()
+    
     const [invested, setInvested] = useState(0);
     const [performance, setPerformance] = useState(0);
 
@@ -33,6 +34,11 @@ const PortfolioStats = () => {
         }, 0)
 
         setInvested(sum)
+
+        dispatch({
+            type: "SET_INVESTED",
+            payload: sum
+        })
 
     }, [portfolio]);
 

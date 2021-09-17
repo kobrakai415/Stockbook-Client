@@ -13,7 +13,8 @@ export const initialState = {
                 stocks: [],
                 name: "",
                 _id: ""
-            },]
+            },],
+            progress: []
         },
         overview: null,
         yesterdaysClosing: null,
@@ -22,11 +23,12 @@ export const initialState = {
         chartXValues: null,
         chartYValues: null,
         authenticated: false,
-        unrealized: 0
+        unrealized: 0,
+        invested: 0
 
     },
 
-   
+
 
 }
 

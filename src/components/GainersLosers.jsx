@@ -46,22 +46,25 @@ const GainersLosers = () => {
 
     return (
         <Row className="mx-0">
-            <Col xs={6}>
+            <Col className="ps-md-0" xs={6}>
                 <h1> Top Gainers</h1>
                 <div className="light-bg p-4">
                     {gainers.length > 0 ?
-                        gainers.slice(0,10).map(item => {
-                            return <div className="d-flex flex-row justify-content-between p-2">
+                        gainers.slice(0, 10).map((item, index) => {
+                            return <div key={index} className="d-flex light-bg3 flex-row justify-content-between p-2">
+                                <div className="d-flex flex-column">
+                                    <span>{item.ticker}</span>
+                                    <span style={{ fontSize: "15px" }} className="text-muted"> {item.companyName} </span>
+                                </div>
 
-                                {item.ticker}
 
-                                <div className={"p-1 " + (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
+                                <div className={"p-2 d-flex flex-column " + (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
                                     <span>
-                                        {item.changes}
+                                        +{parseInt(item.changesPercentage).toFixed(2)}%
 
                                     </span>
                                     <span>
-                                        {item.changesPercentage}%
+                                        +{item.changes.toFixed(2)}
                                     </span>
 
                                 </div>
@@ -72,22 +75,24 @@ const GainersLosers = () => {
 
             </Col>
 
-            <Col xs={6}>
+            <Col className="pe-md-0" xs={6}>
                 <h1> Top Losers</h1>
                 <div className="light-bg p-4">
                     {losers.length > 0 ?
-                        losers.slice(0,10).map(item => {
-                            return <div className="d-flex flex-row justify-content-between p-2">
+                        losers.slice(0, 10).map((item, index) => {
+                            return <div key={index} className="d-flex light-bg3 flex-row justify-content-between p-2">
+                                <div className="d-flex flex-column">
+                                    <span>{item.ticker}</span>
+                                    <span style={{ fontSize: "15px" }} className="text-muted"> {item.companyName} </span>
+                                </div>
 
-                                {item.ticker}
 
-                                <div className={"p-1 " +  (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
+                                <div className={"p-2 d-flex flex-column " + (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
                                     <span>
-                                        {item.changes}
-
+                                        {parseInt(item.changesPercentage).toFixed(2)}%
                                     </span>
                                     <span>
-                                        {item.changesPercentage}
+                                        {item.changes.toFixed(2)}
                                     </span>
 
                                 </div>

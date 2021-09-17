@@ -49,6 +49,11 @@ export const dataReducer = (state = initialState.data, action) => {
                 ...state,
                 unrealized: action.payload
             }
+        case 'SET_INVESTED':
+            return {
+                ...state,
+                invested: action.payload
+            }
         case 'LOGOUT':
             return action.payload
         default:

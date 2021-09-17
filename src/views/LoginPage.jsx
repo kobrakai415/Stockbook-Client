@@ -61,8 +61,8 @@ const LoginPage = ({ routerProps: { history }, setUser, setAuthenticated }) => {
 
             <Form validated onSubmit={(e) => login(e)} className=' p-md-5 p-4 register-form d-flex flex-column'>
 
-                <div>
-                    <h1 className="mb-3">StockBook</h1>
+                <div className="p-2">
+                    <h1 className="mb-3">$tockBook</h1>
                     <h3>Sign in</h3>
                 </div>
 

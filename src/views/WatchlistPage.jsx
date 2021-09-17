@@ -84,13 +84,14 @@ const WatchlistPage = () => {
                 <Row className=" p-4 mx-0 ">
 
                     <Col className="light-bg p-4 " xs={12}>
-                        <Row className="mb-3 mx-0 bottom-border2">
-                            <Col xs={12}>
+                          <Row>  
+                          <Col xs={12}>
                                 {watchlist?.name && <div className="d-flex flex-row">
                                     <h1>{watchlist.name}</h1>
                                     <Button onClick={deleteWatchlist} className="m-3" size="sm" variant="outline-danger" >Delete watchlist</Button>
                                 </div>}
-                            </Col>
+                            </Col></Row>
+                        <Row className="mb-3 text-muted mx-0 bottom-border2">
                             <Col md={2}>
                                 <h2>Stock </h2>
                             </Col>

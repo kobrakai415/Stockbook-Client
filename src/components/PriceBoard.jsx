@@ -180,7 +180,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
             {overview && livePrice && dailyChartData ? <>
                 <div className="p-4 light-bg mb-4 d-flex ">
 
-                    <div className="me-3 p-3 stock-name">
+                    <div className=" p-3 stock-name">
                         <h1>{overview.Name}</h1>
                         <span>{overview.Symbol} • </span> <span>{overview.AssetType} • </span> <span>{overview.Exchange}</span>
                     </div >
@@ -194,7 +194,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                                     "$" + quotedPrice}  </h4>
 
                                 <div className="d-flex flex-column flex-md-row align-items-center">
-                                    <h4 className={"p-2 percentage-container " + (percentageChange < 0 ? "negative-percentage-container" : "positive-percentage-container")}>{percentageChange.toFixed(2) + "%"}</h4>
+                                    <h4 className={"p-2 " + (percentageChange < 0 ? "negative-percentage-container" : "positive-percentage-container")}>{percentageChange.toFixed(2) + "%"}</h4>
                                     <span className="ms-2 text-muted">yesterday</span>
                                 </div>
 
@@ -202,11 +202,15 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
 
                             <div className=" ms-md-3  ">
 
-
+                                {/* 
                                 {currentHour >= 13 && currentHour <= 20 && currentMinutes >= 30 && currentMinutes <= 59 ? <Button className="m-2 login-page-buttons" onClick={() => setShow(true)}>
                                     Buy
                                 </Button>
-                                    : <Button className="m-2">Market Closed!</Button>}
+                                    : <Button className="m-2">Market Closed!</Button>} */}
+
+                                <Button className="m-2 login-page-buttons" onClick={() => setShow(true)}>
+                                    Buy
+                                </Button>
 
                                 <DropdownButton id="dropdown-basic-button" className=" m-2 button-small" size="sm" variant="dark" title="Add to watchlist">
                                     <Dropdown.Item onClick={() => setWatchlist(true)}>New watchlist +</Dropdown.Item>
@@ -304,7 +308,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
             </Modal>
         </>
 
-        /* </Col> */ 
+        /* </Col> */
     );
 }
 
