@@ -11,11 +11,11 @@ p {
 }
 
 .banner {
-  height: 16vh;
+  height: 10vh;
 }
 
 .height-90 {
-  height: 84vh;
+  height: 90vh;
   overflow-y: scroll;
 }
 
@@ -104,7 +104,7 @@ p {
   color: rgb(17, 216, 17);
 }
 .neutral {
-  color: rgb(20, 117, 243);
+  color: rgb(83, 86, 88);
 }
 .negative {
   color: rgb(223, 53, 53);
@@ -330,4 +330,9 @@ p {
     from(rgb(37, 35, 61)),
     to(rgb(0, 0, 0))
   );
+}
+
+#dropdown-basic-button  {
+/* background-color: rgb(55, 64, 187); */
+background-color: rgb(109, 84, 170);
 }

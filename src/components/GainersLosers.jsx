@@ -58,7 +58,7 @@ const GainersLosers = () => {
                                 </div>
 
 
-                                <div className={"p-2 d-flex flex-column " + (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
+                                <div style={{width: "90px"}} className={"p-2 d-flex flex-column " + (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
                                     <span>
                                         +{parseInt(item.changesPercentage).toFixed(2)}%
 
@@ -87,7 +87,7 @@ const GainersLosers = () => {
                                 </div>
 
 
-                                <div className={"p-2 d-flex flex-column " + (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
+                                <div style={{width: "90px"}} className={"p-2 d-flex flex-column " + (item.changes < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
                                     <span>
                                         {parseInt(item.changesPercentage).toFixed(2)}%
                                     </span>

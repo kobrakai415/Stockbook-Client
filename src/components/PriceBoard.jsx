@@ -194,7 +194,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                                     "$" + quotedPrice}  </h4>
 
                                 <div className="d-flex flex-column flex-md-row align-items-center">
-                                    <h4 className={"p-2 " + (percentageChange < 0 ? "negative-percentage-container" : "positive-percentage-container")}>{percentageChange.toFixed(2) + "%"}</h4>
+                                    <h4 style={{width: "100px"}} className={"p-2 " + (percentageChange < 0 ? "negative-percentage-container" : "positive-percentage-container")}>{percentageChange.toFixed(2) + "%"}</h4>
                                     <span className="ms-2 text-muted">yesterday</span>
                                 </div>
 

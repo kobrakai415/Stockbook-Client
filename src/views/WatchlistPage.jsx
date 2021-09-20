@@ -71,7 +71,7 @@ const WatchlistPage = () => {
 
                         <div className="light-bg p-4">
                             <h1>Watchlists</h1>
-                            <DropdownButton id="dropdown-basic-button" variant="dark" title="Select a watchlist">
+                            <DropdownButton  id="dropdown-basic-button" variant="dark" title="Select a watchlist">
                                 {watchlists.map((watchlist, index) => {
                                     return <Dropdown.Item key={index} onClick={() => setSelected(watchlist.name)}>{watchlist.name}</Dropdown.Item>
                                 })}
