@@ -70,7 +70,7 @@ const Banner = ({ }) => {
     return (
 
         <Col md={12} className="p-3 banner">
-            <div className="d-flex p-4  justify-content-between">
+            <div className="d-flex p-2  justify-content-between">
                 {data.user?.balance && <>
                     <div className="light-bg p-3 d-flex justify-content-center align-items-center">
                         <h3>$tockBook</h3>

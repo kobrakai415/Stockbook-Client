@@ -54,7 +54,7 @@ const PositionsTable = () => {
                     <h1 className="mb-4">Open positions</h1>
                     <Col className="light-bg  p-4" xs={12}>
 
-                        <Row className="bottom-border2 mx-0 ">
+                        <Row className=" mx-0 ">
 
                             <Col className="p-1" md={2}>
                                 <h3 className="text-muted">Stock</h3>

@@ -22,6 +22,7 @@ const PortfolioPage = () => {
             <PortfolioStats />
             <PositionsTable />
             <Row className="mx-0">
+                <h1 className="mb-4">Statistics</h1>
                 <PieChart />
                 <ProgressChart />
             </Row>

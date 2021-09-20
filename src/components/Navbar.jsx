@@ -4,50 +4,100 @@ import { BiHelpCircle } from 'react-icons/bi';
 import { RiLogoutBoxFill } from 'react-icons/ri';
 import { FaUserFriends } from 'react-icons/fa';
 import { Link, withRouter } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
-const Navbar = ({ location: { pathname } }) => {
+
+const ApiUrl = process.env.REACT_APP_MY_API
 
 
+const Navbar = ({ location: { pathname }, history }) => {
+
+    const dispatch = useDispatch()
+
+    const logout = async () => {
+        try {
+            const res = await axios.post(`${ApiUrl}/users/logout`)
+            console.log(res)
+            if (res.status === 205) {
+                console.log("logged out")
+                history.push("/login")
+                dispatch({
+                    type: "SET_AUTHENTICATED",
+                    payload: false
+                })
+                dispatch({
+                    type: "LOGOUT",
+                    payload: {
+                        user: {
+                            startingBalance: 0,
+                            balance: 0,
+                            portfolio: [],
+                            watchlists: [{
+                                stocks: [],
+                                name: "",
+                                _id: ""
+                            },]
+                        },
+                        overview: null,
+                        yesterdaysClosing: null,
+                        dailyChartData: {},
+                        percentageChange: null,
+                        chartXValues: null,
+                        chartYValues: null,
+                        authenticated: false,
+                        unrealized: 0
+
+                    }
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
-        <Col className="p-3 sidebar" xs={12} md={3} lg={2}>
-            <div className="nav-links justify-content-center p-2 d-flex flex-row flex-md-column">
-
-                <Link to="/" className={"px-3 py-3 d-flex align-items-center " + (pathname === "/" || pathname.includes("/stock") ? "selected" : "")}>
+        <Col className="sidebar p-3 ps-0" xs={12} md={3} lg={2}>
+            
+            <div className="nav-links justify-content-center  d-flex flex-row flex-md-column">
+                
+                <Link to="/" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/" || pathname.includes("/stock") ? "selected" : "")}>
                     <div>
                         <AiTwotoneHome />
                     </div>
-                    <span className="ms-2 d-none d-sm-block">Home</span>
+                    <span className="ms-3 d-none d-sm-block">Home</span>
                 </Link>
-                <Link to="/watchlists" className={"px-3 py-3 d-flex align-items-center " + (pathname === "/watchlists" ? "selected" : "")}>
+                <Link to="/watchlists" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/watchlists" ? "selected" : "")}>
                     <div>
                         <AiFillEye />
                     </div>
-                    <span className="ms-2 d-none d-sm-block">Watchlists</span>
+                    <span className="ms-3 d-none d-sm-block">Watchlists</span>
                 </Link>
-                <Link to="/portfolio" className={"px-3 py-3 d-flex align-items-center " + (pathname === "/portfolio" ? "selected" : "")}>
+                <Link to="/portfolio" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/portfolio" ? "selected" : "")}>
                     <div>
                         <AiFillPieChart />
                     </div>
-                    <span className="ms-2 d-none d-sm-block">Portfolio</span>
+                    <span className="ms-3 d-none d-sm-block">Portfolio</span>
                 </Link>
-                <Link to="/" className={"px-3 py-3 d-flex align-items-center navbar-divider " + (pathname === "/network" ? "selected" : "")}>
+                <Link to="/" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/network" ? "selected" : "")}>
                     <div>
                         <FaUserFriends />
                     </div>
-                    <span className="ms-2 d-none d-sm-block">Network</span>
+                    <span className="ms-3 d-none d-sm-block">Network</span>
                 </Link>
-                <Link to="/" className={"px-3 py-3 d-flex align-items-center "}>
+
+                <hr className="mx-3" />
+                <Link to="/" className={"ps-4 py-3 d-flex align-items-center "}>
                     <div>
                         <BiHelpCircle />
                     </div>
-                    <span className="ms-2 d-none d-sm-block">Help</span>
+                    <span className="ms-3 d-none d-sm-block">Help</span>
                 </Link>
-                <Link to="/" className={"px-3 py-3 d-flex align-items-center "}>
+                <div onClick={logout} className={" logout ps-4 py-3 d-flex align-items-center "}>
                     <div>
                         <RiLogoutBoxFill />
                     </div>
-                    <span className="ms-2 d-none d-sm-block">Logout</span>
-                </Link>
+                    <span className="ms-3 d-none d-sm-block">Logout</span>
+                </div>
 
             </div>
         </Col>

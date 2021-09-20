@@ -20,8 +20,8 @@ const PostsSection = () => {
     const fetchPosts = async () => {
         try {
             const res = await axios.get(`${ApiUrl}/posts/${symbol}`)
-            
-            if(res.status === 200) {
+
+            if (res.status === 200) {
                 console.log(res)
                 setPosts(res.data.reverse())
             }
@@ -81,58 +81,62 @@ const PostsSection = () => {
     return (
         <>
             <h1>Community blog</h1>
-        <div className="light-bg p-4 ">
-            <div className="p-3 ">
+            <div className="light-bg p-4 mb-4 ">
+                <div className="p-3 ">
 
-                <div className="d-flex align-items-center">
-                    <img alt="profile" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
-                    <Form className="flex-grow-1">
-                        <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Start a post" onClick={() => setAddNew(!addNew)} className="flex-grow-1 mr-sm-2" />
-                    </Form>
-                </div>
+                    <div className="d-flex align-items-center">
+                        <img alt="profile" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
+                        <Form className="flex-grow-1">
+                            <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Start a post" onClick={() => setAddNew(!addNew)} className="flex-grow-1 mr-sm-2" />
+                        </Form>
+                    </div>
+                </div >
             </div >
 
-            <Row>
 
-                {posts.length > 0 && posts.map((item, index) => {
-                    return <PostContainer key={item._id} post={item} />
-                })}
-            </Row>
+           
 
 
+                <Row>
+
+                    {posts.length > 0 && posts.map((item, index) => {
+                        return <PostContainer key={item._id} post={item} />
+                    })}
+                </Row>
 
 
-            <Modal show={addNew} onHide={() => setAddNew(false)} backdrop="static" keyboard={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Create a new post</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="p-4">
-                    <Form>
-                        <Form.Group className="py-2" controlId="formBasicTitle">
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control required value={title} onChange={(e) => setTitle(e.target.value)}  as="textarea" rows={1} placeholder="Give your post a title!" />
-                        </Form.Group>
-                        <Form.Group className="py-2" controlId="formBasicContent">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control required value={content} onChange={(e) => setContent(e.target.value)}  as="textarea" rows={6} placeholder="What do you want to talk about?" />
-                        </Form.Group>
-                        <Form.Group className="py-2" controlId="formBasicImage">
-                            <Form.Label>Upload image</Form.Label>
-                            <Form.Control required onChange={(e) => setImage(e.target.files[0])} type="file" />
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setAddNew(false)}>
-                        Close
-                    </Button>
-                    <Button onClick={createNewPost} variant="primary" >
-                        Post
-                    </Button>
-                </Modal.Footer>
-            </Modal>
 
-        </div>
+
+                <Modal show={addNew} onHide={() => setAddNew(false)} backdrop="static" keyboard={false}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Create a new post</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="p-4">
+                        <Form>
+                            <Form.Group className="py-2" controlId="formBasicTitle">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control required value={title} onChange={(e) => setTitle(e.target.value)} as="textarea" rows={1} placeholder="Give your post a title!" />
+                            </Form.Group>
+                            <Form.Group className="py-2" controlId="formBasicContent">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control required value={content} onChange={(e) => setContent(e.target.value)} as="textarea" rows={6} placeholder="What do you want to talk about?" />
+                            </Form.Group>
+                            <Form.Group className="py-2" controlId="formBasicImage">
+                                <Form.Label>Upload image</Form.Label>
+                                <Form.Control required onChange={(e) => setImage(e.target.files[0])} type="file" />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setAddNew(false)}>
+                            Close
+                        </Button>
+                        <Button onClick={createNewPost} variant="primary" >
+                            Post
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
         </>
     );
 }

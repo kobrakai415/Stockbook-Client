@@ -98,25 +98,25 @@ const PositionContainer = ({ position, index, updateProfit, removeFromProfits })
     return (
         <>
             {livePrice && position && profit ? <>
-                <Row className={"position-item bottom-border " + ((index) % 2 === 0 ? "table-bg" : null)}>
+                <Row className={"position-item  " + ((index) % 2 === 0 ? "table-bg" : null)}>
                     <Col className="p-1" md={2}>
-                        <h6>{position.stock}</h6>
+                        <span>{position.stock}</span>
                     </Col>
 
                     <Col className="p-1" md={2}>
-                        <h6>{position.ticker}</h6>
+                        <span>{position.ticker}</span>
                     </Col>
 
                     <Col className="p-1 d-flex justify-content-start" md={2}>
-                        <h6>{position.shares}</h6>
+                        <span>{position.shares}</span>
                     </Col>
 
                     <Col className="p-1" md={2}>
-                        <h6>{"$" + position.purchasePrice}</h6>
+                        <span>{"$" + position.purchasePrice}</span>
                     </Col>
 
                     <Col className="p-1" md={2}>
-                        <h6>{"$" + livePrice}</h6>
+                        <span>{"$" + livePrice}</span>
                     </Col>
                     <Col className={"p-1 " + (profit < 0 ? "negative" : "positive")} md={2}>
                         <div className="d-flex flex-row">

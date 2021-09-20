@@ -54,7 +54,7 @@ const PortfolioStats = () => {
             <h1>Dashboard</h1>
             <Col className="ps-md-0 mb-3 mb-md-0" md={4}>
                 <div className="light-bg p-4 ">
-                    <div className="p-3 light-bg3 stat-card d-flex flex-column align-items-center justify-content-center">
+                    <div className="p-3 stat-card d-flex flex-column align-items-center justify-content-center">
                         <h3 className="text-muted">Starting Balance</h3>
                         <h2>${numberWithCommas(startingBalance)}</h2>
 
@@ -63,7 +63,7 @@ const PortfolioStats = () => {
             </Col>
             <Col md={4}>
                 <div className="light-bg p-4 mb-3 mb-md-0 ">
-                    <div className="light-bg3 p-3 stat-card d-flex flex-column align-items-center justify-content-center">
+                    <div className="p-3 stat-card d-flex flex-column align-items-center justify-content-center">
 
                         <h3 className="text-muted">Invested</h3>
                         <h2>${numberWithCommas(invested.toFixed(2))}</h2>
@@ -72,7 +72,7 @@ const PortfolioStats = () => {
             </Col>
             <Col className="pe-md-0 mb-3 mb-md-0" md={4}>
                 <div className="light-bg p-4">
-                    <div className=" p-3 light-bg3 stat-card d-flex flex-column align-items-center justify-content-center">
+                    <div className=" p-3 stat-card d-flex flex-column align-items-center justify-content-center">
                         <h3 className="text-muted">Net Liquidation</h3>
                         {performance.toFixed !== NaN ? <h2>${numberWithCommas(performance.toFixed(2))}</h2> : null}
 

@@ -51,7 +51,7 @@ const PostContainer = ({ post }) => {
 
     return (
         <Col xs={12}>
-            <Card className="m-3 post-container ">
+            <Card className="mb-4 post-container ">
                 <div className="pb-3 p-3">
                     <h2>{updatedPost.title}</h2>
 
