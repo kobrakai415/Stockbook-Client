@@ -59,7 +59,7 @@ const Navbar = ({ location: { pathname }, history }) => {
         <Col className="sidebar p-3 ps-0" xs={12} md={3} lg={2}>
             
             <div className="nav-links justify-content-center  d-flex flex-row flex-md-column">
-                
+
                 <Link to="/" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/" || pathname.includes("/stock") ? "selected" : "")}>
                     <div>
                         <AiTwotoneHome />
@@ -85,7 +85,7 @@ const Navbar = ({ location: { pathname }, history }) => {
                     <span className="ms-3 d-none d-sm-block">Network</span>
                 </Link>
 
-                <hr className="mx-3" />
+                <div className="faded-line mx-3"></div>
                 <Link to="/" className={"ps-4 py-3 d-flex align-items-center "}>
                     <div>
                         <BiHelpCircle />
