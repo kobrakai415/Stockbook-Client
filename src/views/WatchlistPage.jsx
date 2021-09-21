@@ -66,7 +66,7 @@ const WatchlistPage = () => {
 
 
             {watchlists.length > 0 && watchlists && <>
-                <Row className="p-4">
+                <Row className="mb-4">
                     <Col className=" d-flex" xs={12}>
 
                         <div className="light-bg p-4">
@@ -81,7 +81,7 @@ const WatchlistPage = () => {
                     </Col>
                 </Row>
 
-                <Row className=" p-4 mx-0 ">
+                <Row className=" mx-0 ">
 
                     <Col className="light-bg p-4 " xs={12}>
                           <Row>  
