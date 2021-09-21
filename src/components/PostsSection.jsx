@@ -35,8 +35,15 @@ const PostsSection = () => {
 
     }, [])
 
-    const createNewPost = async () => {
+    const createNewPost = async (e) => {
         try {
+
+            const form = e.currentTarget
+
+            if (form.checkValidity() === false) {
+                return
+            }
+
             const body = {
                 user: data.user._id,
                 stock: data.overview.Name,
@@ -94,48 +101,48 @@ const PostsSection = () => {
             </div >
 
 
-           
-
-
-                <Row>
-
-                    {posts.length > 0 && posts.map((item, index) => {
-                        return <PostContainer key={item._id} post={item} />
-                    })}
-                </Row>
 
 
 
+            <Row>
 
-                <Modal show={addNew} onHide={() => setAddNew(false)} backdrop="static" keyboard={false}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Create a new post</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className="p-4">
-                        <Form>
-                            <Form.Group className="py-2" controlId="formBasicTitle">
-                                <Form.Label>Title</Form.Label>
-                                <Form.Control required value={title} onChange={(e) => setTitle(e.target.value)} as="textarea" rows={1} placeholder="Give your post a title!" />
-                            </Form.Group>
-                            <Form.Group className="py-2" controlId="formBasicContent">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control required value={content} onChange={(e) => setContent(e.target.value)} as="textarea" rows={6} placeholder="What do you want to talk about?" />
-                            </Form.Group>
-                            <Form.Group className="py-2" controlId="formBasicImage">
-                                <Form.Label>Upload image</Form.Label>
-                                <Form.Control required onChange={(e) => setImage(e.target.files[0])} type="file" />
-                            </Form.Group>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setAddNew(false)}>
-                            Close
-                        </Button>
-                        <Button className="login-page-buttons" onClick={createNewPost} variant="primary" >
-                            Post
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                {posts.length > 0 && posts.map((item, index) => {
+                    return <PostContainer key={item._id} post={item} />
+                })}
+            </Row>
+
+
+
+
+            <Modal show={addNew} onHide={() => setAddNew(false)} backdrop="static" keyboard={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create a new post</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="p-4">
+                    <Form validated onSubmit={(e) => createNewPost(e)}>
+                        <Form.Group className="py-2" controlId="formBasicTitle">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control required={true} value={title} onChange={(e) => setTitle(e.target.value)} as="textarea" rows={1} placeholder="Give your post a title!" />
+                        </Form.Group>
+                        <Form.Group className="py-2" controlId="formBasicContent">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control required={true} value={content} onChange={(e) => setContent(e.target.value)} as="textarea" rows={6} placeholder="What do you want to talk about?" />
+                        </Form.Group>
+                        <Form.Group className="py-2" controlId="formBasicImage">
+                            <Form.Label>Upload image</Form.Label>
+                            <Form.Control required={true} onChange={(e) => setImage(e.target.files[0])} type="file" />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setAddNew(false)}>
+                        Close
+                    </Button>
+                    <Button className="login-page-buttons" type={"submit"} variant="primary" >
+                        Post
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
         </>
     );
