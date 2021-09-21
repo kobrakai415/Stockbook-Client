@@ -11,7 +11,7 @@ const NewsContainer = ({ item, index }) => {
                     <div className="d-flex flex-column flex-xl-row ">
 
                         <h5 className="line-clamp2">{item.headline}</h5>
-                        <img className="p-2 img-fluid rounded" src={item.image} style={{ maxHeight: "100px", maxWidth: "150px" }} alt="news" />
+                        <img className="p-xl-2 img-fluid rounded" src={item.image} style={{ maxHeight: "100px", maxWidth: "150px" }} alt="news" />
 
                     </div>
                     <div>

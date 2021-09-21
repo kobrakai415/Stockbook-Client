@@ -78,12 +78,12 @@ const Banner = ({ }) => {
 
 
 
-                        <h1 className="mb-0 ms-2">$tockBook</h1>
+                        <h1 className="mb-0 ms-2 logo-title">$tockBook</h1>
 
                     </div>
-                    <div className=" d-flex align-items-center">
+                    <div className=" p-2 d-flex align-items-center">
 
-                        {data.user?.balance ? <div className="d-flex align-items-center" >
+                        {data.user?.balance ? <div className="p-2 d-flex align-items-center" >
 
                             {/* {data.unrealized ? <span className={(data.unrealized < 0 ? "negative-percentage-containergative" : "positive-percentage-container ") + " p-2"} >P&L: {(data.unrealized < 0 ? "-" : "+") + "$" + Math.abs(data.unrealized).toFixed(2)}</span> */}
 
@@ -98,7 +98,7 @@ const Banner = ({ }) => {
 
                         <div >
 
-                            <DropdownButton id="dropdown-basic-button" className="p-2   button-small btn-md-lg" size="sm" variant="dark" title={data.user.name + " " + data.user.surname}>
+                            <DropdownButton id="dropdown-basic-button" className="p-2 button-small btn-md-lg" size="sm" variant="dark" title={data.user.name + " " + data.user.surname}>
 
                                 <Dropdown.Item> <CgProfile /> My account</Dropdown.Item>
                                 <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>

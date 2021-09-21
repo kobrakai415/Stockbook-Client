@@ -28,7 +28,7 @@ const CommentsContainer = ({ comment, index, updatePost }) => {
         }
     }
     return (
-        <Card className={"p-1 m-2 " + ((index) % 2 === 0 ? "ms-5" : "me-5")} bg="dark" >
+        <Card className={"p-1 m-2 comments-container " + ((index) % 2 === 0 ? "ms-5" : "me-5")} bg="dark" >
 
             <div className="d-flex flex-column justify-content-between p-2">
                 <div className="d-flex flex-row align-items-center justify-content-between">

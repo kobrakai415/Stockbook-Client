@@ -131,7 +131,7 @@ const PostsSection = () => {
                         <Button variant="secondary" onClick={() => setAddNew(false)}>
                             Close
                         </Button>
-                        <Button onClick={createNewPost} variant="primary" >
+                        <Button className="login-page-buttons" onClick={createNewPost} variant="primary" >
                             Post
                         </Button>
                     </Modal.Footer>

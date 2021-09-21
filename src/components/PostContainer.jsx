@@ -137,7 +137,7 @@ const PostContainer = ({ post }) => {
                     <Button variant="secondary" onClick={() => setNewComment(false)}>
                         Close
                     </Button>
-                    <Button disabled={comment.length < 1} onClick={postComment} variant="primary" >
+                    <Button className="login-page-buttons" disabled={comment.length < 1} onClick={postComment} >
                         Post
                     </Button>
                 </Modal.Footer>

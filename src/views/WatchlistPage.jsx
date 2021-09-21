@@ -112,7 +112,7 @@ const WatchlistPage = () => {
 
 
                         {watchlist && watchlist.stocks.length > 0 && watchlist.stocks.map((item, index) => {
-                            return <WatchlistItem key={index} remove={removeFromWatchlist} stock={item} />
+                            return <WatchlistItem key={index} index={index} remove={removeFromWatchlist} stock={item} />
                         })}
 
 

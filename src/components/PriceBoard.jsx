@@ -267,7 +267,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                     <Button variant="secondary" onClick={() => setShow(false)}>
                         Close
                     </Button>
-                    <Button disabled={user.balance < total ? true : false} onClick={buyStock} variant="primary">Submit</Button>
+                    <Button className="login-page-buttons" disabled={user.balance < total ? true : false} onClick={buyStock} variant="primary">Submit</Button>
                 </Modal.Footer>
             </Modal>
                 : null}
