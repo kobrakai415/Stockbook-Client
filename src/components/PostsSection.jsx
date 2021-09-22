@@ -142,7 +142,7 @@ const PostsSection = () => {
                             <Button variant="secondary" onClick={() => setAddNew(false)}>
                                 Close
                             </Button>
-                            <Button className="login-page-buttons" type="submit" variant="primary" >
+                            <Button className="login-page-buttons ms-3" type="submit" variant="primary" >
                                 Post
                             </Button>
                         </div>

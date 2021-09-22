@@ -28,18 +28,18 @@ const CommentsContainer = ({ comment, index, updatePost }) => {
         }
     }
     return (
-        <Card className={"p-1 m-2 comments-container " + ((index) % 2 === 0 ? "ms-5" : "me-5")} bg="dark" >
+        <Card className={" m-2 comments-container " + ((index) % 2 === 0 ? "ms-5" : "me-5")} bg="dark" >
 
             <div className="d-flex flex-column justify-content-between p-2">
                 <div className="d-flex flex-row align-items-center justify-content-between">
                     <div className="d-flex flex-row justify-content-between align-items-center p-1 me-3">
                         <img alt="" className="me-2" style={{ borderRadius: "50%", width: "24px", height: "24px", border: "black solid 1px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
-                        <h6 className="mb-0">{comment.user.name} {comment.user.surname}</h6>
+                        <h5 className="mb-0">{comment.user.name} {comment.user.surname}</h5>
 
                     </div>
                     {user._id === comment.user._id && <AiFillCloseCircle className="ms-3 mt-1 close-position" onClick={deleteComment} />}
                 </div>
-                <span>{comment.comment}</span>
+                <span className="p-1" style={{fontSize: "14px"}}>{comment.comment}</span>
                 <div className="d-flex justify-content-end">
                     <div>
 
