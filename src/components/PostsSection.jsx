@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Button, Form, Modal, Row, FormControl } from 'react-bootstrap';
+import { Button, Form, Modal, Row, FormControl, Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PostContainer from './PostContainer';
@@ -13,6 +13,8 @@ const PostsSection = () => {
     const [content, setContent] = useState("");
     const [image, setImage] = useState(null);
     const [posts, setPosts] = useState([]);
+
+    const [loading, setLoading] = useState(false)
 
     const { symbol } = useParams();
     const { data } = useSelector(state => state);
@@ -37,8 +39,9 @@ const PostsSection = () => {
 
     const createNewPost = async (e) => {
         try {
-
+            setLoading(true)
             const form = e.currentTarget
+            e.preventDefault()
 
             if (form.checkValidity() === false) {
                 return
@@ -72,10 +75,13 @@ const PostsSection = () => {
 
                 if (response.status === 200) {
                     setPosts(response.data.reverse())
+
+                    setLoading(false)
                     setAddNew(false)
                     setTitle("")
                     setContent("")
                     setImage(null)
+
                     console.log(response)
                 }
             }
@@ -118,7 +124,7 @@ const PostsSection = () => {
                 <Modal.Header closeButton>
                     <Modal.Title>Create a new post</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="p-4">
+                <Modal.Body style={{ position: "relative" }} className="p-4">
                     <Form validated onSubmit={(e) => createNewPost(e)}>
                         <Form.Group className="py-2" controlId="formBasicTitle">
                             <Form.Label>Title</Form.Label>
@@ -132,17 +138,21 @@ const PostsSection = () => {
                             <Form.Label>Upload image</Form.Label>
                             <Form.Control required={true} onChange={(e) => setImage(e.target.files[0])} type="file" />
                         </Form.Group>
+                        <div className="d-flex py-2 justify-content-end">
+                            <Button variant="secondary" onClick={() => setAddNew(false)}>
+                                Close
+                            </Button>
+                            <Button className="login-page-buttons" type="submit" variant="primary" >
+                                Post
+                            </Button>
+                        </div>
                     </Form>
+                    {loading ? <Spinner className="loading-spinner" animation="border" variant="primary" /> : null}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setAddNew(false)}>
-                        Close
-                    </Button>
-                    <Button className="login-page-buttons" type={"submit"} variant="primary" >
-                        Post
-                    </Button>
                 </Modal.Footer>
             </Modal>
+
 
         </>
     );

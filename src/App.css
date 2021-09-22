@@ -9,13 +9,12 @@
 .logo-title {
   color: white;
 }
-h1 {
+/* h1 {
   color: rgb(212, 211, 221);
-}
+} */
 /* h6{
   color: rgb(119,118,137)
 } */
-
 
 p {
   font-family: "Open Sans", sans-serif;
@@ -132,7 +131,8 @@ p {
 }
 
 .register-form {
-  border: rgb(7, 7, 7) 1px solid;
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.058);
+  border-bottom: 1px rgba(255, 255, 255, 0.082) solid;
   border-radius: 30px;
   background-color: #25233d;
 }
@@ -371,14 +371,20 @@ p {
   background-color: rgb(109, 84, 170);
 }
 
-
-.toast-header{
- background-color: rgb(109, 84, 170); 
- color: white;
- border-bottom: none;
+.toast-header {
+  background-color: rgb(109, 84, 170);
+  color: white;
+  border-bottom: none;
 }
 
 .toast-body {
   background-color: rgb(37, 35, 61);
   color: white;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 40%;
+  left: 47%;
+
 }
