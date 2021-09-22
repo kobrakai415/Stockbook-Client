@@ -24,7 +24,8 @@ export const initialState = {
         chartYValues: null,
         authenticated: false,
         unrealized: 0,
-        invested: 0
+        invested: 0,
+        netUnrealized: 0,
 
     },
 

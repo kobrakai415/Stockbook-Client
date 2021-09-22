@@ -6,14 +6,14 @@ import { ImArrowUp, ImArrowDown } from 'react-icons/im'
 const PortfolioStats = () => {
     const { user: { portfolio, balance, startingBalance }, unrealized } = useSelector(state => state.data)
     const dispatch = useDispatch()
-    
+
     const [invested, setInvested] = useState(0);
     const [performance, setPerformance] = useState(0);
 
     const [difference, setDifference] = useState(0)
     const [perecentDifference, setPercentDifference] = useState(0)
 
-
+    
 
 
     function numberWithCommas(x) {
@@ -46,6 +46,10 @@ const PortfolioStats = () => {
         let sum = balance + unrealized + invested
 
         setPerformance(sum)
+        dispatch({
+            type: "SET_NET_UNREALIZED",
+            payload: sum
+        })
     }, [balance, unrealized]);
 
 

@@ -75,6 +75,7 @@ const PositionContainer = ({ position, index, updateProfit, removeFromProfits })
                 cost: (position.purchasePrice * position.shares),
                 sell: (livePrice * position.shares),
                 sellPrice: livePrice,
+                netUnrealized: state.data.netUnrealized
             }
 
             const res = await axios.post(`${ApiUrl}/trade/close`, body)
@@ -156,7 +157,7 @@ const PositionContainer = ({ position, index, updateProfit, removeFromProfits })
                         <Button variant="secondary" onClick={() => setShow(false)}>
                             Close
                         </Button>
-                        <Button onClick={closePosition} variant="primary">Submit</Button>
+                        <Button className="login-page-buttons" onClick={closePosition} variant="primary">Submit</Button>
                     </Modal.Footer>
                 </Modal>
 
