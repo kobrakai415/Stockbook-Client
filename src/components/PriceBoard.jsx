@@ -27,6 +27,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
     const [watchlistError, setWatchlistError] = useState(false)
     const [finnhubError, setFinnhubError] = useState(false);
 
+    const [watchlistSuccess, setWatchlistSuccess] = useState(false)
 
 
     const today = new Date()
@@ -141,6 +142,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
 
             if (res.statusText === "OK") {
                 setUser(res.data)
+                setWatchlistSuccess(true)
             } else {
                 console.log(error)
             }
@@ -174,7 +176,16 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                 <Toast.Body>  An error occurred! Please try again!</Toast.Body>
             </Toast>
 
+            <Toast
+                className="slide-in-top toast"
+                show={watchlistSuccess} onClose={() => setWatchlistSuccess(false)}>
+                <Toast.Header>
 
+                    <strong className="me-auto">$tockBook</strong>
+
+                </Toast.Header>
+                <Toast.Body> Successfully added to watchlist!</Toast.Body>
+            </Toast>
 
 
             {overview && livePrice && dailyChartData ? <>
@@ -194,7 +205,7 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
                                     "$" + quotedPrice}  </h4>
 
                                 <div className="d-flex flex-column flex-md-row align-items-center">
-                                    <h4 style={{width: "100px"}} className={"p-2 " + (percentageChange < 0 ? "negative-percentage-container" : "positive-percentage-container")}>{percentageChange.toFixed(2) + "%"}</h4>
+                                    <h4 style={{ width: "100px" }} className={"p-2 " + (percentageChange < 0 ? "negative-percentage-container" : "positive-percentage-container")}>{percentageChange.toFixed(2) + "%"}</h4>
                                     <span className="ms-2 text-muted">yesterday</span>
                                 </div>
 
