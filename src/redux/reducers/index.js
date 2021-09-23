@@ -43,25 +43,43 @@ export const dataReducer = (state = initialState.data, action) => {
                 ...state,
                 user: action.payload
             }
-        default:
-            return state
+        case 'SET_UNREALIZED':
 
-    }
-}
-
-
-
-
-
-export const watchlistReducer = (state = initialState.data, action) => {
-
-    switch (action.type) {
-        case 'SET_BROWSE_ALL_DATA':
             return {
                 ...state,
-                browseAllData: [...action.payload]
+                unrealized: action.payload
             }
+        case 'SET_INVESTED':
+            return {
+                ...state,
+                invested: action.payload
+            }
+        case 'SET_NET_UNREALIZED':
+            return {
+                ...state,
+                netUnrealized: action.payload
+            }
+        case 'LOGOUT':
+            return action.payload
         default:
             return state
+
     }
 }
+
+
+
+
+
+// export const watchlistReducer = (state = initialState.data, action) => {
+
+//     switch (action.type) {
+//         case 'SET_BROWSE_ALL_DATA':
+//             return {
+//                 ...state,
+//                 browseAllData: [...action.payload]
+//             }
+//         default:
+//             return state
+//     }
+// }

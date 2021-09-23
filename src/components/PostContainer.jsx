@@ -28,7 +28,7 @@ const PostContainer = ({ post }) => {
             const res = await axios.post(`${ApiUrl}/comments/${updatedPost._id}`, body)
 
             console.log(res.data.comments.reverse())
-            if(res.status === 201){
+            if (res.status === 201) {
                 setUpdatedPost(res.data)
                 setNewComment(false)
             }
@@ -51,22 +51,25 @@ const PostContainer = ({ post }) => {
 
     return (
         <Col xs={12}>
-            <Card className="m-3 p-3">
-                <div className="pb-3">
+            <Card className="mb-4 post-container ">
+                <div className="pb-3 p-3">
                     <h2>{updatedPost.title}</h2>
 
-                    <span>{updatedPost.ticker}</span>
 
                 </div>
-                <div className="d-flex justify-content-center align-items-center py-3">
-                    <img className="w-100 h-100 img-fluid" src={updatedPost.image} alt="post"/>
+                <div className="d-flex justify-content-center align-items-center">
+                    <Card.Img src={updatedPost.image} alt="post" />
                 </div>
-                    <p>{updatedPost.content}</p>
 
-                <div className="d-flex flex-row justify-content-between">
-                    <div>
+                <div className="p-3">
 
-                        <div>
+                    <p className="text-white">{updatedPost.content}</p>
+                </div>
+
+                <div className="d-flex flex-row justify-content-between p-3">
+                    <div className="text-info">
+
+                        <div >
                             <span>Author: </span>
                             <span>{updatedPost.user.name + " " + updatedPost.user.surname}</span>
 
@@ -77,7 +80,7 @@ const PostContainer = ({ post }) => {
                         </div>
                     </div>
 
-                    <div className="d-flex flex-row align-items-center">
+                    <div className=" d-flex flex-row align-items-center">
                         <div className="m-3">
                             {updatedPost.likes.find(like => like === user._id) ? <AiFillHeart onClick={toggleLike} style={{ fontSize: "20px" }} /> : <AiOutlineHeart onClick={toggleLike} style={{ fontSize: "20px" }} />}
                         </div>
@@ -92,9 +95,9 @@ const PostContainer = ({ post }) => {
                 </div>
 
 
-                <div className="pt-4">
+                <div className="p-3">
                     <div className="d-flex align-items-center">
-                        <img alt="" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://media.giphy.com/media/TdMVH60kJvTMI/source.gif"></img>
+                        <img alt="" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
                         <Form className="flex-grow-1" >
                             <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Make a comment" onClick={() => setNewComment(!newComment)} className="flex-grow-1 mr-sm-2" />
                         </Form>
@@ -102,7 +105,7 @@ const PostContainer = ({ post }) => {
                 </div >
 
 
-                {showComments && updatedPost.comments.length > 0 && <div className="mt-3">
+                {showComments && updatedPost.comments.length > 0 && <div className="p-3">
                     {updatedPost.comments.length > 0 &&
 
                         updatedPost.comments.reverse().map((comment, index) => {
@@ -111,9 +114,9 @@ const PostContainer = ({ post }) => {
                     }
                 </div>}
 
-                {updatedPost.comments.length > 0 ? <div className="d-flex justify-content-end pt-3">
+                {updatedPost.comments.length > 0 ? <div className="d-flex justify-content-end p-3">
                     <span onClick={() => setShowComments(!showComments)}>{showComments ? "Hide Comments" : "Show Comments"}</span>
-                </div> : <div className="p-2"> Be the first to comment on this post! </div>}
+                </div> : <div className="p-3"> Be the first to comment on this post! </div>}
 
             </Card>
 
@@ -134,7 +137,7 @@ const PostContainer = ({ post }) => {
                     <Button variant="secondary" onClick={() => setNewComment(false)}>
                         Close
                     </Button>
-                    <Button disabled={comment.length < 1} onClick={postComment} variant="primary" >
+                    <Button className="login-page-buttons" disabled={comment.length < 1} onClick={postComment} >
                         Post
                     </Button>
                 </Modal.Footer>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { finnhubClient } from '../finnhub';
 
 
-const WatchlistItem = ({ stock, remove }) => {
+const WatchlistItem = ({ stock, remove, index }) => {
     const [livePrice, setLivePrice] = useState(null);
     const [percentageChange, setPercentageChange] = useState(null);
 
@@ -25,7 +25,7 @@ const WatchlistItem = ({ stock, remove }) => {
 
     return (
 
-        <Row className="align-items-center p-1 bottom-border">
+        <Row className={"align-items-center p-1 mx-0 watchlist-item " + ((index) % 2 === 0 ? "table-bg" : "")}>
             <Col md={2}>
                 <Link className="no-decor" to={`/stock/${stock.ticker}`}>
                     <h4>{stock.ticker}</h4>

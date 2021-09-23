@@ -1,32 +1,105 @@
-.app {
+.app,
+.login-page {
   height: 100vh;
-  background-color: rgb(53, 55, 68);
-  color: rgb(55, 187, 148);
+  background-color: #171531;
+  color: white;
+  font-family: "Work Sans", sans-serif;
+}
+
+.logo-title {
+  color: white;
+}
+/* h1 {
+  color: rgb(212, 211, 221);
+} */
+/* h6{
+  color: rgb(119,118,137)
+} */
+
+p, .comments-container span {
+  font-family: "Open Sans", sans-serif;
 }
 
 .banner {
-  padding: 20px;
-  height: 10vh;
+  height: 12vh;
 }
 
 .height-90 {
-  height: 90vh;
+  height: 88vh;
   overflow-y: scroll;
-  border-left: rgb(170, 219, 174) solid 1px;
-  border-top: rgb(170, 219, 174) solid 1px;
-  padding: 10px 10px 10px 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .sidebar {
+    height: 12vh;
+  }
+  .height-90{
+    height: 76vh;
+  }
+}
+
+.table-bg {
+  background-color: rgb(28, 27, 44);
+}
+
+.nav-links svg {
+  font-size: 25px;
+}
+.nav-links {
+  font-size: 16px;
+}
+
+.selected {
+  color: white !important;
+  font-weight: 1000 !important;
+  background-color: rgb(37, 35, 61);
+  position: relative;
+}
+
+.selected::after {
+  content: "";
+  background: rgb(37, 35, 61);
+  background: linear-gradient(
+    90deg,
+    rgba(37, 35, 61, 0.5410539215686274) 0%,
+    rgba(23, 21, 49, 0.9472163865546218) 100%
+  );
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50px;
+  z-index: 3;
+}
+
+.selected::before {
+  background-color: transparent;
+  content: url(/src/assets/selected.svg);
+  top: 50%;
+  right: 0;
+  position: absolute;
+  z-index: 4;
+  transform: rotate(90deg) translateY(-50%) translateX(-50%);
 }
 
 .nav-links a,
-.nav-links a:visited {
+.nav-links a:visited,
+.logout {
   text-decoration: none;
-  color: inherit;
+  color: #6c757d;
+  max-width: 200px;
+}
+
+.nav-links a:hover,
+.logout:hover {
+  color: white !important;
 }
 .no-decor,
 .no-decor:visited {
   text-decoration: none;
   color: inherit;
 }
+
 #search-bar {
   border-radius: 500px;
   height: 40px;
@@ -50,23 +123,28 @@
   color: rgb(17, 216, 17);
 }
 .neutral {
-  color: black;
+  color: rgb(83, 86, 88);
 }
 .negative {
   color: rgb(223, 53, 53);
 }
 
 .register-form {
-  border: rgb(189, 189, 189) 1px solid;
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.058);
+  border-bottom: 1px rgba(255, 255, 255, 0.082) solid;
   border-radius: 30px;
+  background-color: #25233d;
+}
+.login-page-buttons {
+  background-color: rgb(55, 187, 148);
+  border-color: black;
 }
 
-.selected {
-  background-color: rgb(255, 255, 255);
-  border-radius: 15px;
-  border: 1px solid black;
+.login-page-buttons:hover {
+  background-color: #00f500;
+  border-color: black;
+  color: black;
 }
-
 .close-position {
   color: grey !important;
   margin-left: 5px;
@@ -74,6 +152,7 @@
 .close-position:hover {
   transform: scale(1.5);
   box-shadow: honeydew;
+  cursor: pointer;
 }
 
 .bottom-border {
@@ -83,7 +162,7 @@
   border-bottom: grey 1px solid;
 }
 .bottom-border:hover {
-  background-color: rgb(55, 87, 226);
+  background-color: rgb(109, 84, 170);
 }
 .slide-in-top {
   -webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -126,6 +205,9 @@
   padding-bottom: 8px;
 }
 
+.comments-container {
+  background-color: rgb(62, 59, 94) !important;
+}
 .comment-user {
   border-radius: 10px;
   border: 1px solid black;
@@ -133,7 +215,7 @@
 }
 
 .positions-table {
-  height: 40vh;
+  max-height: 25vh;
   overflow-y: scroll;
 }
 .link-no-decoration {
@@ -146,10 +228,162 @@
   color: inherit;
 }
 
-.price-board {
- 
-  background-color: black;
-  border-radius: 15px;
-  padding: 15px 15px 15px 15px;
-  margin-bottom: 10px;
+.light-bg {
+  border-radius: 10px;
+  background-color: rgb(37, 35, 61);
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.058);
+
+  border-bottom: 1px rgba(255, 255, 255, 0.041) solid;
+}
+.light-bg2 {
+  border: none;
+  background-color: rgb(37, 35, 61);
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.058);
+  border-bottom: 1px rgba(255, 255, 255, 0.082) solid;
+}
+
+.light-bg3 {
+  background-color: rgb(37, 35, 61);
+  border-bottom: 1px rgba(255, 255, 255, 0.082) solid;
+}
+
+.post-container {
+  background-color: rgb(37, 35, 61);
+  border-radius: 10px;
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.058);
+  border-bottom: 1px rgba(255, 255, 255, 0.082) solid;
+}
+
+.navbar-divider {
+  border-bottom: 1px rgba(255, 255, 255, 0.14) solid;
+}
+.dark-bg {
+  background-color: rgb(23, 21, 49);
+  border-radius: 10px;
+}
+
+.modal-content {
+  background-color: rgb(37, 35, 61);
+  color: white;
+  border-radius: 25px;
+}
+.position-item {
+  max-height: 3em;
+}
+.position-item:hover,
+.watchlist-item:hover {
+  background-color: rgb(109, 84, 170);
+}
+@media (max-width: 500px) {
+  .button-small button {
+    font-size: 6px;
+    line-height: 3.2;
+  }
+}
+
+.toast {
+  position: absolute;
+  top: 15vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+.positive-percentage-container {
+  background-color: rgb(40, 62, 64);
+  color: rgb(133, 210, 163);
+  border-radius: 5px;
+}
+
+.negative-percentage-container {
+  background-color: rgb(63, 38, 58);
+  color: rgb(207, 119, 127);
+  border-radius: 5px;
+}
+
+.stock-logo {
+  border-radius: 7px;
+  height: 55px;
+  width: 55px;
+  background-color: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e1fcd9;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(61, 61, 61);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.stat-card {
+  height: 160px;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.plotly-graph svg {
+  border-radius: 10px !important;
+}
+
+.faded-line {
+  display: block;
+  border: none;
+  color: white;
+  height: 1px;
+  background: black;
+  background: -webkit-gradient(
+    radial,
+    50% 50%,
+    0,
+    50% 50%,
+    350,
+    from(rgb(37, 35, 61)),
+    to(rgb(0, 0, 0))
+  );
+}
+
+#dropdown-basic-button {
+  /* background-color: rgb(55, 64, 187); */
+  background-color: rgb(109, 84, 170);
+}
+
+.toast-header {
+  background-color: rgb(109, 84, 170);
+  color: white;
+  border-bottom: none;
+}
+
+.toast-body {
+  background-color: rgb(37, 35, 61);
+  color: white;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 40%;
+  left: 47%;
+
 }

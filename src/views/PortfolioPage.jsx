@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import PositionsTable from '../components/PositionsTable';
 import PortfolioStats from '../components/PortfolioStats';
+import PieChart from '../components/PieChart';
+import ProgressChart from '../components/ProgressChart';
 
 
 
@@ -15,13 +17,15 @@ const PortfolioPage = () => {
     }, [portfolio])
 
 
-
-
     return (
-        <Col className="height-90 p-5" xs={8} md={9} lg={10}>
+        <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <PortfolioStats />
-
-            <PositionsTable portfolio={portfolio} />
+            <PositionsTable />
+            <Row className="mx-0">
+                <h1 className="mb-4">Statistics</h1>
+                <PieChart />
+                <ProgressChart />
+            </Row>
         </Col>
     );
 }

@@ -25,19 +25,18 @@ function App() {
 
   axios.defaults.withCredentials = true
 
-  const refreshAuthLogic = failedRequest => axios.post(`${ApiUrl}/users/refreshToken`,).then(tokenRefreshResponse => {
+  const refreshAuthLogic = (failedRequest) => axios.post(`${ApiUrl}/users/refreshToken`,).then(tokenRefreshResponse => {
     console.log(tokenRefreshResponse)
     return Promise.resolve();
   });
 
   createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
-
   useEffect(() => {
     checkToken()
   }, []);
 
-  const checkToken = async () => {  
+  const checkToken = async () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_MY_API}/users/checkAccessToken`)
 
@@ -76,11 +75,13 @@ function App() {
             {authenticated && <>
               <Banner />
               <Navbar />
-              <Route path="/" exact render={(routerProps) => <HomePage routerProps={routerProps} />} />
-              <Route path="/search" exact render={(routerProps) => <SearchPage routerProps={routerProps} />} />
-              <Route path="/watchlists" exact render={(routerProps) => <WatchlistPage routerProps={routerProps} />} />
-              <Route path="/portfolio" exact render={(routerProps) => <PortfolioPage routerProps={routerProps} />} />
-              <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
+              <Switch>
+                <Route path="/" exact render={(routerProps) => <HomePage routerProps={routerProps} />} />
+                <Route path="/search" exact render={(routerProps) => <SearchPage routerProps={routerProps} />} />
+                <Route path="/watchlists" exact render={(routerProps) => <WatchlistPage routerProps={routerProps} />} />
+                <Route path="/portfolio" exact render={(routerProps) => <PortfolioPage routerProps={routerProps} />} />
+                <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
+              </Switch>
             </>
             }
           </Row>

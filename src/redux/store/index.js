@@ -5,35 +5,37 @@ import thunk from "redux-thunk"
 export const initialState = {
 
     data: {
+        user: {
+            startingBalance: 0,
+            balance: 0,
+            portfolio: [],
+            watchlists: [{
+                stocks: [],
+                name: "",
+                _id: ""
+            },],
+            progress: []
+        },
         overview: null,
-        quotedPrice: null,
-        livePrice: null,
         yesterdaysClosing: null,
         dailyChartData: {},
         percentageChange: null,
         chartXValues: null,
         chartYValues: null,
-        user: {
-            watchlists: [{
-                stocks: [],
-                name: "",
-                _id: ""
-            }]
-        },
         authenticated: false,
+        unrealized: 0,
+        invested: 0,
+        netUnrealized:0
 
     },
 
-    watchlist: {
 
-    },
 
 }
 
 const mainReducer = combineReducers(
     {
         data: dataReducer,
-        watchlist: watchlistReducer
     }
 )
 

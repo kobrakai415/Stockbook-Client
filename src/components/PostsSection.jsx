@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Button, Form, Modal, Row, FormControl } from 'react-bootstrap';
+import { Button, Form, Modal, Row, FormControl, Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PostContainer from './PostContainer';
@@ -14,14 +14,16 @@ const PostsSection = () => {
     const [image, setImage] = useState(null);
     const [posts, setPosts] = useState([]);
 
+    const [loading, setLoading] = useState(false)
+
     const { symbol } = useParams();
     const { data } = useSelector(state => state);
 
     const fetchPosts = async () => {
         try {
             const res = await axios.get(`${ApiUrl}/posts/${symbol}`)
-            
-            if(res.status === 200) {
+
+            if (res.status === 200) {
                 console.log(res)
                 setPosts(res.data.reverse())
             }
@@ -35,8 +37,16 @@ const PostsSection = () => {
 
     }, [])
 
-    const createNewPost = async () => {
+    const createNewPost = async (e) => {
         try {
+            setLoading(true)
+            const form = e.currentTarget
+            e.preventDefault()
+
+            if (form.checkValidity() === false) {
+                return
+            }
+
             const body = {
                 user: data.user._id,
                 stock: data.overview.Name,
@@ -65,7 +75,14 @@ const PostsSection = () => {
 
                 if (response.status === 200) {
                     setPosts(response.data.reverse())
+
+                    setLoading(false)
                     setAddNew(false)
+                    setTitle("")
+                    setContent("")
+                    setImage(null)
+
+                    console.log(response)
                 }
             }
 
@@ -75,22 +92,28 @@ const PostsSection = () => {
     }
 
     return (
-        <div className="pt-3">
-            <h3>Community blog</h3>
-            <div className="p-3 ">
+        <>
+            <h1>Community blog</h1>
+            <div className="light-bg p-4 mb-4 ">
+                <div className="p-3 ">
 
-                <div className="d-flex align-items-center">
-                    <img alt="" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://media.giphy.com/media/TdMVH60kJvTMI/source.gif"></img>
-                    <Form className="flex-grow-1">
-                        <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Start a post" onClick={() => setAddNew(!addNew)} className="flex-grow-1 mr-sm-2" />
-                    </Form>
-                </div>
+                    <div className="d-flex align-items-center">
+                        <img alt="profile" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
+                        <Form className="flex-grow-1">
+                            <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Start a post" onClick={() => setAddNew(!addNew)} className="flex-grow-1 mr-sm-2" />
+                        </Form>
+                    </div>
+                </div >
             </div >
+
+
+
+
 
             <Row>
 
                 {posts.length > 0 && posts.map((item, index) => {
-                    return <PostContainer key={index} post={item} />
+                    return <PostContainer key={item._id} post={item} />
                 })}
             </Row>
 
@@ -101,33 +124,37 @@ const PostsSection = () => {
                 <Modal.Header closeButton>
                     <Modal.Title>Create a new post</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="p-4">
-                    <Form>
-                        <Form.Group controlId="formBasicTitle">
+                <Modal.Body style={{ position: "relative" }} className="p-4">
+                    <Form validated onSubmit={(e) => createNewPost(e)}>
+                        <Form.Group className="py-2" controlId="formBasicTitle">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} required={true} validation={true} as="textarea" rows={1} min={10} placeholder="Give your post a title!" />
+                            <Form.Control required={true} value={title} onChange={(e) => setTitle(e.target.value)} as="textarea" rows={1} placeholder="Give your post a title!" />
                         </Form.Group>
-                        <Form.Group controlId="formBasicContent">
+                        <Form.Group className="py-2" controlId="formBasicContent">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control value={content} onChange={(e) => setContent(e.target.value)} required={true} as="textarea" rows={6} placeholder="What do you want to talk about?" />
+                            <Form.Control required={true} value={content} onChange={(e) => setContent(e.target.value)} as="textarea" rows={6} placeholder="What do you want to talk about?" />
                         </Form.Group>
-                        <Form.Group controlId="formBasicImage">
+                        <Form.Group className="py-2" controlId="formBasicImage">
                             <Form.Label>Upload image</Form.Label>
-                            <Form.Control onChange={(e) => setImage(e.target.files[0])} type="file" />
+                            <Form.Control required={true} onChange={(e) => setImage(e.target.files[0])} type="file" />
                         </Form.Group>
+                        <div className="d-flex py-2 justify-content-end">
+                            <Button variant="secondary" onClick={() => setAddNew(false)}>
+                                Close
+                            </Button>
+                            <Button className="login-page-buttons ms-3" type="submit" variant="primary" >
+                                Post
+                            </Button>
+                        </div>
                     </Form>
+                    {loading ? <Spinner className="loading-spinner" animation="border" variant="primary" /> : null}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setAddNew(false)}>
-                        Close
-                    </Button>
-                    <Button onClick={createNewPost} variant="primary" >
-                        Post
-                    </Button>
                 </Modal.Footer>
             </Modal>
 
-        </div>
+
+        </>
     );
 }
 

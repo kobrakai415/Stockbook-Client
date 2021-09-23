@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
-const PositionContainer = ({ position }) => {
+const PositionContainer = ({ position, index, updateProfit, removeFromProfits }) => {
 
     const [livePrice, setLivePrice] = useState(0);
     const [profit, setProfit] = useState(null);
@@ -40,7 +40,7 @@ const PositionContainer = ({ position }) => {
 
             if (json.type === "trade") {
                 if (json.data[0].s === position.ticker) {
-                    
+
                     setLivePrice(json.data[0].p.toFixed(2))
 
                 }
@@ -59,8 +59,13 @@ const PositionContainer = ({ position }) => {
         const difference = ((livePrice * position.shares) - (position.purchasePrice * position.shares)).toFixed(2)
 
         setProfit(difference)
-    }, [livePrice])
+        updateProfit({ index, difference })
 
+        return () => {
+            removeFromProfits({index, difference})
+        }
+
+    }, [livePrice])
 
 
     const closePosition = async () => {
@@ -70,6 +75,7 @@ const PositionContainer = ({ position }) => {
                 cost: (position.purchasePrice * position.shares),
                 sell: (livePrice * position.shares),
                 sellPrice: livePrice,
+                netUnrealized: state.data.netUnrealized
             }
 
             const res = await axios.post(`${ApiUrl}/trade/close`, body)
@@ -92,38 +98,38 @@ const PositionContainer = ({ position }) => {
 
     return (
         <>
-            {livePrice && position && profit && <>
-                <Row className="position-item bottom-border">
+            {livePrice && position && profit ? <>
+                <Row className={"position-item p-2  " + ((index) % 2 === 0 ? "table-bg" : "")}>
                     <Col className="p-1" md={2}>
-                        <h6>{position.stock}</h6>
+                        <span>{position.stock}</span>
                     </Col>
 
                     <Col className="p-1" md={2}>
-                        <h6>{position.ticker}</h6>
+                        <span>{position.ticker}</span>
                     </Col>
 
                     <Col className="p-1 d-flex justify-content-start" md={2}>
-                        <h6>{position.shares}</h6>
+                        <span>{position.shares}</span>
                     </Col>
 
                     <Col className="p-1" md={2}>
-                        <h6>{"$" + position.purchasePrice}</h6>
+                        <span>{"$" + position.purchasePrice}</span>
                     </Col>
 
                     <Col className="p-1" md={2}>
-                        <h6>{"$" + livePrice}</h6>
+                        <span>{"$" + livePrice}</span>
                     </Col>
                     <Col className={"p-1 " + (profit < 0 ? "negative" : "positive")} md={2}>
                         <div className="d-flex flex-row">
                             <h6 className="flex-grow-1">{(profit < 0 ? "-" : "+") + "$" + Math.abs(profit).toFixed(2)}</h6>
-                            <AiFillCloseCircle onClick={() => setShow(true)} className="ms-3 mt-1 close-position" />
+                            <AiFillCloseCircle onClick={() => setShow(true)} className="ms-3 me-5 mt-1 close-position" />
 
                         </div>
                     </Col>
                 </Row>
 
                 <Modal
-
+                    
                     show={show}
                     onHide={() => setShow(false)}
                     backdrop="static"
@@ -141,7 +147,7 @@ const PositionContainer = ({ position }) => {
                             <h5>CostPrice: </h5> <h5>{"$" + position.purchasePrice}</h5>
                         </div>
                         <div className={"p-2 d-flex flex-row justify-content-between " + (profit < 0 ? "negative" : "positive")}>
-                            <h5>Profit: </h5> <h5>{(profit < 0 ? "-$" : "-$") + Math.abs(profit).toFixed(2)}</h5>
+                            <h5>Profit: </h5> <h5>{(profit < 0 ? "-$" : "+$") + Math.abs(profit).toFixed(2)}</h5>
                         </div>
 
 
@@ -151,7 +157,7 @@ const PositionContainer = ({ position }) => {
                         <Button variant="secondary" onClick={() => setShow(false)}>
                             Close
                         </Button>
-                        <Button onClick={closePosition} variant="primary">Submit</Button>
+                        <Button className="login-page-buttons" onClick={closePosition} variant="primary">Submit</Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -161,7 +167,7 @@ const PositionContainer = ({ position }) => {
                         { }
                     </p>
                 </Alert>}
-            </>}
+            </>: null}
 
         </>
     );

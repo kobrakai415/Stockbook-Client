@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import {Form, Container, Button, Alert } from 'react-bootstrap';
-
+import { Form, Container, Button, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -12,8 +14,11 @@ const SignUpPage = ({ routerProps }) => {
     const [signupPassword, setSignupPassword] = useState("");
     const [startingBalance, setChecked] = useState(null);
 
-    const [errors, setErrors] = useState(null);
+    const [errors, setErrors] = useState([]);
     const [show, setShow] = useState(false);
+
+    const dispatch = useDispatch()
+
 
     const submitForm = async (e) => {
         try {
@@ -24,30 +29,29 @@ const SignUpPage = ({ routerProps }) => {
                 surname,
                 email,
                 password: signupPassword,
+                startingBalance,
                 balance: startingBalance
             };
-            const res = await fetch(`${ApiUrl}/users/register`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify(newUser),
-            });
+            const res = await axios.post(`${ApiUrl}/users/register`, newUser)
             console.log(res)
 
             if (res.status === 201) {
-                const data = await res.json();
 
-                console.log(data);
+                dispatch({
+                    type: "SET_USER",
+                    payload: res.data
+                })
+
                 routerProps.history.push("/")
             } else {
-                const errors = await res.json()
-                console.log(errors)
-                setErrors(errors)
-                setShow(true)
+                console.log(res.errors)
+
+
             }
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
+            setErrors(error.response.data.messages)
+            setShow(true)
         }
     };
 
@@ -56,33 +60,44 @@ const SignUpPage = ({ routerProps }) => {
     return (
 
         <Container
-            className="d-flex flex-column justify-content-center align-items-center"
-            style={{ minHeight: "100vh" }}
+            fluid className="d-flex flex-column justify-content-center align-items-center login-page"
+
         >
 
 
-            {errors && show && <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+            {errors.length > 0 && show ? <Alert variant="danger" onClose={() => setShow(false)} dismissible>
                 <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                <p>
-                    {errors.messages + " Please try with different credentials!"}
-                </p>
-            </Alert>}
+                <div>
+                    {errors.map((item, index) => {
+                        console.log(item)
+                        return <span key={index}> {item} </span>
+                    })}
+                </div>
+            </Alert> : null}
 
 
-            <Form onSubmit={(e) => submitForm(e)} className='register-form p-4 p-md-5'>
-                <h1>StockBook</h1>
-                <h3>Sing Up</h3>
-                <Form.Group className='mb-3' controlId='name'>
+            <Form onSubmit={(e) => submitForm(e)} className='register-form p-4 p-md-5 '>
+                <div className="mb-3 d-flex align-items-center ">
+                <svg xmlns="http://www.w3.org/2000/svg" height="60" viewBox="0 0 512 512" width="60"><g id="Flat"><path d="m432 112v-88h-88v32h32l-96 96-80-80-120 120 24 24 96-96 80 80 120-120v32z" fill="#f35244" /><path d="m40 424h80v32h-80z" fill="#fca713" /><path d="m104 456h80v32h-80z" fill="#fca713" /><path d="m104 392h80v32h-80z" fill="#fca713" /><path d="m200 424h80v32h-80z" fill="#fca713" /><g fill="#f4c067"><path d="m184 456h80v32h-80z" /><path d="m184 392h80v32h-80z" /><path d="m120 424h80v32h-80z" /><path d="m120 360h80v32h-80z" /><path d="m24 456h80v32h-80z" /><path d="m24 392h80v32h-80z" /></g><path d="m264 424h184v64h-184z" fill="#80c326" /><path d="m426.56543 424a136.15545 136.15545 0 0 1 -110.03711 56h-52.52832v8h184v-64z" fill="#69a709" /><path d="m336 424h32v64h-32z" fill="#fca713" /><path d="m296 360h184v64h-184z" fill="#80c326" /><path d="m458.56543 360a136.15545 136.15545 0 0 1 -110.03711 56h-52.52832v8h184v-64z" fill="#69a709" /><path d="m368 360h32v64h-32z" fill="#fca713" /><path d="m264 296h184v64h-184z" fill="#80c326" /><path d="m426.56543 296a136.15545 136.15545 0 0 1 -110.03711 56h-52.52832v8h184v-64z" fill="#69a709" /><path d="m336 296h32v64h-32z" fill="#fca713" /><path d="m240 392h24v32h-24z" fill="#f5b142" /><path d="m240 424h24v32h-24z" fill="#ed8515" /><path d="m240 456h24v32h-24z" fill="#f5b142" /><path d="m160 456h24v32h-24z" fill="#ed8515" /><path d="m176 424h24v32h-24z" fill="#fca713" /><path d="m160 392h24v32h-24z" fill="#ed8515" /><path d="m80 456h24v32h-24z" fill="#f5b142" /><path d="m96 424h24v32h-24z" fill="#ed8515" /><path d="m80 392h24v32h-24z" fill="#f5b142" /><path d="m184 360h24v32h-24z" fill="#f5b142" /><path d="m160 208h32v128h-32z" fill="#4db7e5" /><path d="m240 232h32v40h-32z" fill="#4db7e5" /><path d="m320 208h32v64h-32z" fill="#4db7e5" /><path d="m400 144h32v128h-32z" fill="#4db7e5" /><path d="m112 248h-32v120l32-32z" fill="#4db7e5" /></g></svg>
+
+                    <h1 className="mb-0 ms-2 logo-title">$tockBook</h1>
+                
+                </div>
+                <div className="mb-3">
+                   
+                    <h3>Sign Up</h3>
+                </div>
+                <Form.Group className='mb-3 p-1' controlId='name'>
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         type='text'
-                        placeholder='Enter firstname'
+                        placeholder='Enter first name'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='surname'>
+                <Form.Group className='mb-3 p-1' controlId='surname'>
                     <Form.Label>Surname</Form.Label>
                     <Form.Control
                         required
@@ -92,7 +107,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Enter surname'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='email'>
+                <Form.Group className='mb-3 p-1' controlId='email'>
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                         required
@@ -105,7 +120,7 @@ const SignUpPage = ({ routerProps }) => {
                         We'll never share your email with anyone else.
                     </Form.Text>
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='signupPassword'>
+                <Form.Group className='mb-3 p-1' controlId='signupPassword'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         required
@@ -115,7 +130,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Password'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3'>
+                <Form.Group required className='mb-3 p-1'>
                     <Form.Label>Starting Balance</Form.Label>
                     <div className="mb-3">
                         <Form.Check
@@ -142,9 +157,14 @@ const SignUpPage = ({ routerProps }) => {
                         />
                     </div>
                 </Form.Group>
-                <div className="d-flex justify-content-center">
+                <div className="p-1">
+                    <Link to="/login">
+                        <Button
+                            className="login-page-buttons"
+                        >Back to Login</Button>
+                    </Link>
                     <Button
-                        className=''
+                        className='login-page-buttons ms-3'
                         variant='primary'
                         type='submit'>
                         Sign Up
