@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Col, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 
 

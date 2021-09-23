@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux"
-import { watchlistReducer, dataReducer } from "../reducers"
+import { dataReducer } from "../reducers"
 import thunk from "redux-thunk"
 
 export const initialState = {
@@ -25,7 +25,7 @@ export const initialState = {
         authenticated: false,
         unrealized: 0,
         invested: 0,
-        netUnrealized:0
+        netUnrealized: 0
 
     },
 

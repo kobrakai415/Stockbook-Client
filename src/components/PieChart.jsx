@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import { useSelector } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 const PieChart = () => {
     const { user: { portfolio }, invested } = useSelector(state => state.data)
