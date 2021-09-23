@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { setAuthenticated, setUser } from '../redux/actions';

@@ -10,7 +10,7 @@ const ApiUrl = process.env.REACT_APP_MY_API
 
 
 
-const Banner = ({ }) => {
+const Banner = () => {
     const history = useHistory()
     const data = useSelector(state => state.data)
     const dispatch = useDispatch()

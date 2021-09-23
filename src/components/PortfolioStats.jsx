@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { ImArrowUp, ImArrowDown } from 'react-icons/im'
 
@@ -13,7 +13,7 @@ const PortfolioStats = () => {
     const [difference, setDifference] = useState(0)
     const [perecentDifference, setPercentDifference] = useState(0)
 
-    
+
 
 
     function numberWithCommas(x) {
@@ -82,7 +82,7 @@ const PortfolioStats = () => {
                 <div className="light-bg p-4">
                     <div className=" p-3 stat-card d-flex flex-column align-items-center justify-content-center">
                         <h3 className="text-muted">Net Liquidation</h3>
-                        {performance.toFixed !== NaN ? <h2>${numberWithCommas(performance.toFixed(2))}</h2> : null}
+                        {!isNaN(performance.toFixed(2)) ? <h2>${numberWithCommas(performance.toFixed(2))}</h2> : null}
 
                         <div style={{ width: "190px" }} className={"p-2  " + (perecentDifference < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
                             {perecentDifference < 0 ? <ImArrowDown /> : <ImArrowUp />}

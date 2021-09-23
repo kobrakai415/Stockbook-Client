@@ -1,7 +1,7 @@
 import React from 'react';
 import shortNumber from '@pogix3m/short-number';
 import Plot from 'react-plotly.js';
-import { Col, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { connect } from "react-redux"
 import PostsSection from './PostsSection.jsx';
 

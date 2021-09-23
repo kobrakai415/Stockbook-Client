@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Col, Dropdown, DropdownButton, Modal, Row, Spinner, Toast } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton, Modal, Spinner, Toast } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setUser } from '../redux/actions';
 import { socket, finnhubClient } from '../finnhub/index';
@@ -30,9 +30,6 @@ const PriceBoard = ({ data: { overview, dailyChartData, yesterdaysClosing, user 
     const [watchlistSuccess, setWatchlistSuccess] = useState(false)
 
 
-    const today = new Date()
-    const currentHour = today.getHours()
-    const currentMinutes = today.getMinutes()
 
     useEffect(() => {
         finnhubClient.quote(symbol, (error, data, response) => {

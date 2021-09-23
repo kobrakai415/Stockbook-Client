@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, Col, Table } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PositionContainer from './PositionContainer';
 
@@ -34,6 +34,7 @@ const PositionsTable = () => {
                 if (currentValue?.difference !== undefined) {
                     return previousValue + parseFloat(currentValue["difference"])
                 }
+                
             }, 0)
             setTotal(sum)
             dispatch({

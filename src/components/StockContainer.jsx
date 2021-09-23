@@ -1,6 +1,5 @@
-import { set } from 'date-fns';
+
 import { useEffect, useState } from 'react';
-import { Col, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import { finnhubClient } from '../finnhub';
 
@@ -30,7 +29,7 @@ const StockContainer = ({ stock }) => {
 
                         <div className="py-3 m-2 d-flex flex-row light-bg3 justify-content-between">
                             <div className="d-flex">
-                                {stockData && stockData.logo ? <img className="stock-logo" src={stockData?.logo} /> : <div className=" stock-logo"></div>}
+                                {stockData && stockData.logo ? <img className="stock-logo" src={stockData?.logo} alt="stock" /> : <div className=" stock-logo"></div>}
                                 <div className="ms-3">
                                     <h5 className="m-0 text-muted">{stock.description}</h5>
                                     <div>

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 const ProgressChart = () => {
 
 
-    const { user: { progress, balance }, netUnrealized } = useSelector(state => state.data)
+    const { user: { progress }, netUnrealized } = useSelector(state => state.data)
     const [xValues, setXValues] = useState([])
     const [yValues, setYValues] = useState([])
 
