@@ -86,13 +86,13 @@ const Navbar = ({ location: { pathname }, history }) => {
                 </Link>
 
                 <div className="faded-line mx-3"></div>
-                <Link to="/" className={"ps-4 py-3 d-flex align-items-center "}>
+                <Link to="/" className={"ps-4 py-3 d-flex align-items-center d-none d-md-flex"}>
                     <div>
                         <BiHelpCircle />
                     </div>
                     <span className="ms-3 d-none d-sm-block">Help</span>
                 </Link>
-                <div onClick={logout} className={" logout ps-4 py-3 d-flex align-items-center "}>
+                <div onClick={logout} className={" logout ps-4 py-3 d-flex align-items-center d-none d-md-flex"}>
                     <div>
                         <RiLogoutBoxFill />
                     </div>

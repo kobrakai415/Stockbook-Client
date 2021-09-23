@@ -36,17 +36,16 @@ const LoginPage = ({ routerProps: { history }, setUser, setAuthenticated }) => {
             };
 
             const res = await axios.post(`${ApiUrl}/users/login`, details, { withCredentials: true })
-            if (res.statusText === "OK") {
+            console.log(res)
+            if (res.status === 200) {
                 setAuthenticated(true)
                 setUser(res.data)
                 console.log(res.data)
                 history.push("/")
-
-            } else {
-                alert("Wrong credentials, try again!");
             }
         } catch (error) {
             console.log(error);
+            alert("Wrong credentials, try again!");
         }
 
     };

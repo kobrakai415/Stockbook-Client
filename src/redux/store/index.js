@@ -25,7 +25,7 @@ export const initialState = {
         authenticated: false,
         unrealized: 0,
         invested: 0,
-        netUnrealized: 0,
+        netUnrealized:0
 
     },
 

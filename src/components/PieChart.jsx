@@ -27,7 +27,7 @@ const PieChart = () => {
                 values.length > 0 && labels.length > 0 ?
                     <>
                        
-                        <Col className=" " xs={6}>
+                        <Col className="ps-0" xs={6}>
                             <div className="light-bg  plotly-graph">
                                 <Plot
                                     data={[{

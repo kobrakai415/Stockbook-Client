@@ -69,7 +69,7 @@ const Banner = ({ }) => {
 
     return (
 
-        <Col md={12} className="p-3 banner">
+        <Col md={12} className="p-4 banner">
             <div className="d-flex  justify-content-between">
                 {data.user?.balance && <>
                     <div className=" d-flex justify-content-center align-items-center">
@@ -78,7 +78,7 @@ const Banner = ({ }) => {
 
 
 
-                        <h1 className="mb-0 ms-2 logo-title">$tockBook</h1>
+                        <h1 className="mb-0 ms-2 logo-title d-none d-md-block">$tockBook</h1>
 
                     </div>
                     <div className=" p-2 d-flex align-items-center">

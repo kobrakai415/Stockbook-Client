@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 const ProgressChart = () => {
 
 
-    const { progress, balance } = useSelector(state => state.data.user)
+    const { user: { progress, balance }, netUnrealized } = useSelector(state => state.data)
     const [xValues, setXValues] = useState([])
     const [yValues, setYValues] = useState([])
 
@@ -14,13 +14,13 @@ const ProgressChart = () => {
 
         let xVals = [...progress.map(item => item.date), new Date().toLocaleDateString("en-GB")]
         setXValues(xVals)
-        let yVals = [...progress.map(item => item.balance), balance]
+        let yVals = [...progress.map(item => item.balance), netUnrealized]
         setYValues(yVals)
 
-    }, [progress])
+    }, [progress, netUnrealized])
 
     return (
-        <Col className=" " xs={6}>
+        <Col className="pe-0 " xs={6}>
             {xValues.length > 0 && yValues.length > 0 ? <div className=" light-bg plotly-graph">
                 <Plot
                     data={[

@@ -46,7 +46,7 @@ const GainersLosers = () => {
 
     return (
         <Row className="mx-0">
-            <Col className="ps-md-0" xs={6}>
+            <Col className="ps-md-0" xs={12} md={12} lg={6}>
                 <h1> Top Gainers</h1>
                 <div className="light-bg p-4">
                     {gainers.length > 0 ?
@@ -54,7 +54,7 @@ const GainersLosers = () => {
                             return <div key={index} className="d-flex light-bg3 flex-row justify-content-between p-2">
                                 <div className="d-flex flex-column">
                                     <span>{item.ticker}</span>
-                                    <span style={{ fontSize: "15px" }} className="text-muted"> {item.companyName} </span>
+                                    <span style={{ fontSize: "15px" }} className="text-muted line-clamp"> {item.companyName} </span>
                                 </div>
 
 
@@ -75,7 +75,7 @@ const GainersLosers = () => {
 
             </Col>
 
-            <Col className="pe-md-0" xs={6}>
+            <Col className="pe-md-0" xs={12} md={12} lg={6}>
                 <h1> Top Losers</h1>
                 <div className="light-bg p-4">
                     {losers.length > 0 ?

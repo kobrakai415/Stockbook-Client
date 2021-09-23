@@ -97,9 +97,9 @@ const PositionsTable = () => {
 
                             <Col xs={4}>
 
-                                <div className="d-flex justify-content-end my-2 flex-row p-2">
+                                <div  className="d-flex justify-content-end my-2 flex-row p-2">
                                     <h6 className="p-2">Unrealized P&L:</h6>
-                                    <h6 className={(total < 0 ? "negative-percentage-containergative" : "positive-percentage-container ") + "p-2"}>{(total < 0 ? "-" : "+") + "$" + Math.abs(total).toFixed(2)}</h6>
+                                    <h6 style={{width: "90px"}} className={(total < 0 ? "negative-percentage-container " : "positive-percentage-container ") + "p-2"}>{(total < 0 ? "-" : "+") + "$" + Math.abs(total).toFixed(2)}</h6>
                                 </div>
                             </Col>
                         </Row>

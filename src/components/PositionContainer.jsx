@@ -147,7 +147,7 @@ const PositionContainer = ({ position, index, updateProfit, removeFromProfits })
                             <h5>CostPrice: </h5> <h5>{"$" + position.purchasePrice}</h5>
                         </div>
                         <div className={"p-2 d-flex flex-row justify-content-between " + (profit < 0 ? "negative" : "positive")}>
-                            <h5>Profit: </h5> <h5>{(profit < 0 ? "-$" : "-$") + Math.abs(profit).toFixed(2)}</h5>
+                            <h5>Profit: </h5> <h5>{(profit < 0 ? "-$" : "+$") + Math.abs(profit).toFixed(2)}</h5>
                         </div>
 
 

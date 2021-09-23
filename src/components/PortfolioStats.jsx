@@ -45,12 +45,16 @@ const PortfolioStats = () => {
     useEffect(() => {
         let sum = balance + unrealized + invested
 
+        console.log("balance", balance)
+        console.log("unrealized", unrealized)
+        console.log("invested", invested)
+
         setPerformance(sum)
         dispatch({
             type: "SET_NET_UNREALIZED",
             payload: sum
         })
-    }, [balance, unrealized]);
+    }, [balance, unrealized, invested]);
 
 
     return (
@@ -80,7 +84,7 @@ const PortfolioStats = () => {
                         <h3 className="text-muted">Net Liquidation</h3>
                         {performance.toFixed !== NaN ? <h2>${numberWithCommas(performance.toFixed(2))}</h2> : null}
 
-                        <div className={"p-2  " + (perecentDifference < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
+                        <div style={{ width: "190px" }} className={"p-2  " + (perecentDifference < 0 ? "negative-percentage-container" : "positive-percentage-container")}>
                             {perecentDifference < 0 ? <ImArrowDown /> : <ImArrowUp />}
                             <span>  ${difference} </span>
                             <span> ({perecentDifference}%) </span>
