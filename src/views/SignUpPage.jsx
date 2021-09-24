@@ -42,10 +42,12 @@ const SignUpPage = ({ routerProps }) => {
                     type: "SET_USER",
                     payload: res.data
                 })
+
                 dispatch({
                     type: 'SET_AUTHENTICATED',
                     payload: true
                 })
+                
                 routerProps.history.push("/")
             } else {
                 console.log(res.errors)
