@@ -78,7 +78,7 @@ const Banner = () => {
 
 
 
-                        <h1 className="mb-0 ms-2 logo-title d-none d-md-block">$tockBookk</h1>
+                        <h1 className="mb-0 ms-2 logo-title d-none d-md-block">$tockBook</h1>
 
                     </div>
                     <div className=" p-2 d-flex align-items-center">

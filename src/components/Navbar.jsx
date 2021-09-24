@@ -21,7 +21,6 @@ const Navbar = ({ location: { pathname }, history }) => {
             console.log(res)
             if (res.status === 205) {
                 console.log("logged out")
-                history.push("/login")
                 dispatch({
                     type: "SET_AUTHENTICATED",
                     payload: false
@@ -51,13 +50,16 @@ const Navbar = ({ location: { pathname }, history }) => {
                     }
                 })
             }
+
+            history.push("/login")
+
         } catch (error) {
             console.log(error)
         }
     }
     return (
         <Col className="sidebar p-3 ps-0" xs={12} md={3} lg={2}>
-            
+
             <div className="nav-links justify-content-center  d-flex flex-row flex-md-column">
 
                 <Link to="/" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/" || pathname.includes("/stock") ? "selected" : "")}>
