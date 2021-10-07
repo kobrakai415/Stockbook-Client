@@ -11,7 +11,6 @@ import Navbar from './components/Navbar';
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
 import PortfolioPage from './views/PortfolioPage';
-import SearchPage from './views/SearchPage';
 import SignUpPage from './views/SignUpPage';
 import StockPage from './views/StockPage';
 import WatchlistPage from './views/WatchlistPage';
@@ -19,7 +18,7 @@ import WatchlistPage from './views/WatchlistPage';
 const ApiUrl = process.env.REACT_APP_MY_API
 
 function App() {
-  const { data: { authenticated } } = useSelector(state => state)
+  const { data: { authenticated, user: { _id } } } = useSelector(state => state)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -72,17 +71,16 @@ function App() {
       <>
         <Container fluid className="app">
           <Row className="">
-            {authenticated && <>
+            {authenticated && _id ? <>
               <Banner />
               <Navbar />
               <Switch>
                 <Route path="/" exact render={(routerProps) => <HomePage routerProps={routerProps} />} />
-                <Route path="/search" exact render={(routerProps) => <SearchPage routerProps={routerProps} />} />
                 <Route path="/watchlists" exact render={(routerProps) => <WatchlistPage routerProps={routerProps} />} />
                 <Route path="/portfolio" exact render={(routerProps) => <PortfolioPage routerProps={routerProps} />} />
                 <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
               </Switch>
-            </>
+            </> : null
             }
           </Row>
         </Container>
