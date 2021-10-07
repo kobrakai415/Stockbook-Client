@@ -24,6 +24,12 @@ const SignUpPage = ({ routerProps }) => {
         try {
             e.preventDefault()
 
+            const form = e.currentTarget
+
+            if (form.checkValidity() === false) return
+            if (startingBalance === null) return
+
+
             const newUser = {
                 name,
                 surname,
@@ -47,7 +53,7 @@ const SignUpPage = ({ routerProps }) => {
                     type: 'SET_AUTHENTICATED',
                     payload: true
                 })
-                
+
                 routerProps.history.push("/")
             } else {
                 console.log(res.errors)
@@ -138,7 +144,7 @@ const SignUpPage = ({ routerProps }) => {
                 </Form.Group>
                 <Form.Group required className='mb-3 p-1'>
                     <Form.Label>Starting Balance</Form.Label>
-                    <div className="mb-3">
+                    <div >
                         <Form.Check
                             inline
                             label="$1000"
@@ -162,6 +168,9 @@ const SignUpPage = ({ routerProps }) => {
 
                         />
                     </div>
+                    {startingBalance === null ? <Form.Text className='text-muted'>
+                        Please select a starting balance!
+                    </Form.Text> : null}
                 </Form.Group>
                 <div className="p-1">
                     <Link to="/login">
