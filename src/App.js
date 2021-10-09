@@ -32,7 +32,8 @@ function App() {
   createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
   useEffect(() => {
-    if (authenticated) checkToken()
+  
+    authenticated ? checkToken() : history.push("/login")
   }, []);
 
   const checkToken = async () => {
