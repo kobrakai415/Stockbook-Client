@@ -32,7 +32,7 @@ function App() {
   createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
   useEffect(() => {
-    checkToken()
+    if (authenticated) checkToken()
   }, []);
 
   const checkToken = async () => {
