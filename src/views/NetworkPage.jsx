@@ -14,7 +14,7 @@ const Networkpage = () => {
     const search = async () => {
 
         try {
-            const res = await axios.get(`${ApiUrl}/network/${query}`)
+            const res = await axios.get(`${ApiUrl}/network/${query}/search`)
 
         } catch (error) {
             console.log(error)
@@ -29,7 +29,7 @@ const Networkpage = () => {
         }
     }
 
-    
+
     useEffect(() => {
         search()
     }, [query]);

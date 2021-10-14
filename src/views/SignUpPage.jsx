@@ -10,6 +10,7 @@ const SignUpPage = ({ routerProps }) => {
 
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("");
     const [signupPassword, setSignupPassword] = useState("");
     const [startingBalance, setChecked] = useState(null);
@@ -33,6 +34,7 @@ const SignUpPage = ({ routerProps }) => {
             const newUser = {
                 name,
                 surname,
+                username,
                 email,
                 password: signupPassword,
                 startingBalance,
@@ -99,7 +101,7 @@ const SignUpPage = ({ routerProps }) => {
 
                     <h3>Sign Up</h3>
                 </div>
-                <Form.Group className='mb-3 p-1' controlId='name'>
+                <Form.Group className='mb-2 p-1' controlId='name'>
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                         required
@@ -109,7 +111,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Enter first name'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3 p-1' controlId='surname'>
+                <Form.Group className='mb-2 p-1' controlId='surname'>
                     <Form.Label>Surname</Form.Label>
                     <Form.Control
                         required
@@ -119,7 +121,17 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Enter surname'
                     />
                 </Form.Group>
-                <Form.Group className='mb-3 p-1' controlId='email'>
+                <Form.Group className='mb-2 p-1' controlId='username'>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                        required
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        type='text'
+                        placeholder='Enter username'
+                    />
+                </Form.Group>
+                <Form.Group className='mb-2 p-1' controlId='email'>
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                         required
@@ -128,11 +140,9 @@ const SignUpPage = ({ routerProps }) => {
                         type='email'
                         placeholder='Enter email'
                     />
-                    <Form.Text className='text-muted'>
-                        We'll never share your email with anyone else.
-                    </Form.Text>
+                  
                 </Form.Group>
-                <Form.Group className='mb-3 p-1' controlId='signupPassword'>
+                <Form.Group className='mb-2 p-1' controlId='signupPassword'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         required
@@ -142,7 +152,7 @@ const SignUpPage = ({ routerProps }) => {
                         placeholder='Password'
                     />
                 </Form.Group>
-                <Form.Group required className='mb-3 p-1'>
+                <Form.Group required className='mb-2 p-1'>
                     <Form.Label>Starting Balance</Form.Label>
                     <div >
                         <Form.Check
