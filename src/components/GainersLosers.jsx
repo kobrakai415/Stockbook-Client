@@ -46,7 +46,7 @@ const GainersLosers = () => {
 
     return (
         <Row className="mx-0">
-            <Col className="ps-md-0" xs={12} md={12} lg={6}>
+            <Col className="px-0 pe-lg-2 mb-2" xs={12} md={12} lg={6}>
                 <h1> Top Gainers</h1>
                 <div className="light-bg p-4">
                     {gainers.length > 0 ?
@@ -75,7 +75,7 @@ const GainersLosers = () => {
 
             </Col>
 
-            <Col className="pe-md-0" xs={12} md={12} lg={6}>
+            <Col className="px-0 ps-lg-2" xs={12} md={12} lg={6}>
                 <h1> Top Losers</h1>
                 <div className="light-bg p-4">
                     {losers.length > 0 ?

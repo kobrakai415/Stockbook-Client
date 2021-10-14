@@ -42,8 +42,8 @@ const LoginPage = ({ routerProps: { history }, setUser, setAuthenticated }) => {
                 setAuthenticated(true)
                 setUser(res.data)
                 console.log(res.data)
-                history.push("/")
                 setLoading(false)
+                history.push("/")
 
             }
         } catch (error) {

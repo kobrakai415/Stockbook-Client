@@ -43,7 +43,7 @@ const SearchPage = () => {
                     </div>
                 </div>
 
-                {!loading ? <div className="search-results">
+                {!loading && stocks ? <div className="search-results">
 
                     {stocks.length > 0 && stocks.slice(0, 2).map((stock, index) => {
                         return <StockContainer key={index} stock={stock} />
