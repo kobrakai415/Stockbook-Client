@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import axios from 'axios';
+import PostContainer from '../components/PostContainer.jsx';
+import AddUserContainer from '../components/AddUserContainer.jsx';
+
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -8,6 +11,7 @@ const Networkpage = () => {
 
     const [query, setQuery] = useState("")
     const [searchResults, setSearchResults] = useState([])
+    const [suggestedUsers, setSuggestedUsers] = useState([])
     const [feedItems, setFeedItems] = useState([])
 
 
@@ -15,7 +19,24 @@ const Networkpage = () => {
 
         try {
             const res = await axios.get(`${ApiUrl}/network/${query}/search`)
+            console.log(res)
 
+            if (res.status === 200) {
+                setSearchResults(res.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const fetchSuggestedUsers = async () => {
+        try {
+            const res = await axios.get(`${ApiUrl}/network/suggested/search`)
+            console.log(res)
+
+            if (res.status === 200) {
+                setSuggestedUsers(res.data)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -23,7 +44,12 @@ const Networkpage = () => {
 
     const fetchFeedItems = async () => {
         try {
-            const res = await axios.get(`${ApiUrl}/network/}`)
+            const res = await axios.get(`${ApiUrl}/network`)
+            console.log(res)
+            if (res.status === 200) {
+                setFeedItems(res.data)
+            }
+
         } catch (error) {
             console.log(error)
         }
@@ -35,7 +61,7 @@ const Networkpage = () => {
     }, [query]);
 
     useEffect(() => {
-     
+        fetchSuggestedUsers()
         fetchFeedItems()
     }, []);
 
@@ -44,23 +70,21 @@ const Networkpage = () => {
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
 
-                <Col xs={12} lg={9}>
+                <Col xs={12} lg={8}>
                     <div>
 
                         <h1>Feed </h1>
 
-
-
                         {feedItems.length > 0 ?
                             feedItems.map((item, index) => {
-                                return <h1>item container </h1>
+                                return <PostContainer key={item._id} post={item} />
                             }) :
                             null
                         }
 
                     </div>
                 </Col>
-                <Col xs={12} lg={3}>
+                <Col xs={12} lg={4}>
                     <div >
                         <h1> Friends</h1>
                         <div className="my-3">
@@ -73,13 +97,33 @@ const Networkpage = () => {
                             </div>
                         </div>
 
-                        <div>
-                            {searchResults.length > 0 ? searchResults.map((item, index) => {
-                                return <h1>hello</h1>
-                            })
-                                : null
-                            }
-                        </div>
+
+
+                        {query.length > 0 && searchResults.length > 0 ?
+                            <>
+                                <h3 className="my-2">Search Results</h3>
+                                <div className="light-bg p-4">
+
+                                    {searchResults.map(item => {
+                                        return <AddUserContainer user={item} key={item._id} />
+                                    })}
+
+                                </div>
+                            </>
+                            : null
+                        }
+
+                        {suggestedUsers.length > 0 ?
+                            <>
+                                <h3 className="my-2">Suggested Users</h3>
+                                <div className="light-bg p-4">
+                                    {suggestedUsers.map((item, index) => {
+                                        return <AddUserContainer user={item} key={item._id} />
+                                    })}
+                                </div>
+                            </>
+                            : null
+                        }
 
                     </div>
                 </Col>

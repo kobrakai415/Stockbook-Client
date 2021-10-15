@@ -14,7 +14,9 @@ export const initialState = {
                 name: "",
                 _id: ""
             },],
-            progress: []
+            progress: [],
+            followers: [], 
+            following: [],
         },
         overview: null,
         yesterdaysClosing: null,

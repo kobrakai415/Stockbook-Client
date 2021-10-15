@@ -56,7 +56,7 @@ const SignUpPage = ({ routerProps }) => {
                     payload: true
                 })
 
-                routerProps.history.push("/")
+                routerProps.history.push("/home")
             } else {
                 console.log(res.errors)
 
@@ -68,7 +68,6 @@ const SignUpPage = ({ routerProps }) => {
             setShow(true)
         }
     };
-
 
 
     return (
@@ -140,7 +139,7 @@ const SignUpPage = ({ routerProps }) => {
                         type='email'
                         placeholder='Enter email'
                     />
-                  
+
                 </Form.Group>
                 <Form.Group className='mb-2 p-1' controlId='signupPassword'>
                     <Form.Label>Password</Form.Label>
