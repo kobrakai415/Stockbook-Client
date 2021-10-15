@@ -43,6 +43,15 @@ export const dataReducer = (state = initialState.data, action) => {
                 ...state,
                 user: action.payload
             }
+        case 'SET_FOLLOWERS_AND_FOLLOWING':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    following: action.payload.following,
+                    followers: action.payload.followers
+                }
+            }
         case 'SET_UNREALIZED':
 
             return {

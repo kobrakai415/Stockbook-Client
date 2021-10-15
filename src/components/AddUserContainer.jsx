@@ -10,13 +10,16 @@ const AddUserContainer = ({ user }) => {
     const following = useSelector(state => state.data.user.following)
     const dispatch = useDispatch()
 
-    
+
     const follow = async () => {
         try {
-            const res = await axios.post(`${ApiUrl}/${user._id}/follow`)
+            const res = await axios.post(`${ApiUrl}/network/${user._id}/follow`)
 
             if (res.status === 200) {
-
+                dispatch({
+                    type: 'SET_FOLLOWERS_AND_FOLLOWING',
+                    payload: res.data
+                })
             }
         } catch (error) {
             console.log(error)
@@ -25,10 +28,13 @@ const AddUserContainer = ({ user }) => {
 
     const unfollow = async () => {
         try {
-            const res = await axios.post(`${ApiUrl}/${user._id}/unfollow`)
+            const res = await axios.post(`${ApiUrl}/network/${user._id}/unfollow`)
 
             if (res.status === 200) {
-
+                dispatch({
+                    type: 'SET_FOLLOWERS_AND_FOLLOWING',
+                    payload: res.data
+                })
             }
         } catch (error) {
             console.log(error)
