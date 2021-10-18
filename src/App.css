@@ -400,3 +400,22 @@ p,
   background-color: #8b59f7;
   color: black !important;
 }
+
+.follow-stats {
+  border-bottom: #6d54aa 2px solid;
+}
+
+.profile-img{
+  box-shadow: 0 3px 10px -1px rgba(0,0,0,0.125);
+}
+
+.input-before-edit {
+  background: inherit;
+  border: none;
+  color: white;
+  border-bottom: 1px solid#6d54aa;
+}
+
+.profile-form{
+  max-width: 600px;
+}

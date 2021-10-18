@@ -8,6 +8,7 @@ import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import './App.css';
 import Banner from './components/Banner';
 import Navbar from './components/Navbar';
+import AccountPage from './views/AccountPage';
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
 import Networkpage from './views/NetworkPage';
@@ -79,6 +80,8 @@ function App() {
                 <Route path="/portfolio" exact render={(routerProps) => <PortfolioPage routerProps={routerProps} />} />
                 <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
                 <Route path="/network" exact render={(routerProps) => <Networkpage routerProps={routerProps} />} />
+                <Route path="/profile" exact render={(routerProps) => <AccountPage routerProps={routerProps} />} />
+
               </Switch>
             </> :
               <>
