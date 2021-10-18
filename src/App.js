@@ -10,6 +10,7 @@ import Banner from './components/Banner';
 import Navbar from './components/Navbar';
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
+import Networkpage from './views/NetworkPage';
 import PortfolioPage from './views/PortfolioPage';
 import SignUpPage from './views/SignUpPage';
 import StockPage from './views/StockPage';
@@ -32,8 +33,7 @@ function App() {
   createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
   useEffect(() => {
-  
-    authenticated ? checkToken() : history.push("/login")
+    checkToken()
   }, []);
 
   const checkToken = async () => {
@@ -66,9 +66,7 @@ function App() {
   return (
 
     <Switch>
-      <Route path="/login" exact render={(routerProps) => <LoginPage routerProps={routerProps} />} />
-      <Route path="/register" exact render={(routerProps) => <SignUpPage routerProps={routerProps} />} />
-
+     
       <>
         <Container fluid className="app">
           <Row className="">
@@ -80,8 +78,13 @@ function App() {
                 <Route path="/watchlists" exact render={(routerProps) => <WatchlistPage routerProps={routerProps} />} />
                 <Route path="/portfolio" exact render={(routerProps) => <PortfolioPage routerProps={routerProps} />} />
                 <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
+                <Route path="/network" exact render={(routerProps) => <Networkpage routerProps={routerProps} />} />
               </Switch>
-            </> : null
+            </> :
+              <>
+                <Route path="/login" exact render={(routerProps) => <LoginPage routerProps={routerProps} />} />
+                <Route path="/register" exact render={(routerProps) => <SignUpPage routerProps={routerProps} />} />
+              </>
             }
           </Row>
         </Container>

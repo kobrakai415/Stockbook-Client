@@ -33,7 +33,10 @@ export const setChartYValues = (data) => ({
     payload: data
 })
 
-
+export const setFollowersAndFollowing = (data) => ({
+    type: "SET_FOLLOWERS_AND_FOLLOWING",
+    payload: data
+})
 export const setUser = (user) => ({
     type: 'SET_USER',
     payload: user
@@ -48,7 +51,7 @@ export const setUnrealizedProfits = (unrealized) => ({
     payload: unrealized
 })
 
-export const setInvested = (invested) =>({
+export const setInvested = (invested) => ({
     type: "SET_INVESTED",
     payload: invested
 })

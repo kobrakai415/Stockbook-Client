@@ -80,7 +80,7 @@ const Navbar = ({ location: { pathname }, history }) => {
                     </div>
                     <span className="ms-3 d-none d-sm-block">Portfolio</span>
                 </Link>
-                <Link to="/" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/network" ? "selected" : "")}>
+                <Link to="/network" className={"ps-4 py-3 d-flex align-items-center " + (pathname === "/network" ? "selected" : "")}>
                     <div>
                         <FaUserFriends />
                     </div>
