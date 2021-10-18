@@ -44,15 +44,15 @@ const AddUserContainer = ({ user }) => {
 
     return (
         <div className="py-2 d-flex justify-content-between align-items-center">
-            <div>
-                <img alt="profile" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
-                <span>{user.username}</span>
+            <div className="d-flex text-truncate flex-row flex-md-column flex-xl-row">
+                <img alt="profile" className="me-3" style={{ borderRadius: "50%", width: "45px", height: "45px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
+                <span className="mb-0 py-2 text-truncate">{user.username}</span>
             </div>
             {/* <img className="add-user-button" style={{ borderRadius: "50%", width: "35px", height: "35px" }} src="/add-user.png" alt="Follow user" /> */}
 
             {following.find(item => item === user._id) ?
-                <Button id="dropdown-basic-button" style={{ color: "white", width: "90px" }} onClick={unfollow}>Unfollow</Button>
-                : <Button style={{ width: "90px" }} className="btn-primary login-page-buttons" onClick={follow}>Follow</Button>}
+                <Button id="unfollow-button" className="rounded"  onClick={unfollow}>Unfollow</Button>
+                : <Button style={{ width: "100px", borderColor: "rgb(55, 187, 148)" }} className="btn-primary rounded login-page-buttons" onClick={follow}>Follow</Button>}
 
         </div>
     );

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Card, Col, Form, FormControl, Modal, Button } from 'react-bootstrap';
 import dateDiff from '../helpers/dateDiff';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CommentsContainer from './CommentsContainer';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
@@ -15,7 +15,9 @@ const PostContainer = ({ post }) => {
     const [showComments, setShowComments] = useState(false);
     const [updatedPost, setUpdatedPost] = useState(post);
 
-    const user = useSelector(state => state.data.user)
+    const user  = useSelector(state => state.data.user)
+
+    const dispatch = useDispatch()
 
     const postComment = async () => {
         try {
@@ -48,7 +50,35 @@ const PostContainer = ({ post }) => {
             console.log(error)
         }
     }
+    const follow = async () => {
+        try {
+            const res = await axios.post(`${ApiUrl}/network/${user._id}/follow`)
 
+            if (res.status === 200) {
+                dispatch({
+                    type: 'SET_FOLLOWERS_AND_FOLLOWING',
+                    payload: res.data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const unfollow = async () => {
+        try {
+            const res = await axios.post(`${ApiUrl}/network/${user._id}/unfollow`)
+
+            if (res.status === 200) {
+                dispatch({
+                    type: 'SET_FOLLOWERS_AND_FOLLOWING',
+                    payload: res.data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <Col xs={12}>
             <Card className="mb-4 post-container ">
@@ -69,10 +99,14 @@ const PostContainer = ({ post }) => {
                 <div className="d-flex flex-row justify-content-between p-3">
                     <div className="text-info">
 
-                        <div >
-                            <span>Author: </span>
-                            <span>{updatedPost.user.name + " " + updatedPost.user.surname}</span>
-
+                        <div className="d-flex flex-row align-items-center">
+                            <div>
+                                <span>Author: </span>
+                                <span>{updatedPost.user.username}</span>
+                            </div>
+                            {user.following.find(item => item === user._id) ?
+                                <Button id="unfollow-button" className="rounded m-2" onClick={unfollow}>Unfollow</Button>
+                                : <Button style={{ width: "100px", borderColor: "rgb(55, 187, 148)" }} className="m-2 btn-primary rounded login-page-buttons" onClick={follow}>Follow</Button>}
                         </div>
                         <div>
                             <span>Posted: </span>

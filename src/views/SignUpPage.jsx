@@ -56,7 +56,7 @@ const SignUpPage = ({ routerProps }) => {
                     payload: true
                 })
 
-                routerProps.history.push("/home")
+                routerProps.history.push("/")
             } else {
                 console.log(res.errors)
 

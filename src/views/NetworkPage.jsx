@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import PostContainer from '../components/PostContainer.jsx';
 import AddUserContainer from '../components/AddUserContainer.jsx';
@@ -13,31 +13,41 @@ const Networkpage = () => {
     const [searchResults, setSearchResults] = useState([])
     const [suggestedUsers, setSuggestedUsers] = useState([])
     const [feedItems, setFeedItems] = useState([])
-
-
+    const [feedLoading, setFeedLoading] = useState(false)
+    const [searchLoading, setSearchLoading] = useState(false);
     const search = async () => {
 
         try {
+            setSearchLoading(true)
             const res = await axios.get(`${ApiUrl}/network/${query}/search`)
             console.log(res)
 
             if (res.status === 200) {
                 setSearchResults(res.data)
+                setSearchLoading(false)
+            } else {
+                setSearchLoading(false)
+
             }
         } catch (error) {
+            setSearchLoading(false)
             console.log(error)
         }
     }
 
     const fetchSuggestedUsers = async () => {
         try {
+            setFeedLoading(true)
             const res = await axios.get(`${ApiUrl}/network/suggested/search`)
             console.log(res)
 
             if (res.status === 200) {
                 setSuggestedUsers(res.data)
+                setFeedLoading(false)
+
             }
         } catch (error) {
+            setFeedLoading(false)
             console.log(error)
         }
     }
@@ -70,22 +80,22 @@ const Networkpage = () => {
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
 
-                <Col xs={12} lg={8}>
-                    <div>
+                <Col xs={12} lg={8} xl={9}>
+                    <div >
 
                         <h1>Feed </h1>
 
-                        {feedItems.length > 0 ?
+                        {feedItems.length > 0 && !feedLoading ?
                             feedItems.map((item, index) => {
                                 return <PostContainer key={item._id} post={item} />
                             }) :
-                            null
+                            <Spinner style={{ position: "absolute", right: "50%", top: "50%" }} animation="border" role="status" />
                         }
 
                     </div>
                 </Col>
-                <Col xs={12} lg={4}>
-                    <div >
+                <Col xs={12} lg={4} xl={3}>
+                    <div className="position-relative">
                         <h1> Friends</h1>
                         <div className="my-3">
 
@@ -113,10 +123,10 @@ const Networkpage = () => {
                             : null
                         }
 
-                        {suggestedUsers.length > 0 ?
+                        {suggestedUsers.length > 0  ?
                             <>
                                 <h3 className="my-2">Suggested Users</h3>
-                                <div className="light-bg p-4">
+                                <div className="light-bg p-4 " >
                                     {suggestedUsers.map((item, index) => {
                                         return <AddUserContainer user={item} key={item._id} />
                                     })}
