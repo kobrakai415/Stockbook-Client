@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Row, Form } from 'react-bootstrap';
+import { Col, Row, Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 const AccountPage = () => {
@@ -9,6 +9,9 @@ const AccountPage = () => {
     const [name, setName] = useState(user.name);
     const [surname, setSurname] = useState(user.surname);
     const [username, setUsername] = useState(user.username);
+
+    const [edit, setEdit] = useState(false)
+
 
 
 
@@ -51,42 +54,49 @@ const AccountPage = () => {
 
                         <div className="light-bg my-4 ">
 
-                            <Form style={{ minWidth: "270px", minHeight: "380px" }} validated className='profile-form mx-auto d-flex flex-column'>
+                            <Form style={{ minWidth: "270px", minHeight: "380px" }} validated className={'profile-form mx-auto d-flex flex-column ' + (edit ?  "" : "input-edit")}>
 
 
 
                                 <Form.Group className='mb-3 p-2' controlId='username'>
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control
+                                        className="px-0"
                                         required
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         type='text'
+                                        disabled={!edit}
 
                                     />
                                 </Form.Group>
                                 <Form.Group className='mb-3 p-2' controlId='username'>
                                     <Form.Label>Surname</Form.Label>
                                     <Form.Control
+                                        className="px-0"
                                         required
                                         value={surname}
                                         onChange={(e) => setSurname(e.target.value)}
                                         type='text'
+                                        disabled={!edit}
 
                                     />
                                 </Form.Group>
                                 <Form.Group className='mb-3 p-2' controlId='username'>
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control
+                                        className="px-0"
                                         required
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                         type='text'
-                                        disabled="true"
+                                        disabled={!edit}
 
                                     />
                                 </Form.Group>
-
+                                <div>
+                                    <Button onClick={() => setEdit(!edit)} variant="primary">Edit</Button>
+                                </div>
                             </Form>
 
                         </div>

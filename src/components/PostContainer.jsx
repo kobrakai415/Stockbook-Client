@@ -15,7 +15,7 @@ const PostContainer = ({ post }) => {
     const [showComments, setShowComments] = useState(false);
     const [updatedPost, setUpdatedPost] = useState(post);
 
-    const user  = useSelector(state => state.data.user)
+    const user = useSelector(state => state.data.user)
 
     const dispatch = useDispatch()
 
@@ -104,9 +104,22 @@ const PostContainer = ({ post }) => {
                                 <span>Author: </span>
                                 <span>{updatedPost.user.username}</span>
                             </div>
-                            {user.following.find(item => item === user._id) ?
-                                <Button id="unfollow-button" className="rounded m-2" onClick={unfollow}>Unfollow</Button>
-                                : <Button style={{ width: "100px", borderColor: "rgb(55, 187, 148)" }} className="m-2 btn-primary rounded login-page-buttons" onClick={follow}>Follow</Button>}
+
+
+                            {
+                                user._id === updatedPost.user._id ? null
+                                    :
+                                    <>
+                                        {
+                                            user.following.find(item => item === updatedPost.user._id) ?
+                                                <Button id="unfollow-button" className="rounded m-2" onClick={unfollow}>Unfollow</Button>
+                                                : <Button style={{ width: "100px", borderColor: "rgb(55, 187, 148)" }}
+                                                    className="m-2 btn-primary rounded login-page-buttons" onClick={follow}>Follow</Button>
+                                        }
+                                    </>
+                            }
+
+
                         </div>
                         <div>
                             <span>Posted: </span>

@@ -409,13 +409,20 @@ p,
   box-shadow: 0 3px 10px -1px rgba(0,0,0,0.125);
 }
 
-.input-before-edit {
-  background: inherit;
+.input-edit input {
+  background: inherit !important;
   border: none;
-  color: white;
-  border-bottom: 1px solid#6d54aa;
+  color: rgb(180, 180, 180);
+  border-bottom: 1px solid #6d54aa;
+  border-radius: 0;
 }
+.input-without-edit input{
+  border: none;
+  background: inherit !important;
+  border-bottom: 1px solid #1b084d;
+  color: white;
 
+}
 .profile-form{
   max-width: 600px;
 }
