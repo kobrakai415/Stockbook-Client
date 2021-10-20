@@ -3,11 +3,14 @@ import { Col, Row, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import PostContainer from '../components/PostContainer.jsx';
 import AddUserContainer from '../components/AddUserContainer.jsx';
+import { useSelector } from 'react-redux';
 
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
 const Networkpage = () => {
+
+    const { following } = useSelector(state => state.data.user)
 
     const [query, setQuery] = useState("")
     const [searchResults, setSearchResults] = useState([])
@@ -15,7 +18,6 @@ const Networkpage = () => {
     const [feedItems, setFeedItems] = useState([])
     const [feedLoading, setFeedLoading] = useState(false)
     const [searchLoading, setSearchLoading] = useState(false);
-
 
     const search = async () => {
 
@@ -82,6 +84,10 @@ const Networkpage = () => {
         fetchFeedItems()
     }, []);
 
+    useEffect(() => {
+
+        fetchFeedItems()
+    }, [following]);
 
     return (
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
@@ -96,7 +102,7 @@ const Networkpage = () => {
                             feedItems.map((item, index) => {
                                 return <PostContainer key={item._id} post={item} />
                             }) :
-                            <h3 className="d-flex justify-content-center my-4">No posts, find some people to follow!</h3>
+                            <h3 className="d-flex justify-content-center my-4">No posts, find some people to follow or make some posts of your own!</h3>
 
                         }
 

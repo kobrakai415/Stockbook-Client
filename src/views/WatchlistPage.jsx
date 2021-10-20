@@ -3,6 +3,7 @@ import { Col, Row, DropdownButton, Dropdown, Button, Toast } from 'react-bootstr
 import { useSelector, useDispatch } from 'react-redux';
 import WatchlistItem from '../components/WatchlistItem';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -65,13 +66,14 @@ const WatchlistPage = () => {
 
 
 
-            {watchlists.length > 0 && watchlists && <>
+
+            {watchlists.length > 0 && watchlists ? <>
                 <Row className="mb-4">
                     <Col className=" d-flex" xs={12}>
 
                         <div className="light-bg p-4">
                             <h1>Watchlists</h1>
-                            <DropdownButton  id="dropdown-basic-button" variant="dark" title="Select a watchlist">
+                            <DropdownButton id="dropdown-basic-button" variant="dark" title="Select a watchlist">
                                 {watchlists.map((watchlist, index) => {
                                     return <Dropdown.Item key={index} onClick={() => setSelected(watchlist.name)}>{watchlist.name}</Dropdown.Item>
                                 })}
@@ -84,8 +86,8 @@ const WatchlistPage = () => {
                 <Row className=" mx-0 ">
 
                     <Col className="light-bg p-4 " xs={12}>
-                          <Row>  
-                          <Col xs={12}>
+                        <Row>
+                            <Col xs={12}>
                                 {watchlist?.name && <div className="d-flex flex-row">
                                     <h1>{watchlist.name}</h1>
                                     <Button onClick={deleteWatchlist} className="m-3" size="sm" variant="outline-danger" >Delete watchlist</Button>
@@ -119,7 +121,12 @@ const WatchlistPage = () => {
                     </Col>
                 </Row>
 
-            </>}
+            </>
+                : <Link className="no-decoration centered"  to="/">
+                    <h3>You have no watchlists find some of your favourite stocks here!</h3>
+                </Link>
+
+            }
 
 
 

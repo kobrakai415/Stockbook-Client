@@ -52,7 +52,7 @@ const PostContainer = ({ post }) => {
     }
     const follow = async () => {
         try {
-            const res = await axios.post(`${ApiUrl}/network/${user._id}/follow`)
+            const res = await axios.post(`${ApiUrl}/network/${updatedPost.user._id}/follow`)
 
             if (res.status === 200) {
                 dispatch({
@@ -67,7 +67,7 @@ const PostContainer = ({ post }) => {
 
     const unfollow = async () => {
         try {
-            const res = await axios.post(`${ApiUrl}/network/${user._id}/unfollow`)
+            const res = await axios.post(`${ApiUrl}/network/${updatedPost.user._id}/unfollow`)
 
             if (res.status === 200) {
                 dispatch({
