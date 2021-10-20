@@ -1,7 +1,7 @@
 import Button from '@restart/ui/esm/Button';
 import axios from 'axios';
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -10,6 +10,10 @@ const AddUserContainer = ({ user }) => {
     const following = useSelector(state => state.data.user.following)
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        console.log(following, "following")
+       
+    }, [following]);
 
     const follow = async () => {
         try {
@@ -50,7 +54,7 @@ const AddUserContainer = ({ user }) => {
             </div>
             {/* <img className="add-user-button" style={{ borderRadius: "50%", width: "35px", height: "35px" }} src="/add-user.png" alt="Follow user" /> */}
 
-            {following.find(item => item === user._id) ?
+            {following && following.find(item => item === user._id) ?
                 <Button id="unfollow-button" className="rounded"  onClick={unfollow}>Unfollow</Button>
                 : <Button style={{ width: "100px", borderColor: "rgb(55, 187, 148)" }} className="btn-primary rounded login-page-buttons" onClick={follow}>Follow</Button>}
 

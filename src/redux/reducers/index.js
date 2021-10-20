@@ -52,6 +52,16 @@ export const dataReducer = (state = initialState.data, action) => {
                     followers: action.payload.followers
                 }
             }
+        case 'SET_NEW_USER_DETAILS':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    name: action.payload.name,
+                    surname: action.payload.name,
+                    username: action.payload.username
+                }
+            }
         case 'SET_UNREALIZED':
 
             return {
