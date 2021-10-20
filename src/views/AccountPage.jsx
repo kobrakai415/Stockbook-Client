@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row, Form, Button, Spinner } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios'
 
 const ApiUrl = process.env.REACT_APP_MY_API
@@ -12,11 +12,12 @@ const AccountPage = () => {
     const [name, setName] = useState(user.name);
     const [surname, setSurname] = useState(user.surname);
     const [username, setUsername] = useState(user.username);
+    const [bio, setBio] = useState(user.bio)
 
     const [edit, setEdit] = useState(false)
-
     const [loading, setLoading] = useState(false)
 
+    const dispatch = useDispatch()
 
     const editProfile = async () => {
         try {
@@ -24,7 +25,8 @@ const AccountPage = () => {
             const body = {
                 name,
                 surname,
-                username
+                username,
+                bio
             }
             setLoading(true)
             const res = await axios.put(`${ApiUrl}/users`, body)
@@ -33,6 +35,10 @@ const AccountPage = () => {
 
                 setEdit(false)
                 setLoading(false)
+                dispatch({
+                    type: 'UPDATE_USER',
+                    payload: res.data
+                })
 
             }
 
@@ -63,7 +69,9 @@ const AccountPage = () => {
                                     <span className="text-muted">{user.name + " " + user.surname}</span>
                                 </div>
                             </div>
-
+                            {user.bio ? <div>
+                                <p>{user.bio}</p>
+                            </div> : null}
                             <div className="d-flex my-4 justify-content-center">
 
                                 <div className="d-flex flex-column flex-md-row align-items-center mx-3 follow-stats">
@@ -117,6 +125,17 @@ const AccountPage = () => {
                                         required
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
+                                        type='text'
+                                        disabled={!edit}
+
+                                    />
+                                </Form.Group>
+                                <Form.Group className='mb-3 p-2' controlId='username'>
+                                    <Form.Label>Bio</Form.Label>
+                                    <Form.Control
+                                        className="px-0"
+                                        value={bio}
+                                        onChange={(e) => setBio(e.target.value)}
                                         type='text'
                                         disabled={!edit}
 

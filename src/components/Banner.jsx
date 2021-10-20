@@ -99,7 +99,7 @@ const Banner = () => {
 
                         <div >
 
-                            <DropdownButton id="dropdown-basic-button" className="p-2 button-small btn-md-lg" size="sm" variant="dark" title={data.user.name + " " + data.user.surname}>
+                            <DropdownButton id="dropdown-basic-button" className="p-2 button-small btn-md-lg" size="sm" variant="dark" title={data.user.username}>
 
                                 <Dropdown.Item as={Link} to="/profile"><CgProfile /> My account</Dropdown.Item>
                                 <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
