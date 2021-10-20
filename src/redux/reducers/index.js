@@ -52,6 +52,17 @@ export const dataReducer = (state = initialState.data, action) => {
                     followers: action.payload.followers
                 }
             }
+        case 'UPDATE_USER':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    name: action.payload.name,
+                    surname: action.payload.name,
+                    username: action.payload.username,
+                    bio: action.payload.bio
+                }
+            }
         case 'SET_UNREALIZED':
 
             return {

@@ -3,11 +3,14 @@ import { Col, Row, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import PostContainer from '../components/PostContainer.jsx';
 import AddUserContainer from '../components/AddUserContainer.jsx';
+import { useSelector } from 'react-redux';
 
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
 const Networkpage = () => {
+
+    const { following } = useSelector(state => state.data.user)
 
     const [query, setQuery] = useState("")
     const [searchResults, setSearchResults] = useState([])
@@ -15,6 +18,7 @@ const Networkpage = () => {
     const [feedItems, setFeedItems] = useState([])
     const [feedLoading, setFeedLoading] = useState(false)
     const [searchLoading, setSearchLoading] = useState(false);
+
     const search = async () => {
 
         try {
@@ -54,14 +58,19 @@ const Networkpage = () => {
 
     const fetchFeedItems = async () => {
         try {
+            setFeedLoading(true)
             const res = await axios.get(`${ApiUrl}/network`)
             console.log(res)
             if (res.status === 200) {
                 setFeedItems(res.data)
+                setFeedLoading(false)
+
             }
 
         } catch (error) {
             console.log(error)
+            setFeedLoading(false)
+
         }
     }
 
@@ -75,6 +84,10 @@ const Networkpage = () => {
         fetchFeedItems()
     }, []);
 
+    useEffect(() => {
+
+        fetchFeedItems()
+    }, [following]);
 
     return (
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
@@ -85,12 +98,15 @@ const Networkpage = () => {
 
                         <h1>Feed </h1>
 
-                        {feedItems.length > 0 && !feedLoading ?
+                        {feedItems.length > 0 ?
                             feedItems.map((item, index) => {
                                 return <PostContainer key={item._id} post={item} />
                             }) :
-                            <Spinner style={{ position: "absolute", right: "50%", top: "50%" }} animation="border" role="status" />
+                            <h3 className="d-flex justify-content-center my-4">No posts, find some people to follow or make some posts of your own!</h3>
+
                         }
+
+                        {feedLoading ? <Spinner style={{ position: "absolute", right: "50%", top: "50%" }} animation="border" role="status" /> : null}
 
                     </div>
                 </Col>
@@ -123,7 +139,7 @@ const Networkpage = () => {
                             : null
                         }
 
-                        {suggestedUsers.length > 0  ?
+                        {suggestedUsers.length > 0 ?
                             <>
                                 <h3 className="my-2">Suggested Users</h3>
                                 <div className="light-bg p-4 " >

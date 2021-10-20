@@ -20,7 +20,7 @@ const ProgressChart = () => {
     }, [progress, netUnrealized])
 
     return (
-        <Col className="pe-0 " xs={6}>
+        <Col className="px-0 pe-lg-0 ps-lg-2" xs={12} lg={6}>
             {xValues.length > 0 && yValues.length > 0 ? <div className=" light-bg plotly-graph">
                 <Plot
                     data={[

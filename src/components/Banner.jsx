@@ -3,7 +3,8 @@ import { Col, DropdownButton, Dropdown } from 'react-bootstrap'
 import { CgProfile } from 'react-icons/cg'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { useHistory } from 'react-router';
+import { useHistory, withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 const ApiUrl = process.env.REACT_APP_MY_API
@@ -98,9 +99,9 @@ const Banner = () => {
 
                         <div >
 
-                            <DropdownButton id="dropdown-basic-button" className="p-2 button-small btn-md-lg" size="sm" variant="dark" title={data.user.name + " " + data.user.surname}>
+                            <DropdownButton id="dropdown-basic-button" className="p-2 button-small btn-md-lg" size="sm" variant="dark" title={data.user.username}>
 
-                                <Dropdown.Item> <CgProfile /> My account</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/profile"><CgProfile /> My account</Dropdown.Item>
                                 <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
 
                             </DropdownButton>

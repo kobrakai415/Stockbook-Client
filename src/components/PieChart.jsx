@@ -24,10 +24,10 @@ const PieChart = () => {
     return (
         <>
             {
-                values.length > 0 && labels.length > 0 ?
+                
                     <>
                        
-                        <Col className="ps-0" xs={6}>
+                        <Col className="mb-3 px-0 ps-lg-0 pe-lg-2" xs={12} lg={6}>
                             <div className="light-bg  plotly-graph">
                                 <Plot
                                     data={[{
@@ -53,7 +53,7 @@ const PieChart = () => {
                                 />
                             </div>
                         </Col>
-                    </> : null
+                    </> 
             }
 
         </>
