@@ -63,6 +63,14 @@ export const dataReducer = (state = initialState.data, action) => {
                     bio: action.payload.bio
                 }
             }
+        case 'UPLOAD_IMAGE':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    image: action.payload.image
+                }
+            }
         case 'SET_UNREALIZED':
 
             return {
