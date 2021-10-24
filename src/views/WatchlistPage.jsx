@@ -62,7 +62,7 @@ const WatchlistPage = () => {
 
     return (
 
-        <Col className="height-90  p-3" xs={12} md={9} lg={10}>
+        <Col className="height-90  position-relative p-3" xs={12} md={9} lg={10}>
 
 
 
@@ -122,7 +122,7 @@ const WatchlistPage = () => {
                 </Row>
 
             </>
-                : <Link className="no-decoration centered"  to="/">
+                : <Link className="no-watchlists centered"  to="/">
                     <h3>You have no watchlists find some of your favourite stocks here!</h3>
                 </Link>
 
