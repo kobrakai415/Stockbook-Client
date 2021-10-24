@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios'
+import axios from 'axios';
+import PostContainer from '../components/PostContainer';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -18,6 +19,7 @@ const AccountPage = () => {
     const [imageLoading, setImageLoading] = useState(false)
     const [editModal, setEditModal] = useState(false)
 
+    const [postsLoading, setPostsLoading] = useState(false)
     const [posts, setPosts] = useState(null)
 
     const dispatch = useDispatch()
@@ -81,13 +83,16 @@ const AccountPage = () => {
 
     const fetchUserPosts = async () => {
         try {
+            setPostsLoading(true)
             const res = await axios.get(`${ApiUrl}/posts`)
 
             console.log(res)
             if (res.status === 200) {
                 setPosts(res.data)
+                setPostsLoading(false)
             }
         } catch (error) {
+            setPostsLoading(false)
             console.log(error)
         }
     }
@@ -96,7 +101,6 @@ const AccountPage = () => {
     }, [image]);
 
     useEffect(() => {
-
         fetchUserPosts()
     }, []);
 
@@ -143,12 +147,19 @@ const AccountPage = () => {
 
                         <h1 className="mt-4">Posts</h1>
 
-                        <div className="light-bg my-4 position-relative  ">
-
-
+                        {posts && posts.length === 0 ? <div className=" my-4 position-relative d-flex flex-column align-items-center  ">
+                            <img className="img-fluid mb-2" height="200px" src="bear.png" alt="no-posts" />
+                            <h3>This user has no posts!</h3>
                         </div>
+                            : null}
 
-
+                        {
+                            posts && posts.length > 0 ?
+                                <>
+                                    {posts.map(item => <PostContainer key={item._id} post={item} />)}
+                                </>
+                                : null
+                        }
 
                         <Modal id="account-modal" show={editModal} onHide={() => setEditModal(false)} backdrop="static" keyboard={false}>
                             <Modal.Header closeButton>

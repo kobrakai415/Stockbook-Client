@@ -122,8 +122,12 @@ const WatchlistPage = () => {
                 </Row>
 
             </>
-                : <Link className="no-watchlists centered"  to="/">
-                    <h3>You have no watchlists find some of your favourite stocks here!</h3>
+                : <Link className="no-watchlists centered" to="/">
+
+                    <div className=" my-4 position-relative d-flex flex-column align-items-center  ">
+                        <img className="mb-3 img-fluid" height="300px" src="cat.png" alt="no-watchlists" />
+                        <h3>You have no watchlists find some of your favourite stocks here!</h3>
+                    </div>
                 </Link>
 
             }

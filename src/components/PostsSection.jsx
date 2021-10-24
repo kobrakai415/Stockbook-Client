@@ -98,7 +98,7 @@ const PostsSection = () => {
                 <div className="p-3 ">
 
                     <div className="d-flex align-items-center">
-                        <img alt="profile" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
+                        <img alt="profile" className="me-2" style={{ borderRadius: "50%", width: "48px", height: "48px" }} src={data.user.image}></img>
                         <Form className="flex-grow-1">
                             <FormControl style={{ width: "100%", height: "48px", borderRadius: "35px" }} type="text" placeholder="Start a post" onClick={() => setAddNew(!addNew)} className="flex-grow-1 mr-sm-2" />
                         </Form>
