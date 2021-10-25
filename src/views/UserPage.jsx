@@ -47,11 +47,10 @@ const UserPage = () => {
             if (res.status === 200) {
                 setUser(res.data)
                 setLoading(false)
-
             }
         } catch (error) {
             setLoading(false)
-            console.log(user)
+            console.log(error)
         }
     }
     return (
