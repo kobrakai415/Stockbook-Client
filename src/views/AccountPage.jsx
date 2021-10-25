@@ -86,12 +86,13 @@ const AccountPage = () => {
             setPostsLoading(true)
             const res = await axios.get(`${ApiUrl}/posts`)
 
-            console.log(res)
+            console.log(res.status)
             if (res.status === 200) {
                 setPosts(res.data)
                 setPostsLoading(false)
-            }
+            } 
         } catch (error) {
+            setPosts([])
             setPostsLoading(false)
             console.log(error)
         }
