@@ -33,7 +33,7 @@ const CommentsContainer = ({ comment, index, updatePost }) => {
             <div className="d-flex flex-column justify-content-between p-2">
                 <div className="d-flex flex-row align-items-center justify-content-between">
                     <div className="d-flex flex-row justify-content-between align-items-center p-1 me-3">
-                        <img alt="" className="me-2" style={{ borderRadius: "50%", width: "24px", height: "24px", border: "black solid 1px" }} src="https://www.kindpng.com/picc/m/78-785827_user-profile-avatar-login-account-male-user-icon.png"></img>
+                        <img alt="user" className="me-2" style={{ borderRadius: "50%", width: "24px", height: "24px" }} src={comment.user.image}/>
                         <h5 className="mb-0">{comment.user.name} {comment.user.surname}</h5>
 
                     </div>

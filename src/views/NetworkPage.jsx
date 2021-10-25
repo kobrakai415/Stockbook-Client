@@ -15,7 +15,7 @@ const Networkpage = () => {
     const [query, setQuery] = useState("")
     const [searchResults, setSearchResults] = useState([])
     const [suggestedUsers, setSuggestedUsers] = useState([])
-    const [feedItems, setFeedItems] = useState([])
+    const [feedItems, setFeedItems] = useState(null)
     const [feedLoading, setFeedLoading] = useState(false)
     const [searchLoading, setSearchLoading] = useState(false);
 
@@ -98,14 +98,16 @@ const Networkpage = () => {
 
                         <h1>Feed </h1>
 
-                        {feedItems.length > 0 ?
+                        {feedItems && feedItems.length > 0 ?
                             feedItems.map((item, index) => {
                                 return <PostContainer key={item._id} post={item} />
                             }) :
-                            <h3 className="d-flex justify-content-center my-4">No posts, find some people to follow or make some posts of your own!</h3>
+                            null
 
                         }
-
+                        {feedItems && feedItems.length === 0 ?
+                            <h3 className="d-flex justify-content-center centered text-center my-4">No posts, find some people to follow or make some posts of your own!</h3>
+                            : null}
                         {feedLoading ? <Spinner style={{ position: "absolute", right: "50%", top: "50%" }} animation="border" role="status" /> : null}
 
                     </div>

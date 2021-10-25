@@ -58,7 +58,7 @@ export const dataReducer = (state = initialState.data, action) => {
                 user: {
                     ...state.user,
                     name: action.payload.name,
-                    surname: action.payload.name,
+                    surname: action.payload.surname,
                     username: action.payload.username,
                     bio: action.payload.bio
                 }
