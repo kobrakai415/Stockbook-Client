@@ -15,6 +15,7 @@ import Networkpage from './views/NetworkPage';
 import PortfolioPage from './views/PortfolioPage';
 import SignUpPage from './views/SignUpPage';
 import StockPage from './views/StockPage';
+import UserPage from './views/UserPage';
 import WatchlistPage from './views/WatchlistPage';
 
 const ApiUrl = process.env.REACT_APP_MY_API
@@ -81,6 +82,8 @@ function App() {
                 <Route path="/stock/:symbol" exact render={(routerProps) => <StockPage routerProps={routerProps} />} />
                 <Route path="/network" exact render={(routerProps) => <Networkpage routerProps={routerProps} />} />
                 <Route path="/profile" exact render={(routerProps) => <AccountPage routerProps={routerProps} />} />
+                <Route path="/user/:id" exact render={(routerProps) => <UserPage routerProps={routerProps} />} />
+
 
               </Switch>
             </> :
