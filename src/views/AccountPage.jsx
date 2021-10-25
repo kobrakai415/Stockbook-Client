@@ -86,12 +86,13 @@ const AccountPage = () => {
             setPostsLoading(true)
             const res = await axios.get(`${ApiUrl}/posts`)
 
-            console.log(res)
+            console.log(res.status)
             if (res.status === 200) {
                 setPosts(res.data)
                 setPostsLoading(false)
-            }
+            } 
         } catch (error) {
+            setPosts([])
             setPostsLoading(false)
             console.log(error)
         }
@@ -139,7 +140,7 @@ const AccountPage = () => {
                                 </div>
                                 <div className="d-flex  p-2 flex-column flex-md-row align-items-center mx-3 follow-stats">
                                     <h3 className="mx-2">{user.following.length} </h3>
-                                    <h3>following</h3>
+                                    <h3>Following</h3>
                                 </div>
                             </div>
 
@@ -148,7 +149,7 @@ const AccountPage = () => {
                         <h1 className="mt-4">Posts</h1>
 
                         {posts && posts.length === 0 ? <div className=" my-4 position-relative d-flex flex-column align-items-center  ">
-                            <img className="img-fluid mb-2" height="200px" src="bear.png" alt="no-posts" />
+                            <img className="img-fluid mb-2" height="200px" src="/bear.png" alt="no-posts" />
                             <h3>This user has no posts!</h3>
                         </div>
                             : null}

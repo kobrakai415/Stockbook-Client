@@ -93,24 +93,24 @@ const Networkpage = () => {
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
 
-                <Col xs={12} lg={8} xl={9}>
-                    <div >
+                <Col  xs={12} lg={8} xl={9}>
 
-                        <h1>Feed </h1>
+                    <h1>Feed </h1>
 
-                        {feedItems && feedItems.length > 0 ?
-                            feedItems.map((item, index) => {
-                                return <PostContainer key={item._id} post={item} />
-                            }) :
-                            null
+                    {feedItems && feedItems.length > 0 ?
+                        feedItems.map((item, index) => {
+                            return <PostContainer key={item._id} post={item} />
+                        }) :
+                        null
+                    }
+                    {feedItems && feedItems.length === 0 ?
+                        <div className="mt-5 d-flex flex-column align-items-center">
+                            <img className="img-fluid mb-3" height="150px" src="/sad.png" alt="dog" />
+                            <h3 className="text-center my-4">No posts, find some people to follow or make some posts of your own!</h3>
+                        </div>
+                        : null}
+                    {feedLoading ? <Spinner style={{ position: "absolute", right: "50%", top: "50%" }} animation="border" role="status" /> : null}
 
-                        }
-                        {feedItems && feedItems.length === 0 ?
-                            <h3 className="d-flex justify-content-center centered text-center my-4">No posts, find some people to follow or make some posts of your own!</h3>
-                            : null}
-                        {feedLoading ? <Spinner style={{ position: "absolute", right: "50%", top: "50%" }} animation="border" role="status" /> : null}
-
-                    </div>
                 </Col>
                 <Col xs={12} lg={4} xl={3}>
                     <div className="position-relative">
