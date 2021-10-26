@@ -3,6 +3,7 @@ import { Col, Row, Form, Button, Spinner, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import PostContainer from '../components/PostContainer';
+import PostThumbnail from '../components/PostThumbnail';
 
 const ApiUrl = process.env.REACT_APP_MY_API
 
@@ -153,11 +154,14 @@ const AccountPage = () => {
                             <h3>This user has no posts!</h3>
                         </div>
                             : null}
+                    </div>
+
+                </Col>
 
                         {
                             posts && posts.length > 0 ?
                                 <>
-                                    {posts.map(item => <PostContainer key={item._id} post={item} />)}
+                                    {posts.map(item => <PostThumbnail key={item._id} post={item} />)}
                                 </>
                                 : null
                         }
@@ -252,9 +256,6 @@ const AccountPage = () => {
                         </Modal>
 
 
-                    </div>
-
-                </Col>
 
             </Row>
         </Col>

@@ -59,8 +59,8 @@ const AddUserContainer = ({ user }) => {
             {/* <img className="add-user-button" style={{ borderRadius: "50%", width: "35px", height: "35px" }} src="/add-user.png" alt="Follow user" /> */}
 
             {following && following.find(item => item === user._id) ?
-                <Button id="unfollow-button" className="rounded" onClick={unfollow}>Unfollow</Button>
-                : <Button style={{ width: "100px", borderColor: "rgb(55, 187, 148)" }} className="btn-primary rounded login-page-buttons" onClick={follow}>Follow</Button>}
+                <Button id="unfollow-button"  onClick={unfollow}>Unfollow</Button>
+                : <Button  id="follow-button" onClick={follow}>Follow</Button>}
         </div>
     );
 }

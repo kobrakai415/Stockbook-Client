@@ -394,6 +394,7 @@ p,
   color: white;
   width: 100px;
   height: 32px;
+  border-radius: 15px;
 }
 
 #unfollow-button:hover {
@@ -401,6 +402,19 @@ p,
   color: black !important;
 }
 
+#follow-button {
+  background-color: rgb(55, 187, 148);
+  border: inherit;
+  color: white;
+  width: 100px;
+  height: 32px;
+  border-radius: 15px;
+}
+
+#follow-button:hover {
+  background-color: #06b649;
+  color: black !important;
+}
 .follow-stats {
   border-bottom: #6d54aa 2px solid;
 }
@@ -490,4 +504,29 @@ transform: scale(1.3);
 
 #account-modal  {
   max-width: 1000px;
+}
+.post-thumbnail {
+  border-radius: 15px;
+  width: 100%;
+  height: 225px;
+  max-width: 470px;
+}
+.post-thumbnail img {
+  width: 100%;
+  border-radius: 15px;
+  height: 225px;
+
+}
+.post-thumbnail:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.post-thumbnail-overlay{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  max-width: 100%;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%,  rgba(0,0,0,0.65) 100%);
+  width: 100%;
+  border-radius: 15px;
 }
