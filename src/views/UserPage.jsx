@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import PostContainer from '../components/PostContainer';
+import PostThumbnail from '../components/PostThumbnail';
 
 
 const ApiUrl = process.env.REACT_APP_MY_API
@@ -90,6 +91,8 @@ const UserPage = () => {
                     </div>
                         : null}
 
+                </Col>
+             
                     <h1 className="mt-4">Posts</h1>
 
                     {posts && posts.length === 0 ? <div className=" my-4 position-relative d-flex flex-column align-items-center  ">
@@ -101,11 +104,11 @@ const UserPage = () => {
                     {
                         posts && posts.length > 0 ?
                             <>
-                                {posts.map(item => <PostContainer key={item._id} post={item} />)}
+                                {posts.map(item => <PostThumbnail key={item._id} post={item} />)}
                             </>
                             : null
                     }
-                </Col>
+                   
             </Row>
         </Col>
     );
