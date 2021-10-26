@@ -9,10 +9,10 @@ const PostThumbnail = ({ post }) => {
 
     return (
         <Col xs={12} md={6} lg={4}>
-            <div onClick={() => setPostModal(true)} className="position-relative post-thumbnail">
+            <div onClick={() => setPostModal(true)} className="position-relative post-thumbnail mb-4 ">
                 <img className="img-fluid" src={post.image} alt="post" />
 
-                <div className=" post-thumbnail-overlay">
+                <div className=" post-thumbnail-overlay p-3">
                     <div className="d-flex mb-2 align-items-center">
                         <img src={post.user.image} style={{ borderRadius: "50%", height: "40px", width: "40px" }} alt="user" />
                         <strong className="text-truncate ms-3" >{post.user.username}</strong>
