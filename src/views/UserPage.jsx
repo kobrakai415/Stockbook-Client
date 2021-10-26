@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import PostContainer from '../components/PostContainer';
 import PostThumbnail from '../components/PostThumbnail';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const ApiUrl = process.env.REACT_APP_MY_API
@@ -11,6 +12,8 @@ const ApiUrl = process.env.REACT_APP_MY_API
 const UserPage = () => {
 
     const { id } = useParams()
+    const dispatch = useDispatch()
+    const { following, followers } = useSelector(state => state.data.user)
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -54,11 +57,44 @@ const UserPage = () => {
             console.log(error)
         }
     }
+
+    const follow = async () => {
+        try {
+            const res = await axios.post(`${ApiUrl}/network/${user._id}/follow`)
+
+            if (res.status === 200) {
+                dispatch({
+                    type: 'SET_FOLLOWERS_AND_FOLLOWING',
+                    payload: res.data
+                })
+                fetchUser()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const unfollow = async () => {
+        try {
+            const res = await axios.post(`${ApiUrl}/network/${user._id}/unfollow`)
+
+            if (res.status === 200) {
+                dispatch({
+                    type: 'SET_FOLLOWERS_AND_FOLLOWING',
+                    payload: res.data
+                })
+                fetchUser()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
                 <Col xs={12}>
-                <h1>Profile</h1>
+                    <h1>Profile</h1>
 
                     {user ? <div className="light-bg d-flex flex-column align-items-center p-4">
                         <div className="d-flex p-4 flex-column flex-md-row align-items-center ">
@@ -71,7 +107,12 @@ const UserPage = () => {
                                 <span className="text-muted">{user.name + " " + user.surname}</span>
                             </div>
                         </div>
-                        {user.bio ? <div>
+                        <div className="mb-3">
+                            {following && following.find(item => item === user._id) ?
+                                <Button id="unfollow-button"  onClick={unfollow}>Unfollow</Button>
+                                : <Button id="follow-button" onClick={follow}>Follow</Button>}
+                        </div>
+                        {user.bio ? <div >
                             <p>{user.bio}</p>
                         </div> : null}
                         <div className="d-flex my-4 justify-content-center">
@@ -92,23 +133,23 @@ const UserPage = () => {
                         : null}
 
                 </Col>
-             
-                    <h1 className="mt-4">Posts</h1>
 
-                    {posts && posts.length === 0 ? <div className=" my-4 position-relative d-flex flex-column align-items-center  ">
-                        <img className="img-fluid mb-2" height="200px" src="/bear.png" alt="no-posts" />
-                        <h3>This user has no posts!</h3>
-                    </div>
-                        : null}
+                <h1 className="mt-4">Posts</h1>
 
-                    {
-                        posts && posts.length > 0 ?
-                            <>
-                                {posts.map(item => <PostThumbnail key={item._id} post={item} />)}
-                            </>
-                            : null
-                    }
-                   
+                {posts && posts.length === 0 ? <div className=" my-4 position-relative d-flex flex-column align-items-center  ">
+                    <img className="img-fluid mb-2" height="200px" src="/bear.png" alt="no-posts" />
+                    <h3>This user has no posts!</h3>
+                </div>
+                    : null}
+
+                {
+                    posts && posts.length > 0 ?
+                        <>
+                            {posts.map(item => <PostThumbnail key={item._id} post={item} />)}
+                        </>
+                        : null
+                }
+
             </Row>
         </Col>
     );

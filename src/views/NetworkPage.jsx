@@ -93,7 +93,7 @@ const Networkpage = () => {
         <Col className="height-90 p-3" xs={12} md={9} lg={10}>
             <Row>
 
-                <Col  xs={12} lg={8} xl={9}>
+                <Col  xs={12} lg={7} xl={8}>
 
                     <h1>Feed </h1>
 
@@ -112,7 +112,7 @@ const Networkpage = () => {
                     {feedLoading ? <Spinner style={{ position: "absolute", right: "50%", top: "50%" }} animation="border" role="status" /> : null}
 
                 </Col>
-                <Col xs={12} lg={4} xl={3}>
+                <Col xs={12} lg={5} xl={4}>
                     <div className="position-relative">
                         <h1> Friends</h1>
                         <div className="my-3">

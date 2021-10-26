@@ -394,6 +394,7 @@ p,
   color: white;
   width: 100px;
   height: 32px;
+  border-radius: 15px;
 }
 
 #unfollow-button:hover {
@@ -401,6 +402,19 @@ p,
   color: black !important;
 }
 
+#follow-button {
+  background-color: rgb(55, 187, 148);
+  border: inherit;
+  color: white;
+  width: 100px;
+  height: 32px;
+  border-radius: 15px;
+}
+
+#follow-button:hover {
+  background-color: #06b649;
+  color: black !important;
+}
 .follow-stats {
   border-bottom: #6d54aa 2px solid;
 }

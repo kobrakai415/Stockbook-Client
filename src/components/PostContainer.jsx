@@ -112,9 +112,8 @@ const PostContainer = ({ post }) => {
                                     <>
                                         {
                                             user.following.find(item => item === updatedPost.user._id) ?
-                                                <Button id="unfollow-button" className="rounded m-2" onClick={unfollow}>Unfollow</Button>
-                                                : <Button style={{ width: "100px", borderColor: "rgb(55, 187, 148)" }}
-                                                    className="m-2 btn-primary rounded login-page-buttons" onClick={follow}>Follow</Button>
+                                                <Button id="unfollow-button" className="m-2" onClick={unfollow}>Unfollow</Button>
+                                                : <Button id="follow-button" className="m-2" onClick={follow}>Follow</Button>
                                         }
                                     </>
                             }
